@@ -2,11 +2,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}Meta Casquettes{% endblock %}</title>
+        {% block stylesheets %}
+          <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
+          <link rel="stylesheet" href="{{ asset('/css/scrollpath.css') }}" />
+        {% endblock %}
+        <script type="text/javascript" src="{{ asset('/js/lib/prefixfree.min.js') }}"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="css/base.css" />
+
+
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+        <script type="text/javascript" src="{{ asset('/js/lib/jquery.easing.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/jquery.scrollpath.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/metacasquette.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/app.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
