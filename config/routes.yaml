@@ -4,3 +4,7 @@
 index:
    path: /
    defaults: { _controller: 'Controller\DefaultController::indexAction' }
+
+index_mobile:
+   path: /mobile
+   defaults: { _controller: 'Controller\DefaultController::indexMobileAction' }
