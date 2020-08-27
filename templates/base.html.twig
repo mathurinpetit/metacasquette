@@ -2,26 +2,41 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="{{ asset('/img/favicon/favicon-32x32.png') }}" />
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" href="{{ asset('/img/favicon/apple-touch-icon.png') }}" sizes="180x180">
+        <link rel="icon" href="{{ asset('/img/favicon/favicon-32x32.png') }}" sizes="32x32" type="image/png">
+        <link rel="icon" href="{{ asset('/img/favicon/favicon-16x16.png') }}" sizes="16x16" type="image/png">
+        <link rel="icon" href="{{ asset('/img/favicon/favicon.ico') }}" />
+
+
         <title>{% block title %}Meta Casquettes{% endblock %}</title>
         {% block stylesheets %}
-          <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
-          <link rel="stylesheet" href="{{ asset('/css/scrollpath.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap-3.3.2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/jquery.mb.YTPlayer.min.css') }}">
+
+        <!-- Custom fonts for this template -->
+        <link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="{{ asset('/css/main.css') }}" />
         {% endblock %}
-        <script type="text/javascript" src="{{ asset('/js/lib/prefixfree.min.js') }}"></script>
-
-
-        <link rel="stylesheet" type="text/css" href="css/base.css" />
 
 
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-        <script type="text/javascript" src="{{ asset('/js/lib/jquery.easing.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/jquery.scrollpath.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/metacasquette.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('/js/app.js') }}"></script>
+        <!-- jQuery -->
+        <script src="{{ asset('/js/lib/jquery-2.1.1.min.js') }}"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ asset('/js/lib/bootstrap-3.3.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{  asset('/js/custom.js') }}"></script>
+        <script type="text/javascript" src="{{  asset('/js/device.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('/js/jquery.mb.YTPlayer.js') }}"></script>
         {% endblock %}
     </body>
 </html>
