@@ -242,6 +242,12 @@ h3.lead {
   font-weight: bold;
 }
 
+h3.leadmobile {
+  font-family: "Impact", serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
 small {
     color:#ccc!important;
 }
@@ -253,6 +259,11 @@ small {
 .well p {
   text-align: left;
   font-size: 15px;
+}
+
+.well.mobile p {
+  text-align: left;
+  font-size: 22px;
 }
 
 .margin-top-80{
