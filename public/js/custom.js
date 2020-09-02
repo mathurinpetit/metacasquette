@@ -29,8 +29,6 @@
             var nbmax=2;
             if (!device.tablet() && !device.mobile()){
               nbmax=3;
-            }else{
-              alert("here");
             }
             for (var i=1;i<nbmax;i++) {
               itemToClone = itemToClone.next();
