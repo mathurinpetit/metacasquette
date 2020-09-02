@@ -14,20 +14,23 @@
     });
 */
     /*  IF YOU WANT TO USE DEVICE.JS TO DETECT THE VIEWPORT AND MANIPULATE THE OUTPUT  */
-
+$(".player").mb_YTPlayer();
         //Device.js will check if it is Tablet or Mobile - http://matthewhudson.me/projects/device.js/
-        if (!device.tablet() && !device.mobile()) {
-            $(".player").mb_YTPlayer();
-        } else {
-            //jQuery will add the default background to the preferred class
-            $('.video-background').addClass(
-                'video-background-default-image');
-        }
+        // if (!device.tablet() && !device.mobile()) {
+        //     $(".player").mb_YTPlayer();
+        // } else {
+        //     //jQuery will add the default background to the preferred class
+        //     $('.video-background').addClass(
+        //         'video-background-default-image');
+        // }
         (function(){
           $('.carousel-showmanymoveone .item').each(function(){
             var itemToClone = $(this);
-
-            for (var i=1;i<3;i++) {
+            var nbmax=2;
+            if (!device.tablet() && !device.mobile()){
+              nbmax=3;
+            }
+            for (var i=1;i<nbmax;i++) {
               itemToClone = itemToClone.next();
 
               // wrap around if at end of item collection
