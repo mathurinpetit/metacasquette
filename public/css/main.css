@@ -341,7 +341,7 @@ small {
      .carousel .item .col-xs-12{
        padding:60px
      }
-   
+
     .carousel-showmanymoveone .carousel-inner > .active.left,
     .carousel-showmanymoveone .carousel-inner > .prev {
        left: -33.2%;
@@ -412,7 +412,7 @@ small {
   }
 
   .cover-heading {
-    font-size: 100px;
+    font-size: 70px;
   }
 }
 
