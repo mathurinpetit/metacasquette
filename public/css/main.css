@@ -258,10 +258,10 @@ small {
 
 .well p {
   text-align: left;
-  font-size: 15px;
+  font-size: 18px;
 }
 
-.well.mobile p {
+.mobile p {
   text-align: left;
   font-size: 22px;
 }
@@ -402,6 +402,14 @@ small {
 .mastfoot {
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
+}
+
+@media (max-width: @screen-xs) {
+    body{font-size: 10px;}
+}
+
+@media (max-width: @screen-sm) {
+    body{font-size: 14px;}
 }
 
 @media (min-width: 768px) {
