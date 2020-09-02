@@ -3,13 +3,13 @@
     /* IF YOU WANT TO APPLY SOME BASIC JQUERY TO REMOVE THE VIDEO BACKGROUND ON A SPECIFIC VIEWPORT MANUALLY
      var is_mobile = false;
     if( $('.player').css('display')=='none') {
-        is_mobile = true;       
+        is_mobile = true;
     }
     if (is_mobile == true) {
         //Conditional script here
         $('.big-background, .small-background-section').addClass('big-background-default-image');
     }else{
-        $(".player").mb_YTPlayer(); 
+        $(".player").mb_YTPlayer();
     }
     });
 */
@@ -19,9 +19,33 @@
         if (!device.tablet() && !device.mobile()) {
             $(".player").mb_YTPlayer();
         } else {
-            //jQuery will add the default background to the preferred class 
+            //jQuery will add the default background to the preferred class
             $('.video-background').addClass(
                 'video-background-default-image');
         }
+        (function(){
+          $('.carousel-showmanymoveone .item').each(function(){
+            var itemToClone = $(this);
+
+            for (var i=1;i<3;i++) {
+              itemToClone = itemToClone.next();
+
+              // wrap around if at end of item collection
+              if (!itemToClone.length) {
+                itemToClone = $(this).siblings(':first');
+              }
+
+              // grab item, clone, add marker class, add to collection
+              itemToClone.children(':first-child').clone()
+                .addClass("cloneditem-"+(i))
+                .appendTo($(this));
+            }
+          });
+        }());
+
+
+
+
+
     });
 })(jQuery);
