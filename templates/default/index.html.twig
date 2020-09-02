@@ -3,266 +3,280 @@
 {% block body %}
 
 <div class="site-wrapper video-background">
-  <!--
-  Video from YouTube
-  Have Questions? How To:
-  https://github.com/pupunzi/jquery.mb.YTPlayer/wiki
--->
-<a id="bgndVideo" class="player" data-property="{videoURL:'http://youtu.be/{{ ytid }}', containment:'body', autoPlay:true, mute:true, startAt:1, stopAt: 53, opacity:1, }"></a>
 
-<div class="overlay"></div>
+  <a id="bgndVideo" class="player" data-property="{videoURL:'http://youtu.be/{{ ytid }}', containment:'body', autoPlay:true, mute:true, startAt:1, stopAt: 53, opacity:1, }"></a>
 
-<div class="site-wrapper-inner">
+  <div class="overlay"></div>
 
-  <div class="masthead clearfix">
-    <div class="inner">
-      <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
-      <nav>
-        <ul class="nav masthead-nav">
-          <li><a href="#modeles">Nos modèles</a>
-          <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-fw"></i></a></li>
-          <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-fw"></i></a></li>
-          <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-fw"></i></a></li>
-        </ul>
-      </nav>
+  <div class="site-wrapper-inner">
+
+    <div class="masthead clearfix">
+      <div class="inner">
+        <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
+        <nav>
+          <ul class="nav masthead-nav">
+            <li><a href="#modeles">Modèles</a>
+              <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-fw"></i></a></li>
+              <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-fw"></i></a></li>
+              <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-fw"></i></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="cover-container">
+        <div class="inner cover">
+          <img class="img-responsive" src="{{ asset('/img/logo/logo_detache_white.png') }}" alt="/MetaCasquette"><h1 class="cover-heading">/META CASQUETTE</h1>
+          <h2 class="lead"><a href="#artistique" style="text-decoration:underline;">Artistique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a> / <a href="#upcycling" style="text-decoration:underline;">Upcycling</a> / <a href="#defi_ecologique" style="text-decoration:underline;">Ecologique</a></h2>
+        </div>
+
+        <p class="lead"><a href="#models1" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
+      </div>
+
     </div>
   </div>
 
-  <div class="cover-container">
-    <div class="inner cover">
-      <h1 class="cover-heading">/META CASQUETTE</h1>
-      <h2 class="lead"><a href="#artistique" style="text-decoration:underline;">Artistique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a> / <a href="#upcycling" style="text-decoration:underline;">Upcycling</a> / <a href="#defi_ecologique" style="text-decoration:underline;">Ecologique</a></h2>
+
+
+  <div class="container-fluid overlay-mask" id="models1" >
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+            <a href="#artistique" class="thumbnail img-hover">
+              <img src="{{ asset('/img/casquettes/thumbs/08_britishMuseum_thumb_caption.png') }}" alt="Circuits électroniques casquette">
+            </a>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+            <a href="#fabrication_francaise" class="thumbnail img-hover">
+              <img src="{{ asset('/img/casquettes/thumbs/05_canadian_cans_thumb_caption.png') }}" alt="Canettes Canadiennes">
+
+            </a>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+            <a href="#recup_recyclage" class="thumbnail img-hover">
+              <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb_caption.png') }}" alt="Télécartes Colorées">
+
+            </a>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+            <a href="#defi_ecologique" class="thumbnail img-hover">
+              <img src="{{ asset('/img/casquettes/thumbs/01_maps_thumb_caption.png') }}" alt="Carte Plan">
+
+            </a>
+          </div>
+
+        </div>
+      </div>
     </div>
-
-    <p class="lead"><a href="#models1" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
   </div>
-
-</div>
-</div>
-
-
-
-<div class="container-fluid overlay-mask" id="models1" >
-  <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+  <div class="overlay-mask">
+    <div class="container" id="artistique" >
       <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-          <a href="#artistique" class="thumbnail img-hover">
-            <img src="{{ asset('/img/casquettes/thumbs/08_britishMuseum_thumb.png') }}" alt="Circuits électroniques casquette">
-            <label>Artistique et Originale</label>
-          </a>
+        <div class="col-xs-7 col-sm-7 col-md-7">
+          <div class="well margin-top-80">
+            <h3 class="lead">
+              200% Originale : Une oeuvre d'art sur la tête
+            </h3>
+            <hr/>
+            <br/>
+            <p>Depuis plusieurs siècles la casquette se porte sous différentes formes. Jusqu'au années 80, elle est tour à tour l'effigie des classes populaires et du prolétariat, du domaine sportif ou appartient aux uniformes des forces de l'ordre.</p>
+            <p>La révolution des années 80-90 met la casquette de baseball sur le devant de la scene avec différents tissus et des logos bien voyant sur le dessus. Elle possède une visière plus longue et souvent courbée.</p>
+            <p><strong>MetaCasquette</strong> propose une <strong>nouvelle expérience artistique</strong> qui tranche avec le standard de la casquette sportive.</p>
+            <p>Nos casquettes sont tout d'abord construites dans des matériaux inédits : cartes de collections, télécartes françaises, miroirs, canettes originales... </p>
+            <br/>
+            <p><strong>Une véritable oeuvre d'art au sommet de la tête qui ne laisse personne indiférent.</strong></p>
+            <p>Il est l'heure de vous démarquer avec cet accessoire de mode indispensable.</p>
+          </div>
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-          <a href="#fabrication_francaise" class="thumbnail img-hover">
-            <img src="{{ asset('/img/casquettes/thumbs/05_canadian_cans_thumb.png') }}" alt="Canettes Canadiennes">
-            <label>Fabriquée en France</label>
-          </a>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/08_britishMuseum.png') }}" alt="">
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-          <a href="#recup_recyclage" class="thumbnail img-hover">
-            <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb.png') }}" alt="Télécartes Colorées">
-            <label>Récupération et recyclage</label>
-          </a>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="fabrication_francaise" >
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/05_canadian_cans.png') }}" alt="">
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="well margin-top-80" >
+          <h3 class="lead">
+            100% Fabrication Française
+          </h3>
+          <hr/>
+          <br/>
+          <p>MetaCasquette c'est l'art de la fabrication en France. Basé à <strong>Paris</strong> l'atelier créé des casquettes sur-mesure et entièrement faite à la main.</p>
+          <p>Il est important pour nous que nos produits soient adaptés à votre tour de tête c'est pourquoi nous vous demanderons des mesures afin d'assembler minutieusement toutes les parties dans notre atelier.</p>
+          <p>Nos modèles ne sont pas de série, aucune machine ne permet à l'heure actuel de créer ces produits à la chaîne. Les découpes et coutures sont faites à la main et chaque pièce est unique, il s'agit ici <strong>d'orfevrerie du chapeau.</strong> </p>
+          <br/>
+          <p>Chaque modèle est 100% original et inédit.</p>
+          <p><strong>L'unicité de nos casquettes c'est quelque chose auquel nous tenons.</strong></p>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-          <a href="#defi_ecologique" class="thumbnail img-hover">
-            <img src="{{ asset('/img/casquettes/thumbs/01_maps_thumb.png') }}" alt="Carte Plan">
-            <label>Défi Ecologique</label>
-          </a>
+  <div class="overlay-mask">
+    <div class="container" id="recup_recyclage" >
+      <div class="row">
+        <div class="col-xs-7 col-sm-7 col-md-7">
+          <div class="well margin-top-80">
+            <h3 class="lead">
+              Upcycling
+            </h3>
+            <hr/>
+            <br/>
+            <p>MetaCasquette met à l'honneur des matériaux fabriqués en France. Mais pas seulement.</p>
+            <p>L'intégralité de la structure des différents modèles est constituée de matériaux récupérés. On apelle cela de l'<strong>Upcycling</strong> ou <strong>Surcyclage</strong> en français.</p>
+            <p>Parmis les matériaux utilisés dans ces créations on retouve des <strong>télécartes téléphoniques</strong>, des <strong>cartes à jouer</strong>, des <strong>carte géographique</strong>, des <strong>circuits imprimés</strong>, des <strong>prospectus</strong></p>
+            <p>N'importe quel support imprimé peut être constituant d'une casquette du moment qu'il puisse être assemblé avec sur une doublure qui lui donnera de la robustesse.</p>
+            <p>Nos doublures sont multiples et dépendent souvent du support de base utilisé. Nous utilisons du cuir qui provient de chute de l'industrie pour les support souples et de la wax pour les supports plus rigides.</p>
+            <br/>
+            <p>Le principe de MetaCasquette c'est de <strong>détourner n'importe quel matériaux pour en faire un chapeau.</strong></p>
+          </div>
         </div>
-
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/02_colored_telecarte.png') }}" alt="">
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="overlay-mask">
-<div class="container" id="artistique" >
-  <div class="row">
-    <div class="col-xs-7 col-sm-7 col-md-7">
-      <div class="well margin-top-80">
-        <h3 class="lead">
-          200% Originale : Une oeuvre d'art sur la tête
-        </h3>
-        <hr/>
-        <br/>
-        <p>Depuis plusieurs siècles la casquette se porte sous différentes formes. Jusqu'au années 80, elle est tour à tour l'effigie des classes populaires et du prolétariat, du domaine sportif ou appartient aux uniformes des forces de l'ordre.</p>
-        <p>La révolution des années 80-90 met la casquette de baseball sur le devant de la scene avec différents tissus et des logos bien voyant sur le dessus. Elle possède une visière plus longue et souvent courbée.</p>
-        <p><strong>MetaCasquette</strong> propose une <strong>nouvelle expérience artistique</strong> qui tranche avec le standard de la casquette sportive.</p>
-        <p>Nos casquettes sont tout d'abord construites dans des matériaux inédits : cartes de collections, télécartes françaises, miroirs, canettes originales... </p>
-        <br/>
-        <p><strong>Une véritable oeuvre d'art au sommet de la tête qui ne laisse personne indiférent.</strong></p>
-        <p>Il est l'heure de vous démarquer avec cet accessoire de mode indispensable.</p>
+
+  <div class="container" id="defi_ecologique" >
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/01_maps.png') }}" alt="">
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="well margin-top-80" >
+          <h3 class="lead">
+            Un Vrai Défi Ecologique
+          </h3>
+          <hr/>
+          <br/>
+          <p>Généralement les nouvelles marques de luxe font la promotion des matériaux utilisés comme locaux et éthique.</p>
+          <p>Bien souvent, seul la conception est réalisée en France. De plus la promotion faite par ces marques ne fait pas état du gaspillage immense générée par l'industrie textile.</p>
+          <p>Il est louable d'acquiérir des vétements dont les matériaux sont éthiques, mais s'ils finissent à la poubelle, cela n'a que peu d'intérêt. Rien qu'en <strong>Europe, environ 4 millions</strong> de tonnes de tissus sont jetés ou brulés chaque année sans aucun processus de recyclage.</p>
+          <p>Notre marque prend à contre-pied cette vision, nous ne voulons pas seulement de matériaux <strong>locaux et ethiques</strong> nouvellement fabriqués, nous voulons une <strong>2nd, voir une 3ème vie aux matériaux que nous utilisons</strong>.
+            <p>Seul une part infime de fournitures est "nouvellement" fabriqués pour nos créations : il s'agit seulement des coutures. </p>
+            <p>Nos casquettes sont entièrement constituées de matériaux de récup de toute sortes ayant pour la plupart du temps (on l'espère) déjà servis.</p>
+            <p>C'est bien simple, notre <strong>devise pour créer</strong> ne nous appartient pas, elle est de <strong>Lavoisier : </strong></p>
+            <p><strong>Rien ne se perd, rien ne se crée, tout se transforme</strong>.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-xs-5 col-sm-5 col-md-5">
-      <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/08_britishMuseum.png') }}" alt="">
+
+    <div class="overlay-mask" id="modeles">
+      <h2 style="text-decoration:underline;">Modèles</h2>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav" data-interval="false">
+              <div class="carousel-inner">
+                <div class="item active">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/03_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/07_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/14_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/10_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/12_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/13_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+              </div>
+              <a class="left carousel-control" href="#carousel-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+              <a class="right carousel-control" href="#carousel-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <img src="{{ asset('/img/casquettes/gif_anime_long_sort_casquette_blanche.gif') }}" style="width:100%">
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav2" data-interval="false">
+              <div class="carousel-inner">
+
+                <div class="item active">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/15_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/22_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/16_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/19_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+
+                <div class="item ">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <a href="#"><img src="{{ asset('/img/casquettes/models/09_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                  </div>
+                </div>
+              </div>
+              <a class="left carousel-control" href="#carousel-tilenav2" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+              <a class="right carousel-control" href="#carousel-tilenav2" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
     </div>
+
   </div>
-</div>
-</div>
-<div class="container" id="fabrication_francaise" >
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6">
-      <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/05_canadian_cans.png') }}" alt="">
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6">
-      <div class="well margin-top-80" >
-        <h3 class="lead">
-          100% Fabrication Française
-        </h3>
-        <hr/>
-        <br/>
-        <p>MetaCasquette c'est l'art de la fabrication en France. Basé à <strong>Paris</strong> l'atelier créé des casquettes sur-mesure et entièrement faite à la main.</p>
-        <p>Il est important pour nous que nos produits soient adaptés à votre tour de tête c'est pourquoi nous vous demanderons des mesures afin d'assembler minutieusement toutes les parties dans notre atelier.</p>
-        <p>Nos modèles ne sont pas de série, aucune machine ne permet à l'heure actuel de créer ces produits à la chaîne. Les découpes et coutures sont faites à la main et chaque pièce est unique, il s'agit ici <strong>d'orfevrerie du chapeau.</strong> </p>
-        <br/>
-        <p>Chaque modèle est 100% original et inédit.</p>
-        <p><strong>L'unicité de nos casquettes c'est quelque chose auquel nous tenons.</strong></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay-mask">
-<div class="container" id="recup_recyclage" >
-  <div class="row">
-    <div class="col-xs-7 col-sm-7 col-md-7">
-      <div class="well margin-top-80">
-        <h3 class="lead">
-          Upcycling
-        </h3>
-        <hr/>
-        <br/>
-        <p>MetaCasquette met à l'honneur des matériaux fabriqués en France. Mais pas seulement.</p>
-        <p>L'intégralité de la structure des différents modèles est constituée de matériaux récupérés. On apelle cela de l'<strong>Upcycling</strong> ou <strong>Surcyclage</strong> en français.</p>
-        <p>Parmis les matériaux utilisés dans ces créations on retouve des <strong>télécartes téléphoniques</strong>, des <strong>cartes à jouer</strong>, des <strong>carte géographique</strong>, des <strong>circuits imprimés</strong>, des <strong>prospectus</strong></p>
-        <p>N'importe quel support imprimé peut être constituant d'une casquette du moment qu'il puisse être assemblé avec sur une doublure qui lui donnera de la robustesse.</p>
-        <p>Nos doublures sont multiples et dépendent souvent du support de base utilisé. Nous utilisons du cuir qui provient de chute de l'industrie pour les support souples et de la wax pour les supports plus rigides.</p>
-        <br/>
-        <p>Le principe de MetaCasquette c'est de <strong>détourner n'importe quel matériaux pour en faire un chapeau.</strong></p>
-      </div>
-    </div>
-    <div class="col-xs-5 col-sm-5 col-md-5">
-      <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/02_colored_telecarte.png') }}" alt="">
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="container" id="defi_ecologique" >
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6">
-      <img class="img-responsive margin-top-80" src="{{ asset('/img/casquettes/01_maps.png') }}" alt="">
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6">
-      <div class="well margin-top-80" >
-        <h3 class="lead">
-          Un Vrai Défi Ecologique
-        </h3>
-        <hr/>
-        <br/>
-        <p>Généralement les nouvelles marques de luxe font la promotion des matériaux utilisés comme locaux et éthique.</p>
-        <p>Bien souvent, seul la conception est réalisée en France. De plus la promotion faite par ces marques ne fait pas état du gaspillage immense générée par l'industrie textile.</p>
-        <p>Il est louable d'acquiérir des vétements dont les matériaux sont éthiques, mais s'ils finissent à la poubelle, cela n'a que peu d'intérêt. Rien qu'en <strong>Europe, environ 4 millions</strong> de tonnes de tissus sont jetés ou brulés chaque année sans aucun processus de recyclage.</p>
-        <p>Notre marque prend à contre-pied cette vision, nous ne voulons pas seulement de matériaux <strong>locaux et ethiques</strong> nouvellement fabriqués, nous voulons une <strong>2nd, voir une 3ème vie aux matériaux que nous utilisons</strong>.
-        <p>Seul une part infime de fournitures est "nouvellement" fabriqués pour nos créations : il s'agit seulement des coutures. </p>
-        <p>Nos casquettes sont entièrement constituées de matériaux de récup de toute sortes ayant pour la plupart du temps (on l'espère) déjà servis.</p>
-        <p>C'est bien simple, notre <strong>devise pour créer</strong> ne nous appartient pas, elle est de <strong>Lavoisier : </strong></p>
-        <p><strong>Rien ne se perd, rien ne se crée, tout se transforme</strong>.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="overlay-mask" id="modeles">
-<h1>Nos modèles</h1>
-<div class="container-fluid">
-<div class="row">
-   <div class="col-md-12">
-      <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav" data-interval="false">
-         <div class="carousel-inner">
-            <div class="item active">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/03_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/07_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/14_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/10_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/12_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/13_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/09_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/15_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/16_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/19_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/21_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-            <div class="item">
-               <div class="col-xs-12 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/22_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-               </div>
-            </div>
-         </div>
-         <a class="left carousel-control" href="#carousel-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-         <a class="right carousel-control" href="#carousel-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-      </div>
-   </div>
-</div>
-</div>
-
-</div>
-
-</div>
-<!--
-Google Analitics
-Demo Purpose Only
-Change UA-XXXXXXX-X to be your site's ID
+  <!--
+  Google Analitics
+  Demo Purpose Only
+  Change UA-XXXXXXX-X to be your site's ID
 -->
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
