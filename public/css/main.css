@@ -274,11 +274,11 @@ small {
  * modal
  */
 
- @media (min-width: 1200px) {
+
     .modal-xlg {
        width: 90%;
     }
- }
+
 
 .modal-content{
   background-color: #000 !important;
