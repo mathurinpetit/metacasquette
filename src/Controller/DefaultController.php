@@ -17,10 +17,16 @@ class DefaultController extends Controller
       $facebook = $this->getParameter('app.facebook');
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
-      // if($this->isMobile()){
-      //   return $this->redirectToRoute('index_mobile');
-      // }
-      return $this->render('default/index.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
+
+      $modeles01file = file('img/casquettes/models/01/liste.csv');
+      $modeles01 = array();
+      foreach ($modeles01file as $line_num => $modele01) {
+          if($modele01){
+              $modeles01[$line_num] = str_getcsv($modele01,';');
+          }
+      }
+
+      return $this->render('default/index.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'mobile' => $this->isMobile(), 'modeles01' => $modeles01));
     }
 
     /**
