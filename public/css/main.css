@@ -275,14 +275,22 @@ small {
  */
 
 
-    .modal-xlg {
+  .modal-xlg {
        width: 90%;
-    }
+  }
 
 
-.modal-content{
-  background-color: #000 !important;
-  border-color: white;
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 600;
+    margin: 30px auto;
+  }
+  .modal-content {
+    border-color: white;
+    background: #000; // or whatever you like
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
 }
 
 .modal.closed {
