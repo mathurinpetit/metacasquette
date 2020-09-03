@@ -274,13 +274,11 @@ small {
  * modal
  */
 
- .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+ @media (min-width: 1200px) {
+    .modal-xlg {
+       width: 90%;
+    }
  }
-
 
 .modal-content{
   background-color: black;
