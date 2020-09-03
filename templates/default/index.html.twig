@@ -10,7 +10,7 @@
 
   <div class="site-wrapper-inner">
 
-    <div class="masthead clearfix">
+    <div class="masthead clearfix" {% if mobile %}style="background-color: #000;"{% endif %}>
       <div class="inner">
         <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
         <nav class="visible-md-block visible-lg-block">
