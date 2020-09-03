@@ -281,7 +281,7 @@ small {
  }
 
 .modal-content{
-  background-color: black;
+  background-color: #000 !important;
   border-color: white;
 }
 
