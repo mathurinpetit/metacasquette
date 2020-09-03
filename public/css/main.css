@@ -432,7 +432,7 @@ small {
 }
 
 @media (max-width: @screen-xs) {
-    body{font-size: 10px;}
+    body{font-size: 12px;}
 }
 
 @media (max-width: @screen-sm) {
