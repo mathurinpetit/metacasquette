@@ -26,7 +26,7 @@
         (function(){
           $('.carousel-showmanymoveone .item').each(function(){
             var itemToClone = $(this);
-            var nbmax=2;
+            var nbmax=1;
             if (!device.tablet() && !device.mobile()){
               nbmax=3;
             }
