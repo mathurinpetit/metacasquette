@@ -246,7 +246,7 @@ h3.leadmobile {
   font-family: "Impact", serif;
   font-size: 30px;
   font-weight: bold;
-  padding-top: 20px; 
+  padding-top: 20px;
 }
 
 small {
@@ -265,6 +265,7 @@ small {
 .well-mobile {
   background-color:#222020;
   font-size: 22px;
+  padding-bottom: 20px;
 }
 
 .margin-top-80{
@@ -439,11 +440,11 @@ small {
 }
 
 @media (max-width: @screen-xs) {
-    body{font-size: 14px;}
+    body{font-size: 20px;}
 }
 
 @media (max-width: @screen-sm) {
-    body{font-size: 14px;}
+    body{font-size: 20px;}
 }
 
 
