@@ -1,170 +1,194 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if mobile %}
+<div class="masthead clearfix" style="background-color: #000;">
+  <div class="inner">
+    <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
+    <nav class="visible-md-block visible-lg-block">
+      <ul class="nav masthead-nav">
+        <li><a href="#modeles">Modèles</a>
+          <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
+          <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
+          <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
+        </ul>
+      </nav>
+      <nav class="visible-sm-block visible-xs-block">
+        <ul class="nav masthead-nav">
+          <li><a href="#modeles" style="font-size:40px;">Modèles</a>
+            <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
+            <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
+            <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  {% endif %}
+  <div class="site-wrapper video-background">
 
-<div class="site-wrapper video-background">
+    <a id="bgndVideo" class="player" data-property="{videoURL:'http://youtu.be/{{ ytid }}', containment:'body', autoPlay:true, mute:true, startAt:1, stopAt: 53, opacity:1, }"></a>
 
-  <a id="bgndVideo" class="player" data-property="{videoURL:'http://youtu.be/{{ ytid }}', containment:'body', autoPlay:true, mute:true, startAt:1, stopAt: 53, opacity:1, }"></a>
+    <div class="overlay"></div>
 
-  <div class="overlay"></div>
+    <div class="site-wrapper-inner">
 
-  <div class="site-wrapper-inner">
-
-    <div class="masthead clearfix" {% if mobile %}style="background-color: #000;"{% endif %}>
-      <div class="inner">
-        <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
-        <nav class="visible-md-block visible-lg-block">
-          <ul class="nav masthead-nav">
-            <li><a href="#modeles">Modèles</a>
-              <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
-              <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
-              <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
-            </ul>
-          </nav>
-          <nav class="visible-sm-block visible-xs-block">
+      {% if not mobile %}
+      <div class="masthead clearfix" >
+        <div class="inner">
+          <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
+          <nav class="visible-md-block visible-lg-block">
             <ul class="nav masthead-nav">
-              <li><a href="#modeles" style="font-size:40px;">Modèles</a>
-                <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
-                <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
-                <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
+              <li><a href="#modeles">Modèles</a>
+                <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
+                <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
+                <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
               </ul>
             </nav>
+            <nav class="visible-sm-block visible-xs-block">
+              <ul class="nav masthead-nav">
+                <li><a href="#modeles" style="font-size:40px;">Modèles</a>
+                  <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
+                  <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
+                  <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
-        </div>
+          {% endif %}
 
-        <div class="cover-container">
-          <div class="inner cover">
-            <img class="img-responsive" src="{{ asset('/img/logo/logo_detache_white.png') }}" alt="/MetaCasquette"><h1 class="cover-heading">/META CASQUETTE</h1>
-            <h2 class="lead"><a href="#artistique" style="text-decoration:underline;">Artistique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a> / <a href="#upcycling" style="text-decoration:underline;">Upcycling</a> / <a href="#defi_ecologique" style="text-decoration:underline;">Ecologique</a></h2>
+          <div class="cover-container">
+            <div class="inner cover">
+              <img class="img-responsive" src="{{ asset('/img/logo/logo_detache_white.png') }}" alt="/MetaCasquette"><h1 class="cover-heading">/META CASQUETTE</h1>
+              <h2 class="lead"><a href="#artistique" style="text-decoration:underline;">Artistique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a> / <a href="#upcycling" style="text-decoration:underline;">Upcycling</a> / <a href="#defi_ecologique" style="text-decoration:underline;">Ecologique</a></h2>
+            </div>
+
+            <p class="lead"><a href="#models1" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
           </div>
 
-          <p class="lead"><a href="#models1" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
         </div>
-
       </div>
-    </div>
 
-    <div class="container-fluid overlay-mask" id="models1" >
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+      <div class="container-fluid overlay-mask" id="models1" >
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+                <a href="#artistique" class="thumbnail img-hover">
+                  <img src="{{ asset('/img/casquettes/thumbs/08_britishMuseum_thumb_caption.png') }}" alt="Circuits électroniques casquette">
+                </a>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+                <a href="#fabrication_francaise" class="thumbnail img-hover">
+                  <img src="{{ asset('/img/casquettes/thumbs/05_canadian_cans_thumb_caption.png') }}" alt="Canettes Canadiennes">
+
+                </a>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+                <a href="#recup_recyclage" class="thumbnail img-hover">
+                  <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb_caption.png') }}" alt="Télécartes Colorées">
+
+                </a>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
+                <a href="#defi_ecologique" class="thumbnail img-hover">
+                  <img src="{{ asset('/img/casquettes/thumbs/01_maps_thumb_caption.png') }}" alt="Carte Plan">
+
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if mobile %}
+      <div class="visible-xs-block visible-sm-block">
+        {{ include('default/description_sm.html.twig') }}
+      </div>
+      {% else %}
+      <div class="visible-md-block visible-lg-block">
+        {{ include('default/description_lg.html.twig') }}
+      </div>
+      {% endif %}
+      <!-- Carousel1 -->
+      <div class="overlay-mask" id="modeles">
+        <h2 style="text-decoration:underline;">Modèles</h2>
+        <div class="container-fluid">
           <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-              <a href="#artistique" class="thumbnail img-hover">
-                <img src="{{ asset('/img/casquettes/thumbs/08_britishMuseum_thumb_caption.png') }}" alt="Circuits électroniques casquette">
-              </a>
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav" data-interval="false">
+                <div class="carousel-inner">
+                  {% for model in modeles01 %}
+                  <div class="item {% if loop.first %}active{% endif %}">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}"><img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <a class="left carousel-control" href="#carousel-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a class="right carousel-control" href="#carousel-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+              </div>
             </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-              <a href="#fabrication_francaise" class="thumbnail img-hover">
-                <img src="{{ asset('/img/casquettes/thumbs/05_canadian_cans_thumb_caption.png') }}" alt="Canettes Canadiennes">
-
-              </a>
+          </div>
+        </div>
+        <!-- gif  -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <img src="{{ asset('/img/casquettes/gif_anime_long_sort22.gif') }}" style="width:100%">
             </div>
+          </div>
+        </div>
+        <!-- Carousel2 -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav2" data-interval="false">
+                <div class="carousel-inner">
 
-            <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-              <a href="#recup_recyclage" class="thumbnail img-hover">
-                <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb_caption.png') }}" alt="Télécartes Colorées">
+                  <div class="item active">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a href="#"><img src="{{ asset('/img/casquettes/models/15_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
 
-              </a>
+                  <div class="item">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a href="#"><img src="{{ asset('/img/casquettes/models/22_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a href="#"><img src="{{ asset('/img/casquettes/models/16_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
+
+                  <div class="item">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a href="#"><img src="{{ asset('/img/casquettes/models/19_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
+
+                  <div class="item ">
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                      <a href="#"><img src="{{ asset('/img/casquettes/models/09_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-tilenav2" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a class="right carousel-control" href="#carousel-tilenav2" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+              </div>
             </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-              <a href="#defi_ecologique" class="thumbnail img-hover">
-                <img src="{{ asset('/img/casquettes/thumbs/01_maps_thumb_caption.png') }}" alt="Carte Plan">
-
-              </a>
-            </div>
-
           </div>
         </div>
       </div>
+
     </div>
-  {% if mobile %}
-  <div class="visible-xs-block visible-sm-block">
-    {{ include('default/description_sm.html.twig') }}
+
   </div>
-  {% else %}
-  <div class="visible-md-block visible-lg-block">
-    {{ include('default/description_lg.html.twig') }}
-  </div>
-  {% endif %}
-  <!-- Carousel1 -->
-  <div class="overlay-mask" id="modeles">
-    <h2 style="text-decoration:underline;">Modèles</h2>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 col-xs-12 col-sm-12">
-          <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav" data-interval="false">
-            <div class="carousel-inner">
-              {% for model in modeles01 %}
-              <div class="item {% if loop.first %}active{% endif %}">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}"><img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-            <a class="left carousel-control" href="#carousel-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <a class="right carousel-control" href="#carousel-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- gif  -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <img src="{{ asset('/img/casquettes/gif_anime_long_sort22.gif') }}" style="width:100%">
-        </div>
-      </div>
-    </div>
-    <!-- Carousel2 -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav2" data-interval="false">
-            <div class="carousel-inner">
-
-              <div class="item active">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/15_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/22_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-              <div class="item">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/16_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/19_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-
-              <div class="item ">
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <a href="#"><img src="{{ asset('/img/casquettes/models/09_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                </div>
-              </div>
-            </div>
-            <a class="left carousel-control" href="#carousel-tilenav2" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <a class="right carousel-control" href="#carousel-tilenav2" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-</div>
 </div>
 
 {% for model in modeles01 %}
