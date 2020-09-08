@@ -253,6 +253,21 @@ small {
     color:#ccc!important;
 }
 
+.active {
+  color: firebrick;
+}
+
+.description {
+    background-color:#222020;
+    padding: 10px 0px;
+}
+
+.description p {
+  text-align: left;
+  font-size: 24px;
+  margin: 20px 50px 20px 50px;
+}
+
 .well {
   background-color:#222020;
 }

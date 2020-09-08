@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% if mobile %}
+<div class="masthead clearfix" style="background-color: #000;">
+  <div class="inner">
+    <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
+      <nav class="visible-sm-block visible-xs-block">
+        <ul class="nav masthead-nav">
+          <li><a href="{{ path('index') }}#modeles" style="font-size:40px;">Modèles</a>
+            <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
+            <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
+            <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
+            <li><a href="{{ path('infos') }}"><i class="fa fa-info fa-3x active"></i></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  {% else %}
+      <div class="masthead clearfix" >
+        <div class="inner">
+          <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
+          <nav class="visible-md-block visible-lg-block">
+            <ul class="nav masthead-nav">
+              <li><a href="{{ path('index') }}#modeles">Modèles</a>
+                <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
+                <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
+                <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
+                <li><a href="{{ path('infos') }}"><i class="fa fa-info fa-lg active"></i></a></li>
+              </ul>
+            </nav>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="cover-container">
+            <div class="inner cover">
+              <h1 class="cover-heading">/META CASQUETTE</h1>
+              <h2 class="lead"><a href="#artistique" style="text-decoration:underline;">Artistique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a> / <a href="#upcycling" style="text-decoration:underline;">Upcycling</a> / <a href="#defi_ecologique" style="text-decoration:underline;">Ecologique</a></h2>
+            </div>
+          </div>
+      {% if mobile %}
+      <div class="visible-xs-block visible-sm-block">
+        {{ include('default/description_sm.html.twig') }}
+      </div>
+      {% else %}
+      <div class="visible-md-block visible-lg-block">
+        {{ include('default/description_lg.html.twig') }}
+      </div>
+      {% endif %}
+
+{% endblock %}

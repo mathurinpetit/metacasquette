@@ -4,20 +4,13 @@
 <div class="masthead clearfix" style="background-color: #000;">
   <div class="inner">
     <h3 class="masthead-brand"><i class="fa fa-phone fa-fw"><a href="tel:{{ telephone|replace({' ':''})  }}"></i> {{ telephone }}<br><small>Appel <i class="fa fa-level-up"></i></small></a></h3>
-    <nav class="visible-md-block visible-lg-block">
-      <ul class="nav masthead-nav">
-        <li><a href="#modeles">Modèles</a>
-          <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
-          <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
-          <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
-        </ul>
-      </nav>
       <nav class="visible-sm-block visible-xs-block">
         <ul class="nav masthead-nav">
           <li><a href="#modeles" style="font-size:40px;">Modèles</a>
             <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
             <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
             <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
+            <li><a href="{{ path('infos') }}"><i class="fa fa-info fa-3x"></i></a></li>
           </ul>
         </nav>
       </div>
@@ -41,16 +34,9 @@
                 <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-lg"></i></a></li>
                 <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-lg"></i></a></li>
                 <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-lg"></i></a></li>
+                <li><a href="{{ path('infos') }}"><i class="fa fa-info fa-lg"></i></a></li>
               </ul>
             </nav>
-            <nav class="visible-sm-block visible-xs-block">
-              <ul class="nav masthead-nav">
-                <li><a href="#modeles" style="font-size:40px;">Modèles</a>
-                  <li><a href="{{ facebook }}"><i class="fa fa-facebook fa-3x"></i></a></li>
-                  <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-3x"></i></a></li>
-                  <li><a href="mailto:{{ email }}"><i class="fa fa-envelope fa-3x"></i></a></li>
-                </ul>
-              </nav>
             </div>
           </div>
           {% endif %}
@@ -108,31 +94,34 @@
       </div>
       {% else %}
       <div class="visible-md-block visible-lg-block">
-        {{ include('default/description_lg.html.twig') }}
+        {{ include('default/description_light_lg.html.twig') }}
       </div>
       {% endif %}
       <!-- Carousel1 -->
-      <div class="overlay-mask" class="modeles">
+      <div class="overlay-mask" class="modeles" id="modeles">
         <h2 style="text-decoration:underline;">Modèles</h2>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav" data-interval="false">
+              <div class="carousel carousel-showmanymoveone slide" id="carousel1-tilenav" data-interval="false">
                 <div class="carousel-inner">
                   {% for model in modeles01 %}
                   <div class="item {% if loop.first %}active{% endif %}">
                     <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}"><img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" class="img-responsive"></a>
+                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}">
+                        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" class="">
+                      </a>
                     </div>
                   </div>
                   {% endfor %}
                 </div>
-                <a class="left carousel-control" href="#carousel-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <a class="right carousel-control" href="#carousel-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                <a class="left carousel-control" href="#carousel1-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <a class="right carousel-control" href="#carousel1-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
               </div>
             </div>
           </div>
         </div>
+
         <!-- gif  -->
         <div class="container-fluid">
           <div class="row">
@@ -141,48 +130,31 @@
             </div>
           </div>
         </div>
+
         <!-- Carousel2 -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="carousel carousel-showmanymoveone slide" id="carousel-tilenav2" data-interval="false">
-                <div class="carousel-inner">
-
-                  <div class="item active">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a href="#"><img src="{{ asset('/img/casquettes/models/15_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
+        <div class="overlay-mask" class="modeles">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12 col-xs-12 col-sm-12">
+                <div class="carousel carousel-showmanymoveone slide" id="carousel2-tilenav" data-interval="false">
+                  <div class="carousel-inner">
+                    {% for model in modeles02 %}
+                    <div class="item {% if loop.first %}active{% endif %}">
+                      <div class="col-xs-6 col-sm-6 col-md-4">
+                        <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}">
+                          <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'.png') }}" class="">
+                        </a>
+                      </div>
                     </div>
+                    {% endfor %}
                   </div>
-
-                  <div class="item">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a href="#"><img src="{{ asset('/img/casquettes/models/22_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a href="#"><img src="{{ asset('/img/casquettes/models/16_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                    </div>
-                  </div>
-
-                  <div class="item">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a href="#"><img src="{{ asset('/img/casquettes/models/19_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                    </div>
-                  </div>
-
-                  <div class="item ">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a href="#"><img src="{{ asset('/img/casquettes/models/09_with_bg-removebg-preview.png') }}" class="img-responsive"></a>
-                    </div>
-                  </div>
+                  <a class="left carousel-control" href="#carousel2-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                  <a class="right carousel-control" href="#carousel2-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
                 </div>
-                <a class="left carousel-control" href="#carousel-tilenav2" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <a class="right carousel-control" href="#carousel-tilenav2" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
               </div>
             </div>
           </div>
-        </div>
+
       </div>
 
     </div>
@@ -211,7 +183,26 @@
 </div>
 {% endfor %}
 
-
+{% for model in modeles02 %}
+<!-- Modal -->
+<div class="modal fade" id="modeles02_popup_{{ loop.index }}">
+  <div class="modal-dialog modal-xlg" style="background-color:black;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ model[1] }}</h4>
+      </div>
+      <div class="modal-body">
+        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big.png') }}" alt="Circuits électroniques casquette">
+        <p>{{ model[2] }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 <!--
 Google Analitics

@@ -46,17 +46,15 @@ if (!device.tablet() && !device.mobile()) {
     });
   }());
 
-  var myElement = document.getElementById('myElement');
-  $(".modeles").each(function(){
-    var modeles = $(this);
-    var mc = new Hammer(modeles);
-    $('.item').each(function(){
+  $(".slide").each(function(){
+      var slide = document.getElementById($(this).attr('id'));
+      var modelesSlide = $(this);
+      var mc = new Hammer(slide);
       mc.on("panleft", function(ev) {
-        modeles.children('.left').click();
+        modelesSlide.children('.left').click();
       });
       mc.on("panright", function(ev) {
-        modeles.children('.left').click();
-      });
+        modelesSlide.children('.right').click();
     });
   });
 });
