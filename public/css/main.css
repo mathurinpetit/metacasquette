@@ -373,9 +373,9 @@ small {
       font-weight: bold;
       padding-top: 20px;
     }
-    .prev , .next {
-      font-size: 28px;
-    }
+   .glyphicon-chevron-left,  .glyphicon-chevron-right{
+       font-size: 60px;
+     }
  }
 
  @media all and (min-width: 768px) {
@@ -420,9 +420,6 @@ small {
     }
  }
 
- .glyphicon-chevron-left,  .glyphicon-chevron-right{
-   font-size: 60px;
- }
 
  @media all and (min-width: 992px) {
      .carousel .item .col-xs-12{
