@@ -398,6 +398,10 @@ small {
     }
  }
 
+ .glyphicon-chevron-left,  .glyphicon-chevron-right{
+   font-size: 60px;
+ }
+
  @media all and (min-width: 992px) {
      .carousel .item .col-xs-12{
        padding:60px

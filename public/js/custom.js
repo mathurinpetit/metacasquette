@@ -51,10 +51,10 @@ if (!device.tablet() && !device.mobile()) {
       var modelesSlide = $(this);
       var mc = new Hammer(slide);
       mc.on("panleft", function(ev) {
-        modelesSlide.children('.left').click();
+        modelesSlide.children('.right').click();
       });
       mc.on("panright", function(ev) {
-        modelesSlide.children('.right').click();
+        modelesSlide.children('.left').click();
     });
   });
 });

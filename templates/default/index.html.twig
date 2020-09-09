@@ -88,15 +88,9 @@
           </div>
         </div>
       </div>
-      {% if mobile %}
-      <div class="visible-xs-block visible-sm-block">
-        {{ include('default/description_sm.html.twig') }}
-      </div>
-      {% else %}
-      <div class="visible-md-block visible-lg-block">
-        {{ include('default/description_light_lg.html.twig') }}
-      </div>
-      {% endif %}
+
+      {{ include('default/description_light.html.twig') }}
+
       <!-- Carousel1 -->
       <div class="overlay-mask" class="modeles" id="modeles">
         <h2 style="text-decoration:underline;">Modèles</h2>
