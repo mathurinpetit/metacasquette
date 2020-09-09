@@ -355,8 +355,16 @@ small {
        display: none;
     }
     .well-mobile p {
+      padding-left: 20px;
       text-align: left;
-      font-size: 38px;
+      font-size: 42px;
+    }
+
+    h3.leadmobile {
+      font-family: "Impact", serif;
+      font-size: 50px;
+      font-weight: bold;
+      padding-top: 20px;
     }
  }
 
