@@ -354,6 +354,10 @@ small {
     .carousel .item .col-xs-12:nth-last-child(-n+2) {
        display: none;
     }
+    .well-mobile p {
+      text-align: left;
+      font-size: 26px;
+    }
  }
 
  @media all and (min-width: 768px) {
