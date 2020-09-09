@@ -354,10 +354,6 @@ small {
     .carousel .item .col-xs-12:nth-last-child(-n+2) {
        display: none;
     }
-    .well-mobile p {
-      text-align: left;
-      font-size: 26px;
-    }
  }
 
  @media all and (min-width: 768px) {
@@ -464,17 +460,14 @@ small {
 
 @media (max-width: @screen-xs) {
     body{font-size: 20px;}
-    .well-mobile p {
-      text-align: left;
-      font-size: 26px;
-    }
+
 }
 
 @media (max-width: @screen-sm) {
     body{font-size: 20px;}
     .well-mobile p {
       text-align: left;
-      font-size: 26px;
+      font-size: 38px;
     }
 }
 
