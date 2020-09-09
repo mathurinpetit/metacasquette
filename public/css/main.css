@@ -363,17 +363,17 @@ small {
 
     h3.leadmobile {
       font-family: "Impact", serif;
-      font-size: 42px;
+      font-size: 38px;
       font-weight: bold;
       padding-top: 20px;
     }
     h2.lead {
       font-family: "Impact", serif;
-      font-size: 42px;
+      font-size: 38px;
       font-weight: bold;
       padding-top: 20px;
     }
-   .glyphicon-chevron-left,  .glyphicon-chevron-right{
+   .glyphicon {
        font-size: 60px;
      }
  }
