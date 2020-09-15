@@ -478,15 +478,15 @@ small {
 
 @media (max-width: @screen-xs) {
     body{font-size: 26px;}
-    .fleche-bas i {
-      font-size: 48px;
+    .fleche-bas {
+      padding-top: 200px;
     }
 }
 
 @media (max-width: @screen-sm) {
     body{font-size: 26px;}
-    .fleche-bas i {
-      font-size: 48px;
+    .fleche-bas {
+      padding-top: 200px;
     }
 }
 
