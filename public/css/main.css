@@ -357,7 +357,7 @@ small {
       padding-left: 20px;
       padding-right: 20px;
       text-align: left;
-      font-size: 32px;
+      font-size: 36px;
     }
 
     h3.leadmobile {
@@ -374,6 +374,9 @@ small {
     }
    .glyphicon {
        font-size: 60px;
+     }
+     .fleche-bas {
+       padding-top: 200px;
      }
  }
 
@@ -477,17 +480,12 @@ small {
 }
 
 @media (max-width: @screen-xs) {
-    body{font-size: 26px;}
-    .fleche-bas {
-      padding-top: 200px;
-    }
+    body{font-size: 20px;}
+
 }
 
 @media (max-width: @screen-sm) {
-    body{font-size: 26px;}
-    .fleche-bas {
-      padding-top: 200px;
-    }
+    body{font-size: 20px;}
 }
 
 
