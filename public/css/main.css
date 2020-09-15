@@ -210,7 +210,9 @@ body {
     height:30px;
     border:1px solid #000;
 }
-
+.close{
+  color: white !important;
+}
 
 /*
  * Cover
@@ -242,6 +244,12 @@ h3.lead {
   font-weight: bold;
 }
 
+h4{
+  font-family: "Impact", serif;
+  font-size: 26px;
+  font-weight: bold;
+}
+
 h3.leadmobile {
   font-family: "Impact", serif;
   font-size: 30px;
@@ -265,6 +273,12 @@ small {
 .description p {
   text-align: left;
   font-size: 24px;
+  margin: 20px 50px 20px 50px;
+}
+
+.modal p {
+  text-align: left;
+  font-size: 20px;
   margin: 20px 50px 20px 50px;
 }
 
@@ -375,9 +389,13 @@ small {
    .glyphicon {
        font-size: 60px;
      }
-     .fleche-bas {
-       padding-top: 200px;
-     }
+  .fleche-bas {
+      padding-top: 200px;
+   }
+   .modal p {
+     text-align: left;
+     font-size: 30px;
+   }
  }
 
  @media all and (min-width: 768px) {

@@ -71,7 +71,7 @@
               </div>
 
               <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-                <a href="#recup_recyclage" class="thumbnail img-hover">
+                <a href="#upcycling" class="thumbnail img-hover">
                   <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb_caption.png') }}" alt="Télécartes Colorées">
 
                 </a>
@@ -102,8 +102,8 @@
                   {% for model in modeles01 %}
                   <div class="item {% if loop.first %}active{% endif %}">
                     <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}">
-                        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" class="">
+                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}" class="img-hover" style="cursor:pointer">
+                        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" >
                       </a>
                     </div>
                   </div>
@@ -127,8 +127,8 @@
                     {% for model in modeles02 %}
                     <div class="item {% if loop.first %}active{% endif %}">
                       <div class="col-xs-6 col-sm-6 col-md-4">
-                        <a data-toggle="modal" data-target="#modeles02_popup_{{ loop.index }}">
-                          <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'.png') }}" class="">
+                        <a data-toggle="modal" data-target="#modeles02_popup_{{ loop.index }}" class="img-hover" style="cursor:pointer">
+                          <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'.png') }}" >
                         </a>
                       </div>
                     </div>
@@ -172,7 +172,7 @@
         <p>{{ model[2] }}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
