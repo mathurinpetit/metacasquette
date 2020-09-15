@@ -285,7 +285,6 @@ small {
 
 .margin-top-80{
   margin-top: 40px;
-    margin-bottom : 40px;
 }
 
 .mobile-container {
@@ -478,12 +477,17 @@ small {
 }
 
 @media (max-width: @screen-xs) {
-    body{font-size: 20px;}
-
+    body{font-size: 26px;}
+    .fleche-bas i {
+      font-size: 48px;
+    }
 }
 
 @media (max-width: @screen-sm) {
-    body{font-size: 20px;}
+    body{font-size: 26px;}
+    .fleche-bas i {
+      font-size: 48px;
+    }
 }
 
 
