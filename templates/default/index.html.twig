@@ -168,8 +168,20 @@
         <h4 class="modal-title">{{ model[1] }}</h4>
       </div>
       <div class="modal-body">
-        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big.png') }}" alt="Circuits électroniques casquette">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-4">
+        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big_0.png') }}" alt="{{ model[1] }}" class="img-responsive">
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4">
+        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big_1.png') }}" alt="{{ model[1] }}" class="img-responsive">
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4">
+        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big_2.png') }}" alt="{{ model[1] }}" class="img-responsive">
+          </div>
+      </div>
         <p>{{ model[2] }}</p>
+        <p>{{ model[3] }}</p>
+        <p>{{ model[4] }}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
