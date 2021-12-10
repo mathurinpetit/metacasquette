@@ -38,20 +38,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/informations")
-     */
-    public function infosAction()
-    {
-      $telephone = $this->getParameter('app.telephone');
-      $email = $this->getParameter('app.email');
-      $facebook = $this->getParameter('app.facebook');
-      $instagram = $this->getParameter('app.instagram');
-      $ytid = $this->getParameter('app.ytid');
-
-      return $this->render('default/infos.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'mobile' => $this->isMobile()));
-    }
-
-    /**
      * @Route("/mobile")
      */
     public function indexMobileAction()
