@@ -18,23 +18,16 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      $modeles01file = file('img/casquettes/models/01/liste.csv');
-      $modeles01 = array();
-      foreach ($modeles01file as $line_num => $modele01) {
-          if($modele01){
-              $modeles01[$line_num] = str_getcsv($modele01,';');
-          }
+      $casquettesFile = file('liste_test.csv');
+      $casquettes = array();
+      foreach ($casquettesFile as $line_num => $row) {
+        if(substr($row,0,1) !== '#'){
+            $casquettes[$line_num] = str_getcsv($row,';');
+        }
       }
-
-      $modeles02file = file('img/casquettes/models/02/liste.csv');
-      $modeles02 = array();
-      foreach ($modeles02file as $line_num => $modele02) {
-          if($modele02){
-              $modeles02[$line_num] = str_getcsv($modele02,';');
-          }
-      }
-
-      return $this->render('default/index.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'mobile' => $this->isMobile(), 'modeles01' => $modeles01,'modeles02' => $modeles02));
+      $randCasquettes = array_rand($casquettes, 4);
+      shuffle($randCasquettes);
+      return $this->render('default/index.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'mobile' => $this->isMobile(), 'casquettes' => $casquettes, 'randCasquettes' => $randCasquettes));
     }
 
     /**

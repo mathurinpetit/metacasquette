@@ -44,42 +44,25 @@
               <h2 class="lead" style="font-size:22px;"><a href="#oeuvre" style="text-decoration:underline;">Une œuvre d'art unique</a> / <a href="#fabrication_francaise" style="text-decoration:underline;">Fabriquée en France</a>  / <a href="#fait_main" style="text-decoration:underline;">Fait main</a> / <a href="#upcyclee" style="text-decoration:underline;">Upcyclée</a></h2>
             </div>
 
-            <p class="lead fleche-bas"><a href="#models1" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
+            <p class="lead fleche-bas"><a href="#start" class="btn btn-lg btn-default"><i class="fa fa-chevron-down"></i></a></p>
           </div>
 
         </div>
       </div>
 
-      <div class="container-fluid overlay-mask" id="models1" >
+      <div class="container-fluid overlay-mask" id="start" >
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
             <div class="row">
+              {% for itemIndex in randCasquettes %}
+              {% set casquette = casquettes[itemIndex] %}
+              {% set modelNumber = "%04d"|format(casquette[0]) %}
               <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
                 <a href="#oeuvre" class="thumbnail img-hover"  >
-                  <img src="{{ asset('/img/casquettes/thumbs/08_britishMuseum_thumb_caption.png') }}" alt="Circuits électroniques casquette">
+                  <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'.jpg') }}" alt="{{ casquette[4] }}">
                 </a>
               </div>
-
-              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-                <a href="#fabrication_francaise" class="thumbnail img-hover">
-                  <img src="{{ asset('/img/casquettes/thumbs/05_canadian_cans_thumb_caption.png') }}" alt="Canettes Canadiennes">
-
-                </a>
-              </div>
-
-              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-                <a href="#fait_main" class="thumbnail img-hover">
-                  <img src="{{ asset('/img/casquettes/thumbs/02_colored_telecarte_thumb_caption.png') }}" alt="Télécartes Colorées">
-
-                </a>
-              </div>
-
-              <div class="col-xs-6 col-sm-6 col-md-6 thumbnail-wrapper">
-                <a href="#upcyclee" class="thumbnail img-hover">
-                  <img src="{{ asset('/img/casquettes/thumbs/01_maps_thumb_caption.png') }}" alt="Carte Plan">
-
-                </a>
-              </div>
+              {% endfor %}
 
             </div>
           </div>
@@ -94,53 +77,32 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
-              <div class="carousel carousel-showmanymoveone slide" id="carousel1-tilenav" data-interval="false">
-                <div class="carousel-inner">
-                  {% for model in modeles01 %}
-                  <div class="item {% if loop.first %}active{% endif %}">
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                      <a data-toggle="modal" data-target="#modeles01_popup_{{ loop.index }}" class="img-hover" style="cursor:pointer">
-                        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'.png') }}" >
-                      </a>
+                  {% for casquette in casquettes %}
+                  {% set modelNumber = "%04d"|format(casquette[0]) %}
+                  {% set pictureNumber = casquette[8] %}
+                  <div class="item">
+                    <div class="col-xs-4 col-sm-4 col-md-3">
+                      {% if pictureNumber matches '/^\\d+$/' %}
+                      <div id="casquette_{{ modelNumber }}" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360" ></div>
+                      {% else %}
+                      <img src="{{ asset('/img/casquettes/'~modelNumber~'/product/01.jpg') }}" alt="{{ casquette[5] }}" >
+                      {% endif %}
+                      <h2>#{{ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h2>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12" style="text-align:left;">
+                          <p>{{ casquette[2] }}</p>
+                          <p>Taille : {{ casquette[4] }}cm / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %} <small><a data-toggle="modal" data-target="#popup_{{ loop.index }}" class="img-hover" style="cursor:pointer; padding:20px;">voir plus</a></small></p>
+
+                        </div>
+                      </div>
                     </div>
                   </div>
                   {% endfor %}
+                  <div id="dummy"></div>
                 </div>
-                <a class="left carousel-control" href="#carousel1-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <a class="right carousel-control" href="#carousel1-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-              </div>
-            </div>
+
           </div>
         </div>
-
-
-        <!-- Carousel2 -->
-        <div class="overlay-mask" class="modeles">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="carousel carousel-showmanymoveone slide" id="carousel2-tilenav" data-interval="false">
-                  <div class="carousel-inner">
-                    {% for model in modeles02 %}
-                    <div class="item {% if loop.first %}active{% endif %}">
-                      <div class="col-xs-6 col-sm-6 col-md-4">
-                        <a data-toggle="modal" data-target="#modeles02_popup_{{ loop.index }}" class="img-hover" style="cursor:pointer">
-                          <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'.png') }}" >
-                        </a>
-                      </div>
-                    </div>
-                    {% endfor %}
-                  </div>
-                  <a class="left carousel-control" href="#carousel2-tilenav" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                  <a class="right carousel-control" href="#carousel2-tilenav" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-      </div>
-
-
               <!-- gif  -->
               <div class="container-fluid">
                 <div class="row">
@@ -155,27 +117,31 @@
   </div>
 </div>
 
-{% for model in modeles01 %}
+{% for casquette in casquettes %}
+{% set modelNumber = "%04d"|format(casquette[0]) %}
 <!-- Modal -->
-<div class="modal fade" id="modeles01_popup_{{ loop.index }}">
-  <div class="modal-dialog modal-xlg" style="background-color:black;">
+<div class="modal fade" id="popup_{{ loop.index }}">
+  <div class="modal-dialog modal-lg" style="background-color:black; width:70%" >
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ model[1] }}</h4>
+        <h4 class="modal-title">{{ "#" ~ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h4>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6">
-        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big_0.png') }}" alt="{{ model[1] }}" class="img-responsive">
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6">
-        <img src="{{ asset('/img/casquettes/models/01/'~model[0]~'_big_1.png') }}" alt="{{ model[1] }}" class="img-responsive">
+          <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side01.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side02.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+              </div>
+            </div>
           </div>
       </div>
-        <p>{{ model[2] }}</p>
-        <p>{{ model[3] }}</p>
-        <p>{{ model[4] }}</p>
+        <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
+        <p>Taille : {{ casquette[4] }}cm / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
@@ -185,34 +151,5 @@
 </div>
 {% endfor %}
 
-{% for model in modeles02 %}
-<!-- Modal -->
-<div class="modal fade" id="modeles02_popup_{{ loop.index }}">
-  <div class="modal-dialog modal-xlg" style="background-color:black;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{ model[1] }}</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-6">
-        <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'_big_0.png') }}" alt="{{ model[1] }}" class="img-responsive">
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6">
-        <img src="{{ asset('/img/casquettes/models/02/'~model[0]~'_big_1.png') }}" alt="{{ model[1] }}" class="img-responsive">
-          </div>
-      </div>
-        <p>{{ model[2] }}</p>
-        <p>{{ model[3] }}</p>
-        <p>{{ model[4] }}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %}
 
 {% endblock %}
