@@ -71,13 +71,12 @@
 
       {{ include('default/description_light.html.twig', {'casquettes' : casquettes, 'randCasquettes' : randCasquettes}) }}
 
-      <!-- Carousel1 -->
       <div class="overlay-mask" class="modeles" id="modeles">
         <h2 style="text-decoration:underline;">Modèles</h2>
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
-                  {% for casquette in casquettes %}
+                  {% for casquette in casquettes|reverse %}
                   {% set modelNumber = "%04d"|format(casquette[0]) %}
                   {% set pictureNumber = casquette[8] %}
                     <div class="col-xs-4 col-sm-4 col-md-4">
