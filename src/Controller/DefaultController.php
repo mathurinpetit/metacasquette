@@ -18,7 +18,7 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      $casquettesFile = file('liste_test.csv');
+      $casquettesFile = file('liste.csv');
       $casquettes = array();
       foreach ($casquettesFile as $line_num => $row) {
         if(substr($row,0,1) !== '#'){
