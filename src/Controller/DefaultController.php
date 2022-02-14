@@ -25,7 +25,7 @@ class DefaultController extends Controller
             $casquettes[$line_num] = str_getcsv($row,';');
         }
       }
-      $randCasquettes = array_rand($casquettes, 4);
+      $randCasquettes = array_rand($casquettes, 7);
       shuffle($randCasquettes);
       return $this->render('default/index.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'mobile' => $this->isMobile(), 'casquettes' => $casquettes, 'randCasquettes' => $randCasquettes));
     }
