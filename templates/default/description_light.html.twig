@@ -19,7 +19,9 @@
 <div class="container mobile-container" id="fabrication_francaise" >
   <div class="row">
     <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-      <img class="img-responsive center-block" src="{{ asset('/img/casquettes/05_canadian_cans.png') }}" alt="">
+      {% set casquette = casquettes[randCasquettes[4]] %}
+      {% set modelNumber = "%04d"|format(casquette[0]) %}
+      <img class="img-responsive center-block" src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'.jpg') }}" alt="{{ casquette[4] }}">
     </div>
     <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;">
       <div class="well-mobile margin-top-80" >
@@ -39,7 +41,9 @@
   <div class="container mobile-container" id="fait_main" >
     <div class="row">
       <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12" >
-        <img class="img-responsive center-block" src="{{ asset('/img/casquettes/02_colored_telecarte.png') }}" alt="">
+        {% set casquette = casquettes[randCasquettes[5]] %}
+        {% set modelNumber = "%04d"|format(casquette[0]) %}
+        <img class="img-responsive center-block" src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'.jpg') }}" alt="{{ casquette[4] }}">
       </div>
       <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;">
         <div class="well-mobile margin-top-80">
@@ -59,7 +63,9 @@
 <div class="container mobile-container" id="upcyclee" >
   <div class="row">
     <div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-12">
-      <img class="img-responsive center-block" src="{{ asset('/img/casquettes/01_maps.png') }}" alt="">
+      {% set casquette = casquettes[randCasquettes[6]] %}
+      {% set modelNumber = "%04d"|format(casquette[0]) %}
+      <img class="img-responsive center-block" src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'.jpg') }}" alt="{{ casquette[4] }}">
     </div>
     <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;">
       <div class="well-mobile margin-top-80" >
