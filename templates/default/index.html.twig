@@ -79,7 +79,7 @@
                   {% for casquette in casquettes|reverse %}
                   {% set modelNumber = "%04d"|format(casquette[0]) %}
                   {% set pictureNumber = casquette[8] %}
-                    <div class="col-xs-1 col-sm-1 col-md-4">
+                    <div class="col-xs-12 col-sm-12 col-md-4">
                       {% if pictureNumber matches '/^\\d+$/' %}
                       <div id="casquette_{{ modelNumber }}" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360" ></div>
                       {% else %}
