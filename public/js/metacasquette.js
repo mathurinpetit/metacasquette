@@ -2,7 +2,8 @@ $(document).ready(init);
 
 function init() {
 
-	const rotates360 = [];
+	const rotates360 = {};
+	const blocked = {};
 
 	$(".rotate360").each(function(){
 
@@ -16,14 +17,41 @@ function init() {
 				fileExtension: '.jpg',
 				numberOfImages: numberPictures
 			});
-			rotates360.push(rotate);
+			rotates360[id] = rotate;
+			blocked[id] = false;
 	});
 
-	for (const rotate of rotates360) {
-		rotate.animate360(5000);
-	}
-
-
-	// quand on arrive sur l'image, un tour complet
+	window.addEventListener('scroll',(event) => {
+	$(".rotate360").each(function(){
+			var id = $(this).attr("id");
+			if (Utils.isElementInView($('#'+id), false) && !blocked[id]) {
+				blocked[id] = true;
+				rotates360[id].animate360(2000);
+			}
+		});
+	});
 
 }
+
+
+function Utils() {
+
+}
+
+Utils.prototype = {
+    constructor: Utils,
+    isElementInView: function (element, fullyInView) {
+        var pageTop = $(window).scrollTop();
+        var pageBottom = pageTop + $(window).height();
+        var elementTop = $(element).offset().top;
+        var elementBottom = elementTop + $(element).height();
+
+        if (fullyInView === true) {
+            return ((pageTop < elementTop) && (pageBottom > elementBottom));
+        } else {
+            return ((elementTop <= pageBottom) && (elementBottom >= pageTop));
+        }
+    }
+};
+
+var Utils = new Utils();
