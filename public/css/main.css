@@ -184,6 +184,31 @@ body {
   color: white !important;
 }
 
+.vendu  {
+  position:absolute;
+  top:250px;
+  left:100px;
+  width:60%;
+  z-index:0;
+  font-size:150%;
+  background-color:white;
+  color:black;
+  transform: rotate(-20deg);
+  opacity: 0.8;
+	}
+
+.maximize {
+  font-size: 220%;
+  position: absolute;
+  top: 390px;
+  left: 213px;
+  width: 60%;
+}
+
+.wrapper {
+  cursor:pointer;
+  position: relative;
+}
 /*
  * Cover
  */
