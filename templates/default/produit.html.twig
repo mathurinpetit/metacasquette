@@ -9,14 +9,14 @@
 <div class="row">
   <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
     <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side02.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
-      </div>
       {% if pictureNumber matches '/^\\d+$/' %}
       <div class="col-sm-12 col-md-6 img-mobile">
         <div id="casquette_{{ modelNumber }}_mobile" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360mobile" ></div>
       </div>
       {% endif %}
+      <div class="col-sm-12 col-md-6">
+        <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side02.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+      </div>
     </div>
   </div>
 </div>
