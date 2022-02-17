@@ -29,7 +29,10 @@ function init() {
 	if(!mobile_test){
 		$('.overlay-mobile').each(function(){
 			$(this).remove();
-		})
+		});
+		$('.img-mobile').each(function(){
+			$(this).remove();
+		});
 	}else{
 		$(".rotate360mobile").each(function(){
 			var id = $(this).attr("id");
