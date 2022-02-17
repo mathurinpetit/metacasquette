@@ -90,7 +90,7 @@
                           <center><b>VENDU</b></center>
                         </div>
                       {% endif %}
-                      <div class="overlay-mobile" ></div>
+                      <a class="overlay-mobile" href="{{ path('produit', {'id' : modelNumber}) }}" ></a>
                       <h2>#{{ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h2>
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
@@ -98,9 +98,15 @@
                           <p>Taille : {{ casquette[4] }}cm / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</p>
                         </div>
                       </div>
+                      {% if not mobile %}
                       <a data-toggle="modal" data-target="#popup_{{ modelNumber }}" class="img-hover maximize">
                         <i class="fa-solid fa-maximize"></i>
                       </a>
+                      {% else %}
+                      <a class="img-hover maximize" href="{{ path('produit', {'id' : modelNumber}) }}">
+                        <i class="fa-solid fa-maximize"></i>
+                      </a>
+                      {% endif %}
                     </div>
                   {% endfor %}
                   <div id="dummy"></div>
