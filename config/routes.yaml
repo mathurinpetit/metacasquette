@@ -5,6 +5,6 @@ index:
    path: /
    defaults: { _controller: 'Controller\DefaultController::indexAction' }
 
-index_mobile:
-   path: /mobile
-   defaults: { _controller: 'Controller\DefaultController::indexMobileAction' }
+produit:
+   path: /produit/{id}
+   defaults: { _controller: 'Controller\DefaultController::produitAction' }

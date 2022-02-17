@@ -45,13 +45,8 @@ function init() {
 					fileExtension: '.jpg',
 					numberOfImages: numberPictures
 				});
-
+			rotateMobile.once('loaded', () => $('#'+id+' .product-viewer__image').addClass("img-popup-mobile"));
 		});
-
-
-
-
-
 	}
 	window.addEventListener('scroll',(event) => {
 	$(".rotate360").each(function(){
@@ -59,9 +54,6 @@ function init() {
 			if (Utils.isElementInView($('#'+id), false) && !blocked[id]) {
 				blocked[id] = true;
 				rotates360[id].animate360(2000);
-			}
-			if (Utils.isElementInView($('#'+id+'_mobile'), false)){
-				$('#'+id+'_mobile').children().addClass("img-popup-mobile");
 			}
 		});
 	});

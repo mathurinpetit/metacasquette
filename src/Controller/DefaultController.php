@@ -31,28 +31,28 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/mobile")
+     * @Route("/produit/{id}")
      */
-    public function indexMobileAction()
+    public function produitAction($id)
     {
-      if(!$this->isMobile()){
-        return $this->redirectToRoute('index');
+      $telephone = $this->getParameter('app.telephone');
+      $email = $this->getParameter('app.email');
+      $facebook = $this->getParameter('app.facebook');
+      $instagram = $this->getParameter('app.instagram');
+      $ytid = $this->getParameter('app.ytid');
+
+      $casquettesFile = file('liste.csv');
+      $casquette = null;
+      foreach ($casquettesFile as $line_num => $row) {
+        $c = str_getcsv($row,';');
+        if(substr($row,0,1) !== '#' && $c[0] == $id){
+          $casquette = $c;
+        }
       }
 
-      return $this->render('default/metacasquette_mobile.html.twig');
+      return $this->render('default/produit.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'casquette' => $casquette));
     }
 
-    /**
-     * @Route("/path")
-     */
-    public function pathAction()
-    {
-      if($this->isMobile()){
-        return $this->redirectToRoute('index_mobile');
-      }
-
-      return $this->render('default/metacasquette.html.twig');
-    }
 
     public function isMobile(){
     $device = $this->get('mobile_detect.mobile_detector');

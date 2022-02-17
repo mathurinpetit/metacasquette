@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+{% set modelNumber = "%04d"|format(casquette[0]) %}
+{% set pictureNumber = casquette[8] %}
+
+<h1>{{ "#" ~ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h1>
+
+<div class="row">
+  <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+    <div class="row">
+      {% if pictureNumber matches '/^\\d+$/' %}
+      <div class="col-sm-12 col-md-6 img-mobile">
+        <div id="casquette_{{ modelNumber }}_mobile" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360mobile" ></div>
+      </div>
+      {% endif %}
+      <div class="col-sm-12 col-md-6">
+        <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side01.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side02.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+      </div>
+    </div>
+  </div>
+</div>
+<h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
+<h3>Taille : {{ casquette[4] }}cm / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</h3>
+
+{% endblock %}
