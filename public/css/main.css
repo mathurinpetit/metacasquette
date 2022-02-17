@@ -197,12 +197,28 @@ body {
   opacity: 0.8;
 	}
 
+.overlay-mobile
+{
+  position:absolute;
+  top:0;
+  left:0;
+  width:445px;
+  height:420px;
+  z-index:2;
+  opacity: 0;
+}
+
 .maximize {
   font-size: 220%;
   position: absolute;
   top: 390px;
   left: 213px;
   width: 60%;
+  z-index:4;
+}
+
+.img-popup-mobile{
+  min-width: 100%;
 }
 
 .wrapper {

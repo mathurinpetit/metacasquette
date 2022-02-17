@@ -2,6 +2,8 @@ $(document).ready(init);
 
 function init() {
 
+	var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
 	const rotates360 = {};
 	const blocked = {};
 
@@ -21,12 +23,42 @@ function init() {
 			blocked[id] = false;
 	});
 
+
+
+
+	if(!mobile_test){
+		$('.overlay-mobile').each(function(){
+			$(this).remove();
+		})
+	}else{
+		$(".rotate360mobile").each(function(){
+			var id = $(this).attr("id");
+			var name = $(this).data("name");
+			var numberPictures = $(this).data("number");
+			var rotateMobile = new ProductViewer({
+					element: 		document.getElementById(id),
+					imagePath: 		"../img/casquettes/"+name+"/product",
+					filePrefix: 	'',
+					fileExtension: '.jpg',
+					numberOfImages: numberPictures
+				});
+
+		});
+
+
+
+
+
+	}
 	window.addEventListener('scroll',(event) => {
 	$(".rotate360").each(function(){
 			var id = $(this).attr("id");
 			if (Utils.isElementInView($('#'+id), false) && !blocked[id]) {
 				blocked[id] = true;
 				rotates360[id].animate360(2000);
+			}
+			if (Utils.isElementInView($('#'+id+'_mobile'), false)){
+				$('#'+id+'_mobile').children().addClass("img-popup-mobile");
 			}
 		});
 	});

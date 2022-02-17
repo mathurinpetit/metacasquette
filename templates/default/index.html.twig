@@ -85,6 +85,12 @@
                       {% else %}
                         <img src="{{ asset('/img/casquettes/'~modelNumber~'/product/01.jpg') }}" alt="{{ casquette[5] }}" style="z-index:-1" >
                       {% endif %}
+                      {% if casquette[7] %}
+                       <div class="vendu">
+                          <center><b>VENDU</b></center>
+                        </div>
+                      {% endif %}
+                      <div class="overlay-mobile" ></div>
                       <h2>#{{ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h2>
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
@@ -92,11 +98,6 @@
                           <p>Taille : {{ casquette[4] }}cm / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</p>
                         </div>
                       </div>
-                      {% if casquette[7] %}
-                       <div class="vendu">
-                          <center><b>VENDU</b></center>
-                        </div>
-                      {% endif %}
                       <a data-toggle="modal" data-target="#popup_{{ modelNumber }}" class="img-hover maximize">
                         <i class="fa-solid fa-maximize"></i>
                       </a>
@@ -123,6 +124,7 @@
 
 {% for casquette in casquettes %}
 {% set modelNumber = "%04d"|format(casquette[0]) %}
+{% set pictureNumber = casquette[8] %}
 <!-- Modal -->
 <div class="modal fade" id="popup_{{ modelNumber }}">
   <div class="modal-dialog modal-lg" style="background-color:black; width:70%" >
@@ -135,6 +137,11 @@
         <div class="row">
           <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
             <div class="row">
+              {% if pictureNumber matches '/^\\d+$/' %}
+              <div class="col-sm-12 col-md-6">
+                <div id="casquette_{{ modelNumber }}_mobile" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360mobile" ></div>
+              </div>
+              {% endif %}
               <div class="col-sm-12 col-md-6">
                 <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side01.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
               </div>
