@@ -46,6 +46,7 @@ function init() {
 					numberOfImages: numberPictures
 				});
 			rotateMobile.once('loaded', () => $('#'+id+' .product-viewer__image').addClass("img-popup-mobile"));
+			rotateMobile.animate360(4000);
 		});
 	}
 	window.addEventListener('scroll',(event) => {
