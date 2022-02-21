@@ -373,7 +373,7 @@ small {
     body{font-size: 20px;}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
     .navbar-header {
           float: none;
       }
