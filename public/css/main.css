@@ -218,7 +218,14 @@ body {
 }
 
 .img-popup-mobile{
-  min-width: 150%;
+  min-width: 120%;
+}
+
+.stage{
+  position: absolute;
+  top: 1050px;
+  left: 560px;
+  z-index:4;
 }
 
 .wrapper {
