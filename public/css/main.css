@@ -373,7 +373,7 @@ small {
     body{font-size: 20px;}
 }
 
-@media (min-width: 900px) {
+
     .navbar-header {
           float: none;
       }
@@ -405,7 +405,7 @@ small {
           padding-top: 10px;
           padding-bottom: 10px;
       }
-}
+
 
   .masthead {
     z-index: 1000;
