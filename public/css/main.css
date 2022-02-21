@@ -223,8 +223,8 @@ body {
 
 .stage{
   position: absolute;
-  top: 1050px;
-  left: 560px;
+  top: 90%;
+  left: 0%;
   z-index:4;
 }
 
@@ -373,6 +373,41 @@ small {
     body{font-size: 20px;}
 }
 
+@media (min-width: 768px) {
+    .navbar-header {
+          float: none;
+      }
+      .navbar-toggle {
+          display: block;
+          margin-top: 74px;
+          float: none;
+          height: 40px;
+          width: 42px;
+      }
+      .navbar-collapse {
+          border-top: 1px solid transparent;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+      .navbar-collapse.collapse {
+          display: none!important;
+      }
+      .navbar-collapse.collapse.in {
+          display: block!important;
+          padding-top: 70px;
+          font-size: 26px;
+      }
+      .navbar-nav {
+          float: none!important;
+          margin: 7.5px -15px;
+      }
+      .navbar-nav>li {
+          float: none;
+      }
+      .navbar-nav>li>a {
+          padding-top: 10px;
+          padding-bottom: 10px;
+      }
+}
 
   .masthead {
     z-index: 1000;
