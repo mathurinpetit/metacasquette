@@ -379,10 +379,8 @@ small {
       }
       .navbar-toggle {
           display: block;
-          margin-top: 74px;
-          float: none;
-          height: 40px;
-          width: 42px;
+          margin-left: 40px;
+          margin-top: 24px;
       }
       .navbar-collapse {
           border-top: 1px solid transparent;
