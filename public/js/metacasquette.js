@@ -44,9 +44,13 @@ function init() {
 				rotates360[id].on('release', ({index, image}) => {
 					if (deltaImg[id] == 0 && id == activePressed) {
 						$(this).siblings("a").click();
-						console.log($(this).siblings("a"));
+						activePressed = null;
 					}
 				});
+		});
+
+		$(".img_not_360").on('click',function(){
+			$(this).siblings("a").click();
 		});
 
 		$('.overlay-mobile').each(function(){
