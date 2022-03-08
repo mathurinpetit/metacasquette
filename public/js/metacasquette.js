@@ -20,7 +20,6 @@ function init() {
 				fileExtension: '.jpg',
 				numberOfImages: numberPictures
 			});
-			rotate.once('loaded', () => $(".img-loading_"+name).remove());
 			rotates360[id] = rotate;
 			blocked[id] = false;
 	});
