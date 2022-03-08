@@ -6,7 +6,8 @@ function init() {
 
 	const rotates360 = {};
 	const blocked = {};
-
+	const deltaImg = {};
+	var activePressed = null;
 	$(".rotate360").each(function(){
 
 		var id = $(this).attr("id");
@@ -27,6 +28,27 @@ function init() {
 
 
 	if(!mobile_test){
+
+		$(".rotate360").each(function(){
+				var id = $(this).attr("id");
+				deltaImg[id] = 0;
+				rotates360[id].on('press', () => {
+					deltaImg[id] = 0;
+					activePressed = id;
+				});
+
+				rotates360[id].on('delta', ({x, numberOfImages, offsetIndex}) => {
+					deltaImg[id] = offsetIndex;
+				})
+
+				rotates360[id].on('release', ({index, image}) => {
+					if (deltaImg[id] == 0 && id == activePressed) {
+						$(this).siblings("a").click();
+						console.log($(this).siblings("a"));
+					}
+				});
+		});
+
 		$('.overlay-mobile').each(function(){
 			$(this).remove();
 		});
