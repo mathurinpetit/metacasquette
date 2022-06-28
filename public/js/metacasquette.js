@@ -8,6 +8,10 @@ function init() {
 	const blocked = {};
 	const deltaImg = {};
 	var activePressed = null;
+
+	$("a#plus").click(function(){ $(".model.hidden").show(); });
+
+
 	$(".rotate360").each(function(){
 
 		var id = $(this).attr("id");
