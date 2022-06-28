@@ -109,10 +109,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 col-xs-12 col-sm-12">
+                  {% set cpt = 0 %}
                   {% for casquette in casquettes|reverse %}
                   {% set modelNumber = "%04d"|format(casquette[0]) %}
                   {% set pictureNumber = casquette[8] %}
-                    <div class="col-xs-6 col-sm-6 col-md-4 wrapper">
+                    {% set cpt=cpt+1 %}
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 wrapper" {% if cpt > 18 %}style="display:none;"{% endif %}>
                       {% if pictureNumber matches '/^\\d+$/' and not casquette[7] %}
                         <div id="casquette_{{ modelNumber }}" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360" ></div>
                       {% else %}
