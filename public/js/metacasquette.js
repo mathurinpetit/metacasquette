@@ -9,7 +9,7 @@ var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 function init() {
 
-	$("a#plus").click(function(){
+	$("button#plus").click(function(){
 		var cpt = 0;
 		$(".model.hidden").each(function(){
 			if(cpt<12){
