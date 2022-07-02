@@ -9,11 +9,11 @@ var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 function init() {
 
-	$("button#plus").click(function(){
+	$("a#plus").click(function(){
 		buttonPlusClick();
 	});
 
-	$("button#plus").on('tap', function(){
+	$("a#plus").on('tap', function(){
 		buttonPlusClick();
 	});
 
