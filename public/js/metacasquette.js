@@ -1,15 +1,23 @@
 $(document).ready(init);
 
+const rotates360 = {};
+const blocked = {};
+const deltaImg = {};
+var activePressed = null;
+var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+
 function init() {
 
-	var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-
-	const rotates360 = {};
-	const blocked = {};
-	const deltaImg = {};
-	var activePressed = null;
-
-	$("a#plus").click(function(){ $(".model.hidden").show(); });
+	$("a#plus").click(function(){
+		var cpt = 0;
+		$(".model.hidden").each(function(){
+			if(cpt<12){
+					$(this).removeClass("hidden");
+			}
+			cpt++;
+		});
+		initScrollEvent();
+	});
 
 
 	$(".rotate360").each(function(){
@@ -79,16 +87,20 @@ function init() {
 			rotateMobile.animate360(4000);
 		});
 	}
-	window.addEventListener('scroll',(event) => {
-	$(".rotate360").each(function(){
-			var id = $(this).attr("id");
-			if (Utils.isElementInView($('#'+id), false) && !blocked[id]) {
-				blocked[id] = true;
-				rotates360[id].animate360(2000);
-			}
+
+	initScrollEvent();
+}
+
+function initScrollEvent(){
+	$(window).on('scroll', function(){
+		$('.wrapper:not(.hidden)').children(".rotate360").each(function(){
+				var id = $(this).attr("id");
+				if (Utils.isElementInView($('#'+id), false) && !blocked[id]) {
+					blocked[id] = true;
+					rotates360[id].animate360(2000);
+				}
 		});
 	});
-
 }
 
 
