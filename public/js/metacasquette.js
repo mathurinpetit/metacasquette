@@ -10,16 +10,24 @@ var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 function init() {
 
 	$("button#plus").click(function(){
-		var cpt = 0;
-		$(".model.hidden").each(function(){
-			if(cpt<12){
-					$(this).removeClass("hidden");
-			}
-			cpt++;
-		});
-		initRotateElements();
+		buttonPlusClick();
 	});
 
+	$("button#plus").on('tap', function(){
+		buttonPlusClick();
+	});
+
+	initRotateElements();
+}
+
+function buttonPlusClick(){
+	var cpt = 0;
+	$(".model.hidden").each(function(){
+		if(cpt<12){
+				$(this).removeClass("hidden");
+		}
+		cpt++;
+	});
 	initRotateElements();
 }
 
