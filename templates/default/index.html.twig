@@ -114,7 +114,6 @@
 
                   {% if "#" in casquette[0] %}
                   {% else %}
-
                   {% set modelNumber = "%04d"|format(casquette[0]) %}
                   {% set pictureNumber = casquette[8] %}
                     {% set cpt=cpt+1 %}
@@ -126,7 +125,7 @@
                         <img class="img_not_360" src="{{ asset('/img/casquettes/'~modelNumber~'/product/01.jpg') }}" alt="{{ casquette[5] }}" style="z-index:-1" >
                       {% endif %}
                       {% if casquette[7] %}
-                       <div class="vendu img_not_360">
+                       <div class="vendu">
                           <center><b>VENDUE</b></center>
                         </div>
                       {% endif %}
@@ -135,7 +134,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
                           <p>{{ casquette[2] }}</p>
-                          <p>Taille : {{ casquette[4] }} / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</p>
+                          <p>Taille : {{ casquette[4] }}{% if casquette[7] %} / Vendue{% endif %}</p>
                         </div>
                       </div>
                       {% if not mobile %}
@@ -201,7 +200,7 @@
           </div>
       </div>
         <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
-        <p>Taille : {{ casquette[4] }} / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</p>
+        <p>Taille : {{ casquette[4] }}{% if casquette[7] %} / Vendue{% endif %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
