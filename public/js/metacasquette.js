@@ -84,8 +84,10 @@ function initRotateElements(){
 					});
 			});
 
-			$(".img_not_360").on('click',function(){
-				$(this).siblings("a").click();
+			$('.wrapper:not(.hidden)').children(".img_not_360").each(function(){
+				$(this).on('click',function(){
+					$(this).siblings("a").click();
+				});
 			});
 
 			$('.overlay-mobile').each(function(){
