@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="/")
      */
     public function indexAction()
     {
@@ -51,6 +51,20 @@ class DefaultController extends Controller
       }
 
       return $this->render('default/produit.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'casquette' => $casquette));
+    }
+
+    /**
+     * @Route("/jeu01")
+     */
+    public function jeu01Action()
+    {
+      $telephone = $this->getParameter('app.telephone');
+      $email = $this->getParameter('app.email');
+      $facebook = $this->getParameter('app.facebook');
+      $instagram = $this->getParameter('app.instagram');
+      $ytid = $this->getParameter('app.ytid');
+
+      return $this->render('default/jeu01.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
     }
 
 

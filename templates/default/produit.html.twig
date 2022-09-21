@@ -28,6 +28,6 @@
   </div>
 </div>
 <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
-<h3>Taille : {{ casquette[4] }} / {% if casquette[7] %}Vendue{% else %}Prix : {{ casquette[6] }} €{% endif %}</h3>
+<h3>Taille : {{ casquette[4] }}{% if casquette[7] %} / Vendue{% endif %}</h3>
 
 {% endblock %}
