@@ -4,9 +4,27 @@
 <div class="row">
   <div class="col-sm-10 col-md-4 col-sm-offset-1 col-md-offset-4">
     <br/>
-    <img class="img-responsive" src="{{ asset('/img/jeu/disparues.png') }}" alt="disparues?">
+    <a  href="{{ instagram }}">
+      <img class="img-responsive" src="{{ asset('/img/jeu/disparues.png') }}" alt="disparues?">
+    </a>
     <br/>
-    <a type="button" class="btn btn-lg btn-default" href="{{ path('/') }}" >OK</a>
+    <h1>Concours Meta Casquette !!!</h1>
+    <h1>Gagnez une Meta casquette en parcourant Paris !</h1>
+    <h4>Il vous faudra :</h4>
+    <ul style="text-align: left;">
+    <li>
+      1. Suivre le compte insta de @meta_casquette
+    </li>
+    <li>
+      2. Liker le post du concours
+    </li>
+    <li>
+      3. photographier 7 affichettes différentes de casquettes disparues et en faire une story en taggant le compte.
+    </li>
+    </ul>
+    <a  style="text-align: left;" href="{{ instagram }}"><span style="font-size: 30px; font-weight:bold;">Rendez-vous sur instagram pour participer : </span><i class="fa-brands fa-instagram fa-3x"></i></a>
+    <br/><br/>
+    <a type="button" class="btn btn-lg btn-default" href="{{ path('/') }}" >Retour au site internet</a>
   </div>
 </div>
 {% endblock %}
