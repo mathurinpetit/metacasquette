@@ -117,22 +117,17 @@
                     {% set cpt=cpt+1 %}
 
                     <div class="col-xs-6 col-sm-6 col-md-4 wrapper model {% if cpt > 12 %}hidden{% endif %}">
-                      {% if pictureNumber matches '/^\\d+$/' and not casquette[7] %}
+                      {% if pictureNumber matches '/^\\d+$/' %}
                         <div id="casquette_{{ modelNumber }}" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360" ></div>
                       {% else %}
                         <img class="img_not_360" src="{{ asset('/img/casquettes/'~modelNumber~'/product/01.jpg') }}" alt="{{ casquette[5] }}" style="z-index:-1" >
-                      {% endif %}
-                      {% if casquette[7] %}
-                       <div class="vendu">
-                          <center><b>VENDUE</b></center>
-                        </div>
                       {% endif %}
                       <a class="overlay-mobile" href="{{ path('produit', {'id' : modelNumber}) }}" ></a>
                       <h2>#{{ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h2>
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
                           <p>{{ casquette[2] }}</p>
-                          <p>Taille : {{ casquette[4] }}{% if casquette[7] %} / Vendue{% endif %}</p>
+                          <p>Taille : {{ casquette[4] }}{% if casquette[6] %} / <strong>{{ casquette[6] }}</strong>{% endif %}</p>
                         </div>
                       </div>
                       {% if not mobile %}
@@ -198,7 +193,7 @@
           </div>
       </div>
         <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
-        <p>Taille : {{ casquette[4] }}{% if casquette[7] %} / Vendue{% endif %}</p>
+        <p>Taille : {{ casquette[4] }}{% if casquette[6] %} / <strong>{{ casquette[6] }}</strong>{% endif %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>
