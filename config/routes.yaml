@@ -8,3 +8,11 @@ index:
 produit:
    path: /produit/{id}
    defaults: { _controller: 'Controller\DefaultController::produitAction' }
+
+adminList:
+   path: /admin/list
+   defaults: { _controller: 'Controller\AdminController::adminListAction' }
+
+adminEdit:
+   path: /admin/edit/{id}
+   defaults: { _controller: 'Controller\AdminController::adminEditAction' }
