@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mobile-container ">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;" >
+        <div class="well-mobile">
+          <h3 class="leadmobile" >
+            Liste des modèles /META CASQUETTE
+          </h3>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+    </div>
+    <div class="row table-responsive-sm">
+      <table class="table table-dark">
+        <thead>
+            <tr>
+            {% for headCell in metacasquettes | first | keys %}
+              <th scope="col">{{ headCell }}</th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for metacasquette in metacasquettes %}
+              {% set id = "%04d"|format(metacasquette['#numéro']) %}
+                <tr data-href="{{ path('adminEdit', {'id' : id}) }}" class="{% if not metacasquette["photos"] %}danger{% elseif not metacasquette["Numero/Logo"] %}warning{% endif %}">
+                  {% for metacasquetteCell in metacasquette %}
+                    {% if loop.first %}<th scope="row">{{ metacasquetteCell }}</th>{% else %}
+                      <td>{{ metacasquetteCell }}</td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
