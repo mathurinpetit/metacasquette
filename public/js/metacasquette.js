@@ -9,6 +9,10 @@ var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 function init() {
 
+	$('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+	});
+
 	$("a#plus").click(function(){
 		buttonPlusClick();
 	});

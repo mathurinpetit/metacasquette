@@ -8,6 +8,9 @@ framework:
     session:
         handler_id: null
 
+    serializer:
+        enable_annotations: true
+        
     #esi: true
     #fragments: true
     php_errors:

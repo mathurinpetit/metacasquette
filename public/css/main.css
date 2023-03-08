@@ -63,6 +63,14 @@ body {
   padding: 30px;
 }
 
+form {
+  color: black;
+}
+form label {
+  color: white;
+}
+
+
 /*
  * Header
  */
@@ -104,6 +112,28 @@ body {
     float: right;
   }
 }
+
+
+tr.danger td {
+  background-color: #980000 !important;
+}
+
+tr.danger th {
+  background-color: #980000 !important;
+}
+
+tr.warning td {
+  background-color: #FFB81C !important;
+}
+
+tr.warning th {
+  background-color: #FFB81C !important;
+}
+
+tr {
+  cursor: pointer;
+}
+
 
 /* VIDEO BACKGROUND */
 
