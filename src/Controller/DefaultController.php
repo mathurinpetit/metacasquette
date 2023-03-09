@@ -18,9 +18,9 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      $pathFile = $this->getParameter('app.pathFile');
+      $pathFiles = $this->getParameter('app.pathFiles');
 
-      $casquettesFile = file($pathFile);
+      $casquettesFile = file($pathFiles.'/liste.csv');
       $casquettes = array();
       foreach ($casquettesFile as $line_num => $row) {
         if(substr($row,0,1) !== '#'){
@@ -42,11 +42,10 @@ class DefaultController extends Controller
       $facebook = $this->getParameter('app.facebook');
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
+      $pathFiles = $this->getParameter('app.pathFiles');
 
-      $pathFile = $this->getParameter('app.pathFile');
+      $casquettesFile = file($pathFiles.'/liste.csv');
 
-      $casquettesFile = file($pathFile);
-      
       $casquette = null;
       foreach ($casquettesFile as $line_num => $row) {
         $c = str_getcsv($row,';');

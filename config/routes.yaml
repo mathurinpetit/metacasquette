@@ -10,9 +10,9 @@ produit:
    defaults: { _controller: 'Controller\DefaultController::produitAction' }
 
 adminList:
-   path: /admin/list
+   path: /admin/list/{fileName}
    defaults: { _controller: 'Controller\AdminController::adminListAction' }
 
 adminEdit:
-   path: /admin/edit/{id}
+   path: /admin/edit/{fileName}/{id}
    defaults: { _controller: 'Controller\AdminController::adminEditAction' }

@@ -23,8 +23,9 @@
         </thead>
         <tbody>
         {% for metacasquette in metacasquettes %}
-              {% set id = "%04d"|format(metacasquette['#numéro']) %}
-                <tr data-href="{{ path('adminEdit', {'id' : id}) }}" class="{% if not metacasquette["photos"] %}danger{% elseif not metacasquette["Numero/Logo"] %}warning{% endif %}">
+
+              {% set id = "%04d"|format(metacasquette['Numero']|replace({'#': ""})) %}
+                <tr data-href="{{ path('adminEdit', {'fileName': fileName, 'id' : id}) }}" class="{% if not metacasquette["photos"] %}danger{% elseif not metacasquette["Numero/Logo"] %}warning{% endif %}">
                   {% for metacasquetteCell in metacasquette %}
                     {% if loop.first %}<th scope="row">{{ metacasquetteCell }}</th>{% else %}
                       <td>{{ metacasquetteCell }}</td>

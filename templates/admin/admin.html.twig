@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mobile-container ">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;" >
+        <div class="well-mobile">
+          <h3 class="leadmobile" >
+            Page d'administration de /META CASQUETTE
+          </h3>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;" >
+        <div class="well-mobile">
+          <a class="btn btn-default  btn-lg" href="{{ path('adminList', { fileName : 'video'}) }}">Videos</a>
+          <a class="btn btn-default btn-lg" href="{{ path('adminList', { fileName : 'liste'}) }}">META CASQUETTES</a>
+          <a class="btn btn-default  btn-lg" href="{{ path('adminList', { fileName : 'statue'}) }}">Statues</a>
+          <hr/>
+          <br/>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
