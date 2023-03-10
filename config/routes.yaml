@@ -10,9 +10,17 @@ produit:
    defaults: { _controller: 'Controller\DefaultController::produitAction' }
 
 adminList:
-   path: /admin/list/{fileName}
+   path: /admin/list
    defaults: { _controller: 'Controller\AdminController::adminListAction' }
 
 adminEdit:
-   path: /admin/edit/{fileName}/{id}
+   path: /admin/edit/{id}
    defaults: { _controller: 'Controller\AdminController::adminEditAction' }
+
+adminAdd:
+   path: /admin/add
+   defaults: { _controller: 'Controller\AdminController::adminAddAction' }
+
+adminCsv:
+   path: /admin/csv/list/{fileName}
+   defaults: { _controller: 'Controller\AdminController::adminCsvListAction' }

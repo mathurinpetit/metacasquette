@@ -1,14 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="container mobile-container ">
+<div class="container" style="width:auto;">
     <div class="row">
       <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;" >
         <div class="well-mobile">
-          <h3 class="leadmobile" >
-            Liste des modèles /META CASQUETTE
-          </h3>
-          <hr/>
-          <br/>
+            <div class="row">
+            <div class="col-xs-8 col-sm-8">
+              <h3 class="leadmobile" >
+                Liste des modèles /META CASQUETTE
+              </h3>
+            </div>
+            <div class="col-xs-4 col-sm-4">
+              <br/>
+              <a href="{{ path('adminAdd') }}" class="btn btn-default">Ajouter une MétaCasquette</a>
+            </div>
+          </div>
+         <hr/>
+         <br/>
+
         </div>
       </div>
     </div>
@@ -17,7 +26,9 @@
         <thead>
             <tr>
             {% for headCell in metacasquettes | first | keys %}
-              <th scope="col">{{ headCell }}</th>
+                {% if headCell != "photos" %}
+                  <th scope="col">{{ headCell }}</th>
+                {% endif %}
             {% endfor %}
             </tr>
         </thead>
@@ -25,10 +36,12 @@
         {% for metacasquette in metacasquettes %}
 
               {% set id = "%04d"|format(metacasquette['Numero']|replace({'#': ""})) %}
-                <tr data-href="{{ path('adminEdit', {'fileName': fileName, 'id' : id}) }}" class="{% if not metacasquette["photos"] %}danger{% elseif not metacasquette["Numero/Logo"] %}warning{% endif %}">
-                  {% for metacasquetteCell in metacasquette %}
-                    {% if loop.first %}<th scope="row">{{ metacasquetteCell }}</th>{% else %}
-                      <td>{{ metacasquetteCell }}</td>
+                <tr data-href="{{ path('adminEdit', {'id' : id}) }}" class="{% if not metacasquette["photos"] %}danger{% elseif not metacasquette["NumeroLogo"] %}warning{% endif %}">
+                  {% for key,metacasquetteCell in metacasquette %}
+                    {% if loop.first %}
+                        <th scope="row">{{ metacasquetteCell }}</th>
+                      {% elseif key != "photos" %}
+                        <td>{{ metacasquetteCell }}</td>
                     {% endif %}
                   {% endfor %}
                 </tr>

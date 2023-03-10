@@ -1,51 +1,147 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 {% set id = "%04d"|format(metacasquette['Numero']) %}
-<div class="container mobile-container ">
+<div class="container">
+  <div class="col-xs-12 col-sm-12" >
     <div class="row">
-      <div class="col-xs-12 col-sm-12" style="padding-right: 0px; padding-left: 0px;" >
-        <div class="well-mobile">
-          <h3 class="leadmobile" >
-            Modèle {{ id }} - {{ metacasquette['Code'] }}
-          </h3>
-          <hr/>
-          <br/>
+      <h1 class="leadmobile" >
+        Édition du modèle {{ id }} - {{ metacasquette['Code'] }}
+      </h3>
+    </div>
+  </div>
 
-    {{ form_start(form) }}
+
+  <div class="col-xs-12 col-sm-12" >
 
     <div class="row">
-      <div class="col-xs-8 col-xs-offset-2">
-        <div class="text-danger">
-            {{ form_errors(form) }}
-        </div>
-      </div>
+          <div class="well-mobile">
+            {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
 
-    <div class="col-xs-8 col-xs-offset-2">
-      <div class="row">
-        <div class="col-xs-6">
-          <div class="input-group">
-            <span class="input-group-addon" id="numero-addon">Numéro</span>
-              {{ form_widget(form.Numero, {'attr': {'class': 'form-control', 'placeholder' : "Numéro de la casquette", 'aria-describedby' : "numero-addon"}}) }}
+
+              <div class="text-danger">
+                {{ form_errors(form) }}
+              </div>
+
+              <div class="col-xs-8 col-sm-8" >
+                <br/>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="numero-addon">Numéro</span>
+                        {{ form_widget(form.Numero, {'attr': {'class': 'form-control', 'placeholder' : "Numéro de la casquette", 'aria-describedby' : "numero-addon"}}) }}
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="code-addon">Code</span>
+                        {{ form_widget(form.Code, {'attr': {'class': 'form-control', 'placeholder' : "Code de la casquette", 'aria-describedby' : "code-addon"}}) }}
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="annee-addon">Année</span>
+                        {{ form_widget(form.Annee, {'attr': {'class': 'form-control', 'placeholder' : "Année de création", 'aria-describedby' : "annee-addon"}}) }}
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="taille-addon">Taille</span>
+                        {{ form_widget(form.Taille, {'attr': {'class': 'form-control', 'placeholder' : "Taille de la casquette", 'aria-describedby' : "taille-addon"}}) }}
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="numerologo-addon">NumeroLogo</span>
+                        {{ form_widget(form.NumeroLogo, {'attr': {'class': 'form-control', 'placeholder' : "Numéro Logo", 'aria-describedby' : "numerologo-addon"}}) }}
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="cache-addon">Cache</span>
+                        {{ form_widget(form.Cache, {'attr': {'class': 'form-control', 'placeholder' : "Cache", 'aria-describedby' : "cache-addon"}}) }}
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="disponibilite-addon">Disponibilité</span>
+                        {{ form_widget(form.Disponibilite, {'attr': {'class': 'form-control', 'placeholder' : "(vide si disponible)", 'aria-describedby' : "disponibilite-addon"}}) }}
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="proprietaire-addon">Propriétaire</span>
+                        {{ form_widget(form.Proprietaire, {'attr': {'class': 'form-control', 'placeholder' : "(vide si sans propriétaire)", 'aria-describedby' : "proprietaire-addon"}}) }}
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="etat-addon">État</span>
+                        {{ form_widget(form.Etat, {'attr': {'class': 'form-control', 'placeholder' : "État", 'aria-describedby' : "etat-addon"}}) }}
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="instagram-addon">Instagram</span>
+                        {{ form_widget(form.Instagram, {'attr': {'class': 'form-control', 'placeholder' : "Instagram", 'aria-describedby' : "instagram-addon"}}) }}
+                    </div>
+                  </div>
+                </div>
+
+                <br/>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="Description">Description:</label>
+                          {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'placeholder' : "Description de la casquette"}}) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-xs-4 col-sm-4" style="margin-top:20px" >
+                <img class="img-responsive" src="{{asset('/img/casquettes/'~id~'/product/01.jpg') }}" alt="{{ id }} - {{ metacasquette['Code'] }}">
+              </div>
+
+            <hr/>
+            <br/>
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12" style="margin-left: 15px; padding-right: 55px;">
+          <div class="form-group">
+              <label for="Matiere">Matières:</label>
+                {{ form_widget(form.Matieres, {'attr': {'class': 'form-control', 'placeholder' : "Description des matières utilisée de la casquette"}}) }}
           </div>
-        </div>
-        <div class="col-xs-6">
-          <div class="input-group">
-            <span class="input-group-addon" id="code-addon">Code</span>
-              {{ form_widget(form.Code, {'attr': {'class': 'form-control', 'placeholder' : "Code de la casquette", 'aria-describedby' : "code-addon"}}) }}
-          </div>
-        </div>
-      </div>
-      <br/>
-      <div class="form-group">
-          <label for="Description">Description:</label>
-            {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'placeholder' : "Description de la casquette"}}) }}
-      </div>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+      {{ form_widget(form.Enregistrer, {'attr': {'class': 'form-control btn btn-default'}}) }}
 
     </div>
+  </div>
 
-    {{ form_end(form) }}
-    </div>
+
+  {{ form_end(form) }}
+</div>
 </div>
 </div>
 </div>
