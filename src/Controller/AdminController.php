@@ -112,7 +112,7 @@ class AdminController extends Controller
       $lastmetacasquette["Code"] = "";
       $lastmetacasquette["Disponibilite"] = "";
       $lastmetacasquette["Proprietaire"] = "";
-      $lastmetacasquette["NumeroLogo"] = "";
+      $lastmetacasquette["NumeroLogo"] = substr(uniqid(), 0, 8);
       $lastmetacasquette["Cache"] = "";
       $lastmetacasquette["Etat"] = "";
       $lastmetacasquette["Instagram"] = "Non";
