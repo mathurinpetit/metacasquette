@@ -58,9 +58,17 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/jeu01")
+     * @Route("/jeuredirect")
      */
-    public function jeu01Action()
+    public function jeuredirectAction()
+    {
+      return $this->redirect($this->getParameter('app.gameurl'));
+    }
+
+    /**
+     * @Route("/jeu/{id}")
+     */
+    public function jeuAction($id)
     {
       $telephone = $this->getParameter('app.telephone');
       $email = $this->getParameter('app.email');
@@ -68,7 +76,7 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      return $this->render('default/jeu01.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
+      return $this->render('default/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
     }
 
 
