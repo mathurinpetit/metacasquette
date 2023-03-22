@@ -130,7 +130,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
                           <p>{{ casquette[2] }}</p>
-                          <p>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" class="pull-right btn btn-lg btn-default">ACHETER ICI</a>
+                          <p>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" style="margin-right: 25px;"  class="pull-right btn btn-lg btn-default">ACHETER ICI</a>
                                                         {% elseif disponible %} <strong>{{ disponible }}</strong>
                                                         {% endif %}</p>
                         </div>
