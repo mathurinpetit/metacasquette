@@ -124,12 +124,15 @@
                       {% else %}
                         <img class="img_not_360" src="{{ asset('/img/casquettes/'~modelNumber~'/product/01.jpg') }}" alt="{{ casquette[5] }}" style="z-index:-1" >
                       {% endif %}
+                      {% set disponible = casquette[6] %}
                       <a class="overlay-mobile" href="{{ path('produit', {'id' : modelNumber}) }}" ></a>
                       <h2>#{{ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h2>
                       <div class="row">
                         <div class="col-sm-12 col-md-12" style="text-align:left;">
                           <p>{{ casquette[2] }}</p>
-                          <p>Taille : {{ casquette[4] }}{% if casquette[6] %} / <strong>{{ casquette[6] }}</strong>{% endif %}</p>
+                          <p>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" class="pull-right btn btn-lg btn-default">ACHETER ICI</a>
+                                                        {% elseif disponible %} <strong>{{ disponible }}</strong>
+                                                        {% endif %}</p>
                         </div>
                       </div>
                       {% if not mobile %}
@@ -195,7 +198,10 @@
           </div>
       </div>
         <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
-        <p>Taille : {{ casquette[4] }}{% if casquette[6] %} / <strong>{{ casquette[6] }}</strong>{% endif %}</p>
+        {% set disponible = casquette[6] %}
+        <p>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" class="pull-right btn btn-lg btn-default">ACHETER ICI</a>
+                                      {% elseif disponible %} <strong>{{ disponible }}</strong>
+                                      {% endif %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Fermer</button>

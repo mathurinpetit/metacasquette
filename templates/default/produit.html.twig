@@ -28,6 +28,9 @@
   </div>
 </div>
 <h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
-<h3>Taille : {{ casquette[4] }}{% if casquette[6] %} / <strong>{{ casquette[6] }}</strong>{% endif %}</h3>
+{% set disponible = casquette[6] %}
+<h3>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" class="btn btn-lg btn-default">ACHETER ICI</a>
+                              {% elseif disponible %} <strong>{{ disponible }}</strong>
+                              {% endif %}</h3>
 
 {% endblock %}
