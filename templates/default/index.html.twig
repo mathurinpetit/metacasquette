@@ -132,7 +132,7 @@
                           <p>{{ casquette[2] }}</p>
                           <p>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" style="margin-right: 25px;"  class="pull-right btn btn-lg btn-default">ACHETER ICI</a>
                                                         {% elseif disponible %}
-                                                        <button href="{{ disponible }}" style="margin-right: 25px;" disabled="disabled" class="pull-right btn btn-lg btn-default">{{ disponible }}</button>
+                                                        <button style="margin-right: 25px; border:0"  class="pull-right btn btn-lg btn-default">{{ disponible }}</button>
                                                         {% endif %}</p>
                         </div>
                       </div>
