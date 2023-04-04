@@ -23,7 +23,7 @@ class DefaultController extends Controller
       $casquettesFile = file($pathFiles.'/liste.csv');
       $casquettes = array();
       foreach ($casquettesFile as $line_num => $row) {
-        if(substr($row,0,6) !== 'Numero'){
+        if(substr($row,0,6) !== 'Numero' && substr($row,0,1) !== '#'){
             $casquettes[$line_num] = str_getcsv($row,';');
         }
       }
@@ -49,7 +49,7 @@ class DefaultController extends Controller
       $casquette = null;
       foreach ($casquettesFile as $line_num => $row) {
         $c = str_getcsv($row,';');
-        if(substr($row,0,6) !== 'Numero' && $c[0] == $id){
+        if(substr($row,0,6) !== 'Numero'  && substr($row,0,1) !== '#' && $c[0] == $id){
           $casquette = $c;
         }
       }
