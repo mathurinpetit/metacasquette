@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -62,6 +63,11 @@ class DefaultController extends Controller
      */
     public function jeuredirectAction()
     {
+      $request = Request::createFromGlobals();
+      $params = $request->query->all();
+      if(count($params) > 0 && key_exists('id',$params)){
+        return $this->redirect($this->generateUrl('jeu', array('id' => $params['id'])));
+      }
       return $this->redirect($this->getParameter('app.gameurl'));
     }
 
@@ -76,7 +82,7 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      return $this->render('default/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
+      return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
     }
 
 

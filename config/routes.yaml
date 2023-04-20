@@ -13,6 +13,10 @@ jeuredirect:
    path: /jeuredirect
    defaults: { _controller: 'Controller\DefaultController::jeuredirectAction' }
 
+jeu:
+   path: /jeu/{id}
+   defaults: { _controller: 'Controller\DefaultController::jeu' }
+
 adminList:
    path: /admin/list
    defaults: { _controller: 'Controller\AdminController::adminListAction' }
