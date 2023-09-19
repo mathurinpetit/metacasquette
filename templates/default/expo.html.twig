@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+<h3><a href="/" class="btn btn-lg btn-default"><img class="img-responsive" src="{{ asset('/img/logo/logo_detache_white.png') }}" alt="/MetaCasquette"><h1 class="cover-heading">/META CASQUETTE</h1></a></h3>
+<hr/>
+<div style="font-size:48px;">
+{{ description | raw}}
+</div>
+<hr/>
+<h1 style="font-size:80px;">Dans cet espace, retrouvez ces modèles : </small></h1>
+
+{% for casquette in casquettes %}
+<hr/>
+{% set modelNumber = "%04d"|format(casquette[0]) %}
+{% set pictureNumber = casquette[8] %}
+
+<h1 style="font-size:60px;">{{ "#" ~ modelNumber }} - {{ casquette[5] }} <small>({{ casquette[1] }})</small></h1>
+
+<div class="row">
+  <div class="col-sm-10 col-md-10 col-sm-offset-1 col-md-offset-1">
+    <div class="row">
+      {% if pictureNumber matches '/^\\d+$/' %}
+      <div class="col-sm-12 col-md-6 img-mobile">
+        <div id="casquette_{{ modelNumber }}_mobile" data-number="{{ pictureNumber }}" data-name="{{ modelNumber }}" class="rotate360mobile" ></div>
+        <div class="stage">
+          <div class="swipe">
+            <i class="fas fa-long-arrow-alt-left fa-3x"></i>
+            <i class="fas fa-hand-point-up fa-3x"></i>
+            <i class="fas fa-long-arrow-alt-right fa-3x"></i>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="col-sm-12 col-md-6">
+        <img src="{{ asset('/img/casquettes/'~modelNumber~'/'~modelNumber~'_side02.jpg') }}" alt="{{ casquette[5] }}" class="img-responsive" />
+      </div>
+    </div>
+  </div>
+</div>
+<h2>{{ casquette[2] }}<br/><small><i>{{ casquette[3] }}</i></small></h2>
+{% set disponible = casquette[6] %}
+<h3>Taille : {{ casquette[4] }}{% if disponible and disponible starts with 'https://www.etsy.com' %} <a href="{{ disponible }}" class="btn btn-lg btn-default">ACHETER ICI</a>
+                              {% elseif disponible %} <strong>{{ disponible }}</strong>
+                              {% endif %}</h3>
+{% endfor %}
+{% endblock %}

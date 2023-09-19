@@ -58,6 +58,40 @@ class DefaultController extends Controller
       return $this->render('default/produit.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'casquette' => $casquette));
     }
 
+
+    /**
+     * @Route("/expo/{id}")
+     */
+    public function expoAction($id)
+    {
+      $telephone = $this->getParameter('app.telephone');
+      $email = $this->getParameter('app.email');
+      $facebook = $this->getParameter('app.facebook');
+      $instagram = $this->getParameter('app.instagram');
+      $ytid = $this->getParameter('app.ytid');
+      $pathFiles = $this->getParameter('app.pathFiles');
+
+      $casquettesFile = file($pathFiles.'/liste.csv');
+
+      $expoDescFile = file($pathFiles.'/expo.csv');
+      $description = "";
+      foreach ($expoDescFile as $line_num => $row) {
+        $d = str_getcsv($row,';');
+        if(substr($row,0,6) !== 'Numero'  && substr($row,0,1) !== '#' && $d[0] == $id){
+        $description = $d[1];
+        }
+      }
+
+      $casquettes = array();
+      foreach ($casquettesFile as $line_num => $row) {
+        $c = str_getcsv($row,';');
+        if(substr($row,0,6) !== 'Numero'  && substr($row,0,1) !== '#' && $c[11] == $id){
+        $casquettes[] = $c;
+        }
+      }
+      return $this->render('default/expo.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'casquettes' => $casquettes, 'description' => $description));
+    }
+
     /**
      * @Route("/jeuredirect")
      */
