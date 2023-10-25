@@ -19,7 +19,7 @@
    {% if disponible != 'Non disponible' %}
    <span>-&nbsp;{{ disponible | number_format(2) }} €</span>
    <br/>
-    <a href="mailto:mathurin@metacasquette.com?subject=[OCTO] Réservation de la MétaCasquette #{{modelNumber}} - {{casquette[5]}}&body=Bonjour MétaCasquette,%0D%0A%0D%0AJ'aimerai réserver la MétaCasquette #{{modelNumber}} - {{casquette[5]}}%0D%0A%0D%0AMa MétaCasquette me sera remise à Octo le 1er Décembre 2023.%0D%0A%0D%0AJe m'engage à verser d'ici le 1er Décembre la somme de {{ disponible | number_format(2) }} € : %0D%0A - Soit en faisant un chèque de {{ disponible | number_format(2) }} € à l'ordre de Mathurin Petit%0D%0A - Soit en virement bancaire (IBAN : XXXXXX) %0D%0A - Soit par Lydia au 06XXXXXX %0D%0A%0D%0AMes coordonnées sont les suivantes : %0D%0A%0D%0ATrès bonne journée%0D%0A" class="btn btn-lg btn-success">Cliquez ici pour réserver</a>
+    <a href="mailto:mathurin@metacasquette.com?subject=[OCTO] Réservation de la MétaCasquette #{{modelNumber}} - {{casquette[5]}}&body=Bonjour MétaCasquette,%0D%0A%0D%0AJ'aimerai réserver la MétaCasquette #{{modelNumber}} - {{casquette[5]}}%0D%0A%0D%0AMa MétaCasquette me sera remise à Octo le 1er Décembre 2023.%0D%0A%0D%0AJe m'engage à verser d'ici le 1er Décembre la somme de {{ disponible | number_format(2) }} € : %0D%0A - Soit en faisant un chèque de {{ disponible | number_format(2) }} € à l'ordre de Mathurin Petit%0D%0A - Soit en virement bancaire (IBAN : XXXXXX) %0D%0A - Soit par Lydia au 06XXXXXX %0D%0A%0D%0AMes coordonnées sont les suivantes : %0D%0A%0D%0ATrès bonne journée%0D%0A" class="btn btn-lg btn-success" style="font-size:60px;">Je réserve</a>
 
    {% else %}
    <button class="btn btn-lg btn-default"  >{{ disponible }}</button>
