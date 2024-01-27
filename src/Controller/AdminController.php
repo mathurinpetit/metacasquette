@@ -188,12 +188,116 @@ class AdminController extends Controller
           }
           //var_dump($serializer->encode($metacasquettes, 'csv', [CsvEncoder::DELIMITER_KEY => ';'])); exit;
           file_put_contents($pathFiles.'/liste.csv',$serializer->encode($metacasquettes, 'csv', [CsvEncoder::DELIMITER_KEY => ';']));
-          return $this->redirect($this->generateUrl('adminList'));
-
+          return $this->redirect($this->generateUrl('adminImages', array('id' => $id)));
       }
 
       return $this->render('admin/adminEdit.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram,
               'telephone' => $telephone, 'ytid' => $ytid, 'metacasquette' => $metacasquette, 'form' => $form->createView()));
     }
+
+
+        /**
+         * @Route("/admin/images/{id}")
+         */
+        public function adminImagesAction(Request $request,$id)
+        {
+          $telephone = $this->getParameter('app.telephone');
+          $email = $this->getParameter('app.email');
+          $facebook = $this->getParameter('app.facebook');
+          $instagram = $this->getParameter('app.instagram');
+          $ytid = $this->getParameter('app.ytid');
+          $pathFiles = $this->getParameter('app.pathFiles');
+
+          // instantiation, when using it inside the Symfony framework
+          $serializer = $this->container->get('serializer');
+
+          // encoding contents in CSV format
+
+          $pathFiles = $this->getParameter('app.pathFiles');
+          if(!file_exists($pathFiles.'/liste.csv')){
+            return $this->redirect('/');
+          }
+
+          $metacasquettes = $serializer->decode(file_get_contents($pathFiles.'/liste.csv'), 'csv', [CsvEncoder::DELIMITER_KEY => ';']);
+          foreach ($metacasquettes as $key => $row) {
+            $id_casquette = sprintf("%04d", str_replace('#','',$row["Numero"]));
+            if($id_casquette == $id){
+              $metacasquette = $row;
+              break;
+            }
+          }
+
+          return $this->render('admin/adminImages.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram,
+                  'telephone' => $telephone, 'ytid' => $ytid, 'metacasquette' => $metacasquette,'id' => $id));
+        }
+
+      /**
+      * @Route("/admin/upload")
+      */
+      public function upload(Request $request): Response
+      {
+        if ($request->isMethod('POST')) {
+            $typeImg = trim($request->request->get('typeImg'));
+            $id = trim($request->request->get('id'));
+            $file = $request->files->get('file');
+            $name = $file->getClientOriginalName();
+
+            $dir = __DIR__.'/../../public/img';
+            $output=null;
+            $retval=null;
+
+            if($this->imagesExist($id)){
+              $copyCmd = "mv ".$dir."/casquettes/".$id." ".$dir."/casquettes/".$id."_".date('YmdHms');
+              exec($copyCmd,$output,$retval);
+            }
+
+            $nameOfImgFile = uniqid().'.jpg';
+            $moveRes = $file->move($dir, $nameOfImgFile);
+
+            $pathToScript = "../bin/images.py";
+            $python="/usr/bin/python3";
+            $commandPython = $python." ".$pathToScript.' "'.$id.'" "'.$typeImg.'" "../public/img/'.$nameOfImgFile.'"';
+
+            exec($commandPython,$output,$retval);
+            unlink($dir.'/'.$nameOfImgFile);
+             return $this->json(['upload' => 'done']);
+
+            }
+            return $this->json(['upload' => 'nope']);
+
+      }
+
+      private function imagesExist($id)
+      {
+        $dir = __DIR__.'/../../public/img/casquettes/'.$id;
+        if(!is_dir($dir)){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'.png')){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'.jpg')){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'_side01.png')){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'_side01.jpg')){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'_side02.png')){
+          return false;
+        }
+        if(!file_exists($dir.'/'.$id.'_side02.jpg')){
+          return false;
+        }
+        if(!is_dir($dir.'/product')){
+          return false;
+        }
+        if(!file_exists($dir.'/product/01.jpg')){
+          return false;
+        }
+        return true;
+      }
 
 }

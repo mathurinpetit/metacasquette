@@ -29,6 +29,10 @@ adminEdit:
    path: /admin/edit/{id}
    defaults: { _controller: 'Controller\AdminController::adminEditAction' }
 
+adminImages:
+   path: /admin/images/{id}
+   defaults: { _controller: 'Controller\AdminController::adminImagesAction' }
+
 adminAdd:
    path: /admin/add
    defaults: { _controller: 'Controller\AdminController::adminAddAction' }

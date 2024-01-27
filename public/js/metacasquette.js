@@ -9,6 +9,51 @@ var mobile_test = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 function init() {
 
+	$('.camera_upload').each(function(){
+  	const fileInput = document.getElementById($(this).attr('id'));
+		const progressBar = document.getElementById('progress');
+		fileInput.onchange = () => {
+		  const file = fileInput.files[0];
+			const formData = new FormData();
+			formData.append('file', file);
+			formData.append('typeImg', $(this).attr('typeImg'));
+			var id = $(this).attr('id').split('_')[1];
+			formData.append('id',id);
+			 const xhr = new XMLHttpRequest();
+			   xhr.open('POST', '/admin/upload', true);
+			   xhr.upload.onprogress = e => {
+			     if (e.lengthComputable) {
+			       const percentComplete = (e.loaded / e.total) * 100;
+			       progressBar.style.width = `${percentComplete}%`;
+			     }
+			   };
+			   xhr.send(formData);
+				 xhr.onload = function() {
+				 response = xhr.response;
+				 console.log(response);
+		     var responseObj = JSON.parse(response);
+			     if(responseObj.upload == "done"){
+			       location.reload();
+			     }
+		     };
+		}
+	});
+
+	if($('.camera_upload').length){
+		console.log("affichage des tailles d'images");
+		$(window).load(function() {
+			$('img').each(function(){
+				var theImage = new Image();
+				theImage.src = $(this).attr("src");
+				var danger = "";
+				if(theImage.width+theImage.height > 2801){
+					danger = 'text-danger';
+				}
+				$('<span class="legend '+danger+'">'+theImage.width+'x'+theImage.height+'</span>').insertAfter($(this));
+			});
+		});
+	}
+
 	$('tr[data-href]').on("click", function() {
     document.location = $(this).data('href');
 	});

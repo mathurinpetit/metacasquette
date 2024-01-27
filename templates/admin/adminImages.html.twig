@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% set id = "%04d"|format(id) %}
+<div class="container">
+  <div class="col-xs-12 col-sm-12" >
+    <div class="row">
+      <h1 class="leadmobile" >
+        Images du modèle {{ id }} - {{ metacasquette['Code'] }}
+      </h3>
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-12" >
+
+    <div class="row">
+      <div class="well-mobile">
+        <div class="row" style="display:inline-block; width:100%; height:auto;">
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <label class="cameraButton" data-id="camera_side_image"><span class="hidden-sm hidden-xs">Ajouter une photo</span>
+              <input type="file" accept="image/*;capture=camera" typeImg='camera_side_image' id='side_{{ id }}' class="camera_upload">
+              <i class="fa-solid fa-camera"></i>
+            </label>
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'_side02.png') }}">
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'_side02.jpg') }}">
+          </div>
+        </div>
+        <div class="row" style="display:inline-block; width:100%; height:auto;">
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <label class="cameraButton" data-id="camera_up_image"><span class="hidden-sm hidden-xs">Ajouter une photo</span>
+              <input type="file" accept="image/*;capture=camera" typeImg='camera_up_image' id='up_{{ id }}' class="camera_upload">
+              <i class="fa-solid fa-camera"></i>
+            </label>
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'_side01.png') }}">
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'_side01.jpg') }}">
+          </div>
+        </div>
+        <div class="row" style="display:inline-block; width:100%; height:auto;">
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'.png') }}">
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/'~id~'.jpg') }}">
+          </div>
+          <div class="col-xs-4 col-sm-4" style="float:left;">
+            <img class="img-responsive" src="{{ asset('/img/casquettes/'~id~'/product/01.jpg') }}">
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar">
+          <div id="progress"></div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col-xs-4 col-xs-offset-4">
+
+
+    </div>
+  </div>
+
+
+</div>
+</div>
+</div>
+{% endblock %}
