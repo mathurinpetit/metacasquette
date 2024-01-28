@@ -217,7 +217,7 @@ class AdminController extends Controller
           if(!file_exists($pathFiles.'/liste.csv')){
             return $this->redirect('/');
           }
-
+          $metacasquette = null;
           $metacasquettes = $serializer->decode(file_get_contents($pathFiles.'/liste.csv'), 'csv', [CsvEncoder::DELIMITER_KEY => ';']);
           foreach ($metacasquettes as $key => $row) {
             $id_casquette = sprintf("%04d", str_replace('#','',$row["Numero"]));

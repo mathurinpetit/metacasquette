@@ -40,7 +40,6 @@ function init() {
 	});
 
 	if($('.camera_upload').length){
-		console.log("affichage des tailles d'images");
 		$(window).load(function() {
 			$('img').each(function(){
 				var theImage = new Image();

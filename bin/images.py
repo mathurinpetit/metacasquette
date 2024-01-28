@@ -20,40 +20,53 @@ print("Fichier à traiter : "+file_path+" pour metacasquette "+id+" ("+typeImg+"
 
 def rembgMetacasquette():
 
-    img = Image.open(file_path)
-    box = (6, 594, 1506, 2094);
+    imgsrc = Image.open(file_path)
+    if imgsrc.width < imgsrc.height :
+        print("La photo n'est pas au bon format !");
+        exit(1);
 
+    imgsrc.thumbnail((2666,1500))
 
-    croped = img.crop(box)
+    box = (583, 0, 2083, 1500);
+    croped = imgsrc.crop(box)
+
     output = remove(croped)
 
     imgBckgd = Image.open("../public/img/black1000x1000.jpg")
 
     if(typeImg=='camera_side_image'):
         output.thumbnail((1000,1000))
-        output.save(path+"/"+id+"_side02.png")
-        imgBckgd.paste(output)
+        rotated = output.rotate(-90, expand=True)
+        rotated.save(path+"/"+id+"_side02.png")
+
+        imgBckgd.paste(rotated)
         imgBckgd.save(path+"/"+id+"_side02.jpg", quality=95)
 
     if(typeImg=='camera_up_image'):
 
         output.thumbnail((1000,1000))
-        output.save(path+"/"+id+"_side01.png")
+        rotated = output.rotate(-90, expand=True)
+        rotated.save(path+"/"+id+"_side01.png")
 
-        imgBckgd.paste(output)
+        imgBckgd.paste(rotated)
         imgBckgd.save(path+"/"+id+"_side01.jpg", quality=95)
 
-        box2 = (6, 344, 1506, 2344);
-        croped2 = img.crop(box2)
+        box2 = (333, 0, 2333, 1500);
+        croped2 = imgsrc.crop(box2)
         full = remove(croped2)
-        full.thumbnail((1200,1600))
-        full.save(path+"/"+id+".png")
+        full.thumbnail((1600,1200))
+        rotated = full.rotate(-90, expand=True)
+        rotated.save(path+"/"+id+".png")
+
         imgBckgd1200 = Image.open("../public/img/black1200x1600.jpg")
-        imgBckgd1200.paste(full);
+        imgBckgd1200.paste(rotated);
         imgBckgd1200.save(path+"/"+id+".jpg", quality=95)
-        full.thumbnail((340,420))
+
+        full.thumbnail((420,340))
+        rotated = full.rotate(-90, expand=True)
         imgBckgd340 = Image.open("../public/img/black340x420.jpg")
-        imgBckgd340.paste(full);
+        imgBckgd340.paste(rotated);
+
         pathProduct='../public/img/casquettes/'+id+'/product';
         if not os.path.exists(pathProduct):
             os.makedirs(pathProduct)
