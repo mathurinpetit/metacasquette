@@ -26,7 +26,6 @@ def rembgMetacasquette():
         exit(1);
 
     imgsrc.thumbnail((2666,1500))
-
     box = (583, 0, 2083, 1500);
     croped = imgsrc.crop(box)
 
@@ -36,7 +35,7 @@ def rembgMetacasquette():
 
     if(typeImg=='camera_side_image'):
         output.thumbnail((1000,1000))
-        rotated = output.rotate(-90, expand=True)
+        rotated = output.rotate(0, expand=True)
         rotated.save(path+"/"+id+"_side02.png")
 
         imgBckgd.paste(rotated)
@@ -45,7 +44,7 @@ def rembgMetacasquette():
     if(typeImg=='camera_up_image'):
 
         output.thumbnail((1000,1000))
-        rotated = output.rotate(-90, expand=True)
+        rotated = output.rotate(0, expand=True)
         rotated.save(path+"/"+id+"_side01.png")
 
         imgBckgd.paste(rotated)
@@ -54,16 +53,16 @@ def rembgMetacasquette():
         box2 = (333, 0, 2333, 1500);
         croped2 = imgsrc.crop(box2)
         full = remove(croped2)
-        full.thumbnail((1600,1200))
-        rotated = full.rotate(-90, expand=True)
+        full.thumbnail((1200,1600))
+        rotated = full.rotate(0, expand=True)
         rotated.save(path+"/"+id+".png")
 
         imgBckgd1200 = Image.open("../public/img/black1200x1600.jpg")
         imgBckgd1200.paste(rotated);
         imgBckgd1200.save(path+"/"+id+".jpg", quality=95)
 
-        full.thumbnail((420,340))
-        rotated = full.rotate(-90, expand=True)
+        full.thumbnail((340,420))
+        rotated = full.rotate(0, expand=True)
         imgBckgd340 = Image.open("../public/img/black340x420.jpg")
         imgBckgd340.paste(rotated);
 
