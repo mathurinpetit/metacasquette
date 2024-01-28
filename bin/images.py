@@ -12,7 +12,7 @@ if not os.path.isfile(file_path):
 
 id=sys.argv[1];
 typeImg=sys.argv[2];
-path='img/casquettes/'+id;
+path='../public/img/casquettes/'+id;
 if not os.path.exists(path):
     os.makedirs(path)
 
@@ -27,7 +27,7 @@ def rembgMetacasquette():
     croped = img.crop(box)
     output = remove(croped)
 
-    imgBckgd = Image.open("img/black1000x1000.jpg")
+    imgBckgd = Image.open("../public/img/black1000x1000.jpg")
 
     if(typeImg=='camera_side_image'):
         output.thumbnail((1000,1000))
@@ -48,13 +48,13 @@ def rembgMetacasquette():
         full = remove(croped2)
         full.thumbnail((1200,1600))
         full.save(path+"/"+id+".png")
-        imgBckgd1200 = Image.open("img/black1200x1600.jpg")
+        imgBckgd1200 = Image.open("../public/img/black1200x1600.jpg")
         imgBckgd1200.paste(full);
         imgBckgd1200.save(path+"/"+id+".jpg", quality=95)
         full.thumbnail((340,420))
-        imgBckgd340 = Image.open("img/black340x420.jpg")
+        imgBckgd340 = Image.open("../public/img/black340x420.jpg")
         imgBckgd340.paste(full);
-        pathProduct='img/casquettes/'+id+'/product';
+        pathProduct='../public/img/casquettes/'+id+'/product';
         if not os.path.exists(pathProduct):
             os.makedirs(pathProduct)
         imgBckgd340.save(pathProduct+"/01.jpg", quality=95)
