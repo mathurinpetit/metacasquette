@@ -25,6 +25,17 @@ a:hover {
   border-radius: 2px;
 }
 
+.generativGame
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+
+
 /*
  * Base structure
  */
@@ -389,6 +400,12 @@ small {
  * Footer
  */
 
+ .footer {
+
+   position: absolute;
+   bottom: 0;
+ }
+
 .mastfoot {
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
@@ -503,4 +520,30 @@ label.cameraButton input[accept*="camera"] {
   .masthead {
     max-width: 100%;
      }
+}
+
+
+.mysection{
+
+background-position: right bottom;
+background-size: cover;
+height: 100%;
+}
+
+.center {
+   margin: 0;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   -ms-transform: translate(-50%, -50%);
+   transform: translate(-50%, -50%);
+   }
+
+
+
+
+@media only screen and (max-width: 600px) {
+  .mysection {
+    text-align : center;
+  }
 }
