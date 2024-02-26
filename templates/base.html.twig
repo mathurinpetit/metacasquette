@@ -47,6 +47,7 @@
 <body>
   {% block body %}{% endblock %}
 
+{% block footer %}
 
 <div class="overlay-mask">
   <div class="container text-center">
@@ -80,6 +81,8 @@
   </div>
 </div>
 
+{% endblock %}
+
   {% block javascripts %}
   <!-- jQuery -->
   <script src="{{ asset('/js/lib/jquery-2.1.1.min.js') }}"></script>
@@ -92,6 +95,7 @@
   <script type="text/javascript" src="{{  asset('/js/custom.js') }}"></script>
   <script type="text/javascript" src="{{  asset('/js/product-viewer.js') }}"></script>
   <script type="text/javascript" src="{{  asset('/js/metacasquette.js') }}"></script>
+  <script type="text/javascript" src="{{  asset('/js/jeu.js') }}"></script>
   {% endblock %}
 </body>
 </html>
