@@ -4,7 +4,7 @@ $(".step0 a").click(function(){
   let video = document.getElementById("video1");
 
   function playVid() {
-      //video.play();
+      video.play();
   }
   playVid();
 
