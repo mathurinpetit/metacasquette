@@ -21,6 +21,11 @@ jeu:
    path: /jeu/{id}
    defaults: { _controller: 'Controller\DefaultController::jeu' }
 
+
+jeuupload:
+   path: /jeu/{id}/upload
+   defaults: { _controller: 'Controller\DefaultController::upload' }
+
 adminList:
    path: /admin/list
    defaults: { _controller: 'Controller\AdminController::adminListAction' }

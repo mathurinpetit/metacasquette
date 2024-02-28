@@ -4,6 +4,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
@@ -119,6 +120,38 @@ class DefaultController extends Controller
       return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
     }
 
+
+    /**
+      * @Route("/jeu/{id}/upload")
+    */
+    public function upload($id, Request $request): Response
+    {
+      if (!$request->isMethod('POST')) {
+          return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
+      }
+      $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+        ? $_SERVER['HTTP_CLIENT_IP']
+        : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+          ? $_SERVER['HTTP_X_FORWARDED_FOR']
+          : $_SERVER['REMOTE_ADDR']);
+
+      $identifiant = $ip;
+      // On stockera l'ip dans de la data avec ip;DATE:H:M;uniqid1;uniqid2
+
+      $file = $request->files->get('file');
+      $dir = __DIR__.'/../../data/';
+      $nameFile = uniqid($identifiant.'_', true);
+      $completePath = $dir.$nameFile.'.wav';
+      if(rename($file,$completePath) !== false){
+        $openaikey = $this->getParameter('app.openaikey');
+        $googleapifile = $this->getParameter('app.googleapifile');
+        $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" 2>&1 ";
+
+        $result = shell_exec($cmd);
+        
+        return new JsonResponse(array('result' => json_decode($result), 'success' => true));
+      }
+    }
 
     public function isMobile(){
     $device = $this->get('mobile_detect.mobile_detector');

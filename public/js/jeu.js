@@ -41,7 +41,6 @@ $(".step0 a").click(function(){
            audio: true
        },
        function (e) {
-           console.log("start !");
            recordingLength = 0;
            leftchannel = [];
            rightchannel = [];
@@ -133,29 +132,38 @@ $(".step0 a").click(function(){
        if (blob == null) {
            return;
        }
-
-       var url = window.URL.createObjectURL(blob);
-       var audio = new Audio(url);
-       audio.play();
+       postBlob(blob);
      }
 
  });
 
- downloadButton.addEventListener("click", function () {
-     if (blob == null) {
-         return;
-     }
+function displayResultAndWaiting(responseObj){
+    window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
+    mp3Reponse.play();
+    $(".step3").show();
+    $(".step2").hide();
+    $(".step3").append(responseObj.result.textReponseSections);
 
-     var url = URL.createObjectURL(blob);
+    animate_text();
+}
 
-     var a = document.createElement("a");
-     document.body.appendChild(a);
-     a.style = "display: none";
-     a.href = url;
-     a.download = "sample.wav";
-     a.click();
-     window.URL.revokeObjectURL(url);
- });
+
+ function postBlob(blob){
+  const formData = new FormData();
+  formData.append('file', blob);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/upload', true);
+  xhr.send(formData);
+  xhr.onload = function() {
+      var responseObj = JSON.parse(xhr.response);
+      if(responseObj.success){
+        displayResultAndWaiting(responseObj);
+      }else{
+          //TODO : ici faire le cas ou cette IP.../user/agent a dejà jouer 2 fois !
+      }
+    };
+ }
 
  function flattenArray(channelBuffer, recordingLength) {
      var result = new Float32Array(recordingLength);
@@ -187,3 +195,43 @@ $(".step0 a").click(function(){
          view.setUint8(offset + i, string.charCodeAt(i));
      }
  }
+
+ function animate_text()
+{
+  let delay = 70,
+      delay_start = 0,
+      contents,
+      letters;
+
+  $(".animate-text").each(function(index, obj) {
+    contents = $(obj).text().trim();
+    $(obj).html(''); // on vide le contenu
+    letters = contents.split("");
+    var first = true;
+
+    $(letters).each(function(index_1, letter) {
+
+
+      setTimeout(function() {
+        if(first){ $(obj).css('visibility','visible'); first=false; }
+        // ---------
+        // effet machine à écrire simple
+        $(obj).html( $(obj).html() + letter ); // on ajoute chaque lettre l une après l autre
+        // ---------
+        // ---------
+        if($(obj).hasClass('lastOne')){
+          setTimeout(function() {
+            carrousselBeforePicture();
+          },4000);
+        }
+      }, delay_start + delay * index_1);
+    });
+    // le suivant démarre à la fin du précédent
+    delay_start += delay * letters.length;
+  });
+}
+
+function carrousselBeforePicture(){
+  $(".step4").show();
+  $(".step3").hide();
+}
