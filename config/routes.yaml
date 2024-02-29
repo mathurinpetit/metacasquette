@@ -26,6 +26,10 @@ jeuupload:
    path: /jeu/{id}/upload
    defaults: { _controller: 'Controller\DefaultController::upload' }
 
+createmetacasquette:
+   path: /jeu/{id}/createmetacasquette
+   defaults: { _controller: 'Controller\DefaultController::createmetacasquette' }
+
 adminList:
    path: /admin/list
    defaults: { _controller: 'Controller\AdminController::adminListAction' }

@@ -97,6 +97,7 @@ mp3Reponse = createMp3Response(textReponse);
 json_user["mp3Reponse"] = mp3Reponse;
 json_user["textReponse"] = textReponse;
 json_user["textReponseSections"] = textReponseSections;
+json_user["idUser"] = fileId;
 
 os.remove(newfilepath);
 

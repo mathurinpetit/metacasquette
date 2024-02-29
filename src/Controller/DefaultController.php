@@ -136,7 +136,7 @@ class DefaultController extends Controller
           : $_SERVER['REMOTE_ADDR']);
 
       $identifiant = $ip;
-      // On stockera l'ip dans de la data avec ip;DATE:H:M;uniqid1;uniqid2
+      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
 
       $file = $request->files->get('file');
       $dir = __DIR__.'/../../data/';
@@ -148,9 +148,39 @@ class DefaultController extends Controller
         $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" 2>&1 ";
 
         $result = shell_exec($cmd);
-        
+
         return new JsonResponse(array('result' => json_decode($result), 'success' => true));
       }
+    }
+
+    /**
+      * @Route("/jeu/{id}/createmetacasquette")
+    */
+    public function createmetacasquette($id, Request $request): Response
+    {
+      if (!$request->isMethod('POST')) {
+          return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
+      }
+
+      $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+        ? $_SERVER['HTTP_CLIENT_IP']
+        : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+          ? $_SERVER['HTTP_X_FORWARDED_FOR']
+          : $_SERVER['REMOTE_ADDR']);
+
+      $identifiant = $ip;
+      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
+
+      $openaikey = $this->getParameter('app.openaikey');
+      $googleapifile = $this->getParameter('app.googleapifile');
+      $idUser = $request->request->get('idUser');
+      $name = $request->request->get('name');
+      $whatilove = $request->request->get('whatilove');
+      $cmd = "python3 ../bin/createMetacasquette.py \"".$openaikey."\" \"".$googleapifile."\" \"".$idUser."\" \"".$name."\"  \"".$whatilove."\" 2>&1 ";
+
+      $result = shell_exec($cmd);
+      return new JsonResponse(array('result' => json_decode($result), 'success' => true));
+
     }
 
     public function isMobile(){
@@ -158,4 +188,6 @@ class DefaultController extends Controller
 
     return $device->isMobile() || $device->isTablet();
   }
+
+
 }

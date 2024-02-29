@@ -1,3 +1,5 @@
+
+
 $(".step0 a").click(function(){
   $(".step1").show();
   $(".step0").hide();
@@ -143,10 +145,38 @@ function displayResultAndWaiting(responseObj){
     $(".step3").show();
     $(".step2").hide();
     $(".step3").append(responseObj.result.textReponseSections);
-
     animate_text();
+    setTimeout(function() {
+      createMetaCasquette(responseObj);
+    },1000);
+
 }
 
+function createMetaCasquette(responseObj){
+  const formData = new FormData();
+  formData.append('whatilove', responseObj.result.whatilove);
+  formData.append('name', responseObj.result.name);
+  formData.append('idUser', responseObj.result.idUser);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/createmetacasquette', true);
+  xhr.send(formData);
+  xhr.onload = function() {
+      var responseObj = JSON.parse(xhr.response);
+      if(responseObj.success){
+        advertisingAndCameraOpen(responseObj);
+      }else{
+          //TODO : ici faire le cas ou cette IP.../user/agent a dejà jouer 2 fois !
+      }
+    };
+}
+
+function advertisingAndCameraOpen(responseObj){
+    $("#result_img").attr('src','/'+responseObj.result.filename);
+    $(".step5").show();
+    $(".step4").hide();
+
+}
 
  function postBlob(blob){
   const formData = new FormData();
