@@ -282,7 +282,7 @@ init_step2();
  	    video2.srcObject = stream;
       setTimeout(function() {
         $("#click-photo").show();
-        $("#cap_img").attr( "style", "left:30%;top: 9%;position: absolute; z-index:998; width:43%" );
+        $("#cap_img").attr( "style", "left:25%;top: 20%;position: absolute; z-index:998; width:50%" );
 
       },2000);
  });
@@ -308,7 +308,7 @@ init_step2();
       top_casquette = parseInt($('#cap_img').offset().top);
 
       img_casquette.src = $('#cap_img').attr('src');
-      console.log(left_casquette,top_casquette);
+
       img_casquette.onload = function(){
              context.drawImage(img_casquette,left_casquette,0, width_casquette, height_casquette);
       };
@@ -319,14 +319,7 @@ init_step2();
       $('#cap_img').hide();
       $("#click-photo").hide();
 
-      $("#share").show();
-      //
-      // $("#share").append(
-      // '<ul class="nav nav-pills nav-stacked"><li><p class="animate-text">Pour que ta participation soit prise en compte,</p>'+
-      // '<p class="animate-text">tu vas devoir télécharger ta photo ici : <a id="download_result"><i class="fa-solid fa-download fa-10x"></i></a></p></li>'+
-      // '<li><p class="animate-text" >puis, poster ta photo sur instagram en tagguant @meta_casquette <a><i class="fa-brands fa-instagram fa-10x"></i></a></p></li>'+
-      // '<li><p class="animate-text" >ou sur Facebook, ça marche aussi @metacasquette <a><i class="fa-brands fa-facebook fa-10x"></i></a></p></li>'+
-      // '<li><p class="animate-text" >Il faudra aussi que tu suives le compte de MétaCasquette et ta participation au concours sera effectice ! Merci Beaucoup</p></li></ul>');
+
 
       $("#download_result").click(function download (){
              var link = document.createElement('a');
@@ -335,6 +328,11 @@ init_step2();
              link.click();
       });
 
+      window.mp3EndExplanations = new Audio('../sound/endExplanations_fr.mp3');
+      mp3EndExplanations.play();
+      setTimeout(function() {
+        $("#share").show();
+      }, 1000);
  });
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
