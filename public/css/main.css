@@ -539,6 +539,13 @@ height: 100%;
    transform: translate(-50%, -50%);
    }
 
+.shareMsg {
+  font: 40px "Resolve Sans Bolder";
+  text-transform: uppercase;
+  font-weight: bolder;
+
+}
+
 .animate-text {
   font: 60px "Resolve Sans Bolder";
   text-transform: uppercase;

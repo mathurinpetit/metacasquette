@@ -21,7 +21,7 @@ function changeStep(stepA,stepB){
 }
 
 function init_step1() {
-  
+
   $(".step0 a").click(function(){
 
       changeStep(0,1);
@@ -275,35 +275,66 @@ init_step2();
  let video2 = document.querySelector("#video2");
  let click_button = document.querySelector("#click-photo");
  let canvas = document.querySelector("#canvas");
- let canvas2 = document.querySelector("#canvas2");
 
  camera_button.addEventListener('touchstart', async function() {
       $(".startCamera").hide();
     	let stream = await navigator.mediaDevices.getUserMedia({ video: true });
  	    video2.srcObject = stream;
       setTimeout(function() {
-        $("#cap_img").animate({ "top": "-=0px" }, "slow" );
         $("#click-photo").show();
-      },500);
+        $("#cap_img").attr( "style", "left:30%;top: 9%;position: absolute; z-index:998; width:43%" );
+
+      },2000);
  });
 
  click_button.addEventListener('touchstart', function() {
     	let image_data_url = canvas.toDataURL('image/jpeg');
 
-      var ctx=canvas.getContext("2d");
-      var img=new Image();
-      img.onload = function(){
-             ctx.drawImage(img,0,0);
-      };
+      width = parseInt(document.defaultView.getComputedStyle(video2).width);
+      height = parseInt(document.defaultView.getComputedStyle(video2).height);
+      canvas.width = width;
+      canvas.height = height;
+
+      var context=canvas.getContext("2d");
+
+      context.fillRect(0,0,width,height);
+      context.drawImage(video2,0,0,width,height);
 
       var img_casquette=new Image();
-      img_casquette.onload = function(){
-             ctx.drawImage(img_casquette,0,0);
-      };
+      width_casquette = parseInt($('#cap_img').width());
+      height_casquette = parseInt($('#cap_img').height());
+
+      left_casquette = parseInt($('#cap_img').offset().left);
+      top_casquette = parseInt($('#cap_img').offset().top);
+
       img_casquette.src = $('#cap_img').attr('src');
-      canvas.getContext('2d').drawImage(video2, 0, 0, canvas.width, canvas.height);
-      canvas.getContext('2d').drawImage(img_casquette, 0, 0, canvas.width, canvas.height);
-    	console.log(image_data_url);
+      console.log(left_casquette,top_casquette);
+      img_casquette.onload = function(){
+             context.drawImage(img_casquette,left_casquette,0, width_casquette, height_casquette);
+      };
+
+      $(canvas).css("position","relative");
+      $(canvas).css("z-index","1");
+      $("#video2").hide();
+      $('#cap_img').hide();
+      $("#click-photo").hide();
+
+      $("#share").show();
+      //
+      // $("#share").append(
+      // '<ul class="nav nav-pills nav-stacked"><li><p class="animate-text">Pour que ta participation soit prise en compte,</p>'+
+      // '<p class="animate-text">tu vas devoir télécharger ta photo ici : <a id="download_result"><i class="fa-solid fa-download fa-10x"></i></a></p></li>'+
+      // '<li><p class="animate-text" >puis, poster ta photo sur instagram en tagguant @meta_casquette <a><i class="fa-brands fa-instagram fa-10x"></i></a></p></li>'+
+      // '<li><p class="animate-text" >ou sur Facebook, ça marche aussi @metacasquette <a><i class="fa-brands fa-facebook fa-10x"></i></a></p></li>'+
+      // '<li><p class="animate-text" >Il faudra aussi que tu suives le compte de MétaCasquette et ta participation au concours sera effectice ! Merci Beaucoup</p></li></ul>');
+
+      $("#download_result").click(function download (){
+             var link = document.createElement('a');
+             link.download = 'metacasquette.png';
+             link.href = canvas.toDataURL()
+             link.click();
+      });
+
  });
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
@@ -336,7 +367,7 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
 function pictureMetacasquette(responseCreatedObj){
 
-      $("#cap_img").attr('src','/'+responseCreatedObj.result.filename);
+      $("#cap_img").attr('src','/jeudatas/'+responseCreatedObj.result.filename);
       $(".step6").show();
       $(".step5").hide();
 }
