@@ -31,7 +31,7 @@ def extractionGPTUser(userText, machineText):
 
 
 
-def createMp3Response(text=""):
+def createMp3(text="", type="response"):
 
   clientGoogleSpeech = texttospeech.TextToSpeechClient()
 
@@ -50,12 +50,13 @@ def createMp3Response(text=""):
       input=synthesis_input, voice=voice, audio_config=audio_config
   )
 
-  speech_file_name = "jeudatas/"+fileId+"_response.mp3";
+  speech_file_name = "jeudatas/"+fileId+"_"+type+".mp3";
 
   with open(speech_file_name, 'wb') as out:
     out.write(response.audio_content)
 
   return speech_file_name;
+
 
 
 
@@ -85,18 +86,36 @@ json_user = json.loads(extractionGPTUser(userText,machineText))
 
 textReponse = "Très bien "+json_user["name"]+"! "+json_user["whatilove"]+" tu aimes, "+json_user["whatilove"]+" tu auras ! Je vais te construire une MétaCasquette en "+json_user["whatilove"]+". Cela peut prendre un peu de temps, alors je te propose de regarder ce que les autres participants ont choisi en attendant. La MétaCasquette la plus originale gagnera !";
 
-textReponseSections = "<p class='animate-text'>Très bien </p><p class='animate-text warm'>"+json_user["name"]+"!</p>"
-textReponseSections = textReponseSections + "<p class='animate-text highlight'>"+json_user["whatilove"]+"</p><p class='animate-text'> tu aimes, </p><p class='animate-text highlight'>"+json_user["whatilove"]+"</p><p class='animate-text'> tu auras ! </p>"
-textReponseSections = textReponseSections + "<p class='animate-text'>Je vais te construire une MétaCasquette en </p><p class='animate-text highlight'>"+json_user["whatilove"]+"</p>"
-textReponseSections = textReponseSections + "<p class='animate-text'>Cela peut prendre un peu de temps, alors je te propose de regarder ce que les autres participants ont choisi en attendant.</p>"
-textReponseSections = textReponseSections + "<p class='animate-text light'>La MétaCasquette</p><p class='animate-text lastOne'> la plus originale gagnera !</p>";
+textReponseSections = "<p class='animate-text animate-text-response'>Très bien </p><p class='animate-text animate-text-response warm'>"+json_user["name"]+"!</p>"
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu aimes, </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu auras ! </p>"
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>Je vais te construire une MétaCasquette en </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p>"
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>Cela peut prendre un peu de temps, alors je te propose de regarder ce que les autres participants ont choisi en attendant.</p>"
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response light'>La MétaCasquette</p><p class='animate-text animate-text-response lastOne'> la plus originale gagnera !</p>";
 
 
-mp3Reponse = createMp3Response(textReponse);
+mp3Reponse = createMp3(textReponse,"response");
+
+textSmallDescription = json_user["name"]+" a choisi une MétaCasquette en "+json_user["whatilove"]+" !";
+
+mp3SmallDescription = createMp3(textSmallDescription,"smallDescription");
+with open("jeudatas/"+fileId+".txt", 'w') as f:
+    f.write(textSmallDescription);
+
+textReady = json_user["name"]+", ta MétaCasquette en "+json_user["whatilove"]+" est prête !"
+
+textReadySections = "<p class='animate-text animate-text-ready warm'>"+json_user["name"]+",</p>";
+textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>ta MétaCasquette en</p>";
+textReadySections = textReadySections + "<p class='animate-text animate-text-ready highlight'>"+json_user["whatilove"]+"</p>";
+textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>est prête !</p>";
+
+mp3Ready = createMp3(textReady,"ready");
 
 json_user["mp3Reponse"] = mp3Reponse;
 json_user["textReponse"] = textReponse;
 json_user["textReponseSections"] = textReponseSections;
+
+json_user["mp3Ready"] = mp3Ready;
+json_user["textReadySections"] = textReadySections;
 json_user["idUser"] = fileId;
 
 os.remove(newfilepath);
