@@ -89,8 +89,8 @@ textReponse = "Très bien "+json_user["name"]+"! "+json_user["whatilove"]+" tu a
 textReponseSections = "<p class='animate-text animate-text-response'>Très bien </p><p class='animate-text animate-text-response warm'>"+json_user["name"]+"!</p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu aimes, </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu auras ! </p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>Je vais te construire une MétaCasquette en </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p>"
-textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>Cela peut prendre un peu de temps, alors je te propose de regarder ce que les autres participants ont choisi en attendant.</p>"
-textReponseSections = textReponseSections + "<p class='animate-text animate-text-response light'>La MétaCasquette</p><p class='animate-text animate-text-response lastOne'> la plus originale gagnera !</p>";
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>En attendant que je la fabrique, je te propose de regarder ce que les autres participants ont choisi.</p>"
+textReponseSections = textReponseSections + "<p class='animate-text animate-text-response light lastOne'>La MétaCasquette la plus originale gagnera !</p>";
 
 
 mp3Reponse = createMp3(textReponse,"response");

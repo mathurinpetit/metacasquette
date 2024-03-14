@@ -254,6 +254,8 @@ function displayResultAndWaiting(responseObj){
     formData.append('name', responseObj.result.name);
     formData.append('idUser', responseObj.result.idUser);
 
+    $("#download_result").attr('data-name',"metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png")
+
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/createmetacasquette', true);
     xhr.send(formData);
@@ -324,7 +326,7 @@ init_step2();
 
       $("#download_result").click(function download (){
              var link = document.createElement('a');
-             link.download = 'metacasquette.png';
+             link.download = $(this).attr('data-name');
              link.href = canvas.toDataURL()
              link.click();
       });
