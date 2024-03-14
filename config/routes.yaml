@@ -30,6 +30,10 @@ createmetacasquette:
    path: /jeu/{id}/createmetacasquette
    defaults: { _controller: 'Controller\DefaultController::createmetacasquette' }
 
+getRandomGenerated:
+   path: /jeu/{id}/randomgenerated
+   defaults: { _controller: 'Controller\DefaultController::randomgenerated' }
+
 adminList:
    path: /admin/list
    defaults: { _controller: 'Controller\AdminController::adminListAction' }

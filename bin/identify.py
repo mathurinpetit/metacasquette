@@ -106,7 +106,7 @@ textReady = json_user["name"]+", ta MétaCasquette en "+json_user["whatilove"]+"
 textReadySections = "<p class='animate-text animate-text-ready warm'>"+json_user["name"]+",</p>";
 textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>ta MétaCasquette en</p>";
 textReadySections = textReadySections + "<p class='animate-text animate-text-ready highlight'>"+json_user["whatilove"]+"</p>";
-textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>est prête !</p>";
+textReadySections = textReadySections + "<p class='animate-text animate-text-ready lastOne'>est prête !</p>";
 
 mp3Ready = createMp3(textReady,"ready");
 

@@ -183,6 +183,52 @@ class DefaultController extends Controller
 
     }
 
+    /**
+      * @Route("/jeu/{id}/randomgenerated")
+    */
+    public function randomgenerated($id, Request $request): Response
+    {
+      if (!$request->isMethod('POST')) {
+          return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
+      }
+
+      $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+        ? $_SERVER['HTTP_CLIENT_IP']
+        : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+          ? $_SERVER['HTTP_X_FORWARDED_FOR']
+          : $_SERVER['REMOTE_ADDR']);
+
+      $identifiant = $ip;
+      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
+
+      $layers = array();
+      foreach (scandir('jeudatas') as $fileName) {
+        if(strpos($fileName, "_layer.png") !== false){
+          $layers[] = $fileName;
+        }
+      }
+      shuffle($layers);
+      $imagePath = $layers[0];
+      $strName = explode('_',$imagePath);
+
+      $soundPath = $strName[0]."_".$strName[1]."_smallDescription.mp3";
+      $textPath = $strName[0]."_".$strName[1].".txt";
+      $text = "";
+      if(!file_exists('jeudatas/'.$soundPath)){
+        $soundPath = "";
+      }
+      if(file_exists('jeudatas/'.$textPath)){
+        $text = file_get_contents('jeudatas/'.$textPath);
+      }
+
+      $result = array();
+      $result['imagePath'] = $imagePath;
+      $result['soundPath'] = $soundPath;
+      $result['text'] = $text;
+      return new JsonResponse(array('result' => $result, 'success' => true));
+
+    }
+
     public function isMobile(){
     $device = $this->get('mobile_detect.mobile_detector');
 

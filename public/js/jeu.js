@@ -1,9 +1,14 @@
  /*  Liste ici des Etapes du jeu interactif
   *  Etape0 Affichage => choix de la langue
   *  Etape1 Affichage => video d'introduction pour les appareils android et défilement de texte pour les ios
-  *  Etape2 Enregistrement de l'utilisateur
+  *  Etape2 Enregistrement audio TODO : Ajouter compteur
   *  Etape3 Message d'attente
-  *
+  *  Etape4 Retour audio
+  *  Etape5 Carroussel
+  *  Etape6 Resultat et message personnalisé
+  *  Etape7 Annonce photo
+  *  Etape8 Photo
+  *  Etape9 Partage
   */
 
 
@@ -16,7 +21,7 @@ function changeStep(stepA,stepB){
 }
 
 function init_step1() {
-  changeStep(0,2);
+  
   $(".step0 a").click(function(){
 
       changeStep(0,1);
@@ -232,13 +237,14 @@ function init_step2(){
 function displayResultAndWaiting(responseObj){
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
-      $(".step3").show();
-      $(".step2").hide();
+
+      changeStep(2,3);
+
       $(".step3").append(responseObj.result.textReponseSections);
       animate_text("animate-text-response",carrousselBeforePicture,);
       setTimeout(function() {
         createMetaCasquette(responseObj);
-      },1000);
+      },2000);
 
   }
 
@@ -312,32 +318,25 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
     mp3Ready.play();
 
     $(".step5 .result-text").append(responseObj.result.textReadySections);
-    animate_text("animate-text-ready",pictureMetacasquette, responseCreatedObj);
+    animate_text("animate-text-ready",advertisingForGame, responseCreatedObj);
+  }
 
-    // setTimeout(function() {
-    //   createMetaCasquette(responseObj);
-    // },1000);
+  function advertisingForGame(responseCreatedObj){
 
+    window.mp3Advertising = new Audio('../sound/advertisingForGame_fr.mp3');
+    mp3Advertising.play();
 
-
-    // TODO : créer une animation sous la casquette avec le texte : Merci XXX ... voici ta MétaCasquette en "XXX" . Maintenant pour particoper au concours il faut te photographier avec la casquette et poster le resultats sur instagram ou $facebook
-
-    // resultatJson =
-    //
-    // $(".step5").append(responseObj.result.textReponseSections);
-    // animate_text();
-    // setTimeout(function() {
-    //   createMetaCasquette(responseObj);
-    // },1000);
-
-    //
+    $(".step5 .result-text").children().remove();
+    $(".step5 .result-text").append('<p class="animate-text animate-text-advertising" >Maintenant, tu vas pouvoir te prendre en photo avec </p><p class="animate-text animate-text-advertising lastOne" >ta MétaCasquette !</p>');
+    animate_text("animate-text-advertising",pictureMetacasquette,responseCreatedObj);
 
 
 }
 
-function pictureMetacasquette(responseObj){
 
-      $("#result_img").attr('src','/'+responseObj.result.filename);
+function pictureMetacasquette(responseCreatedObj){
+
+      $("#cap_img").attr('src','/'+responseCreatedObj.result.filename);
       $(".step6").show();
       $(".step5").hide();
 }
@@ -356,15 +355,17 @@ function pictureMetacasquette(responseObj){
     var first = true;
 
     $(letters).each(function(index_1, letter) {
-
-
       setTimeout(function() {
+        if($(obj).hasClass('lastOne') && first){
+          setTimeout(function() {
+              return nextFunction(arg);
+          }
+          ,4000);
+        }
         if(first){ $(obj).css('visibility','visible'); first=false; }
         // effet machine à écrire simple
         $(obj).html( $(obj).html() + letter ); // on ajoute chaque lettre l une après l autre
-        if($(obj).hasClass('lastOne')){
-          setTimeout(nextFunction(arg),4000);
-        }
+
       }, delay_start + delay * index_1);
     });
     // le suivant démarre à la fin du précédent
@@ -373,6 +374,39 @@ function pictureMetacasquette(responseObj){
 }
 
 function carrousselBeforePicture(){
-  $(".step4").show();
-  $(".step3").hide();
+
+  if($(".step5:visible").length){
+    return;
+  }
+
+  changeStep(3,4);
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/randomgenerated', true);
+  xhr.send(null);
+  xhr.onload = function() {
+      var responseObj = JSON.parse(xhr.response);
+      if(responseObj.success){
+        $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
+        $('#titre_carroussel').html(responseObj.result.text);
+
+        if(responseObj.result.soundPath){
+          window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
+          mp3CarrousselCurrent.play();
+
+          mp3CarrousselCurrent.onended = (event) => {
+            setTimeout(function() {
+              carrousselBeforePicture();
+            },3000);
+          };
+        }else{
+          setTimeout(function() {
+            carrousselBeforePicture();
+          },5000);
+        }
+      }
+  };
+
+
+
 }
