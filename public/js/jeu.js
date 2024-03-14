@@ -282,7 +282,8 @@ init_step2();
  	    video2.srcObject = stream;
       setTimeout(function() {
         $("#click-photo").show();
-        $("#cap_img").attr( "style", "left:25%;top: 20%;position: absolute; z-index:998; width:50%" );
+        $("#cap_img").after($(video2));
+        $("#cap_img").attr( "style", "left:25%;top: 150px;position: absolute; z-index:998; width:50%" );
 
       },2000);
  });
@@ -310,7 +311,7 @@ init_step2();
       img_casquette.src = $('#cap_img').attr('src');
 
       img_casquette.onload = function(){
-             context.drawImage(img_casquette,left_casquette,0, width_casquette, height_casquette);
+             context.drawImage(img_casquette,left_casquette,150, width_casquette, height_casquette);
       };
 
       $(canvas).css("position","relative");
