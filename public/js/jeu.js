@@ -338,11 +338,7 @@ init_step2();
  });
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
-
-    $(".step5").show();
-    $(".step4").hide();
-
-
+    changeStep(4,5);
     $("#result_img").attr('src','/'+responseCreatedObj.result.filename);
 
     window.mp3Ready = new Audio('../'+responseObj.result.mp3Ready);
@@ -367,9 +363,8 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
 function pictureMetacasquette(responseCreatedObj){
 
-      $("#cap_img").attr('src','/jeudatas/'+responseCreatedObj.result.filename);
-      $(".step6").show();
-      $(".step5").hide();
+      $("#cap_img").attr('src',"/"+responseCreatedObj.result.filename);
+      changeStep(5,6);
 }
 
  function animate_text(animateTextClass, nextFunction, arg)
