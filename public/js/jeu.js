@@ -76,14 +76,16 @@ function init_step2(){
   function transitionSendingRecord(){
       $(".recordBtn").hide();
       $(".recordSpanBtn").hide();
+      $(".step2").prepend('<img src="/video/eyes.gif" class="eyes" style="width:110%; position: absolute; left:-5%;" ><br/>');
       window.mp3Transition = new Audio('../sound/transitionSendingRecord_fr.mp3');
       mp3Transition.play();
       $(".step2").css('width','90%');
+      $(".eyes").css('top','-100%');
       $(".step2").append(
-      '<p class="animate-text animate-text-transition" >Parfait !</p>'+
+      '<div style="top:55%;"><p class="animate-text animate-text-transition" >Parfait !</p>'+
       '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
       '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
-      '<p class="animate-text animate-text-transition" >très rapidement !</p>');
+      '<p class="animate-text animate-text-transition" >très rapidement !</p></div>');
       animate_text("animate-text-transition",);
 
   }
@@ -239,7 +241,6 @@ function displayResultAndWaiting(responseObj){
       mp3Reponse.play();
 
       changeStep(2,3);
-
       $(".step3").append(responseObj.result.textReponseSections);
       animate_text("animate-text-response",carrousselBeforePicture,);
       setTimeout(function() {
@@ -340,6 +341,12 @@ init_step2();
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
     changeStep(4,5);
+
+    if (window.mp3CarrousselCurrent !== undefined) {
+      window.mp3CarrousselCurrent.pause();
+      window.mp3CarrousselCurrent.currentTime = 0;
+    }
+
     $("#result_img").attr('src','/'+responseCreatedObj.result.filename);
 
     window.mp3Ready = new Audio('../'+responseObj.result.mp3Ready);
@@ -424,7 +431,7 @@ function carrousselBeforePicture(){
           mp3CarrousselCurrent.onended = (event) => {
             setTimeout(function() {
               carrousselBeforePicture();
-            },3000);
+            },2000);
           };
         }else{
           setTimeout(function() {
