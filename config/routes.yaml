@@ -9,9 +9,9 @@ produit:
    path: /produit/{id}
    defaults: { _controller: 'Controller\DefaultController::produitAction' }
 
-expo:
-   path: /expo/{id}
-   defaults: { _controller: 'Controller\DefaultController::expoAction' }
+participationsjeu:
+   path: /jeu/participations
+   defaults: { _controller: 'Controller\DefaultController::participationsJeuAction' }
 
 jeuredirect:
    path: /jeuredirect

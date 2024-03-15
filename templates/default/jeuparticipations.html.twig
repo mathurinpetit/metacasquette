@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+<h3><a href="/" class="btn btn-lg btn-default"><img class="img-responsive" src="{{ asset('/img/logo/logo_detache_white.png') }}" alt="/MetaCasquette"><h1 class="cover-heading">/META CASQUETTE</h1></a></h3>
+<hr/>
+<hr/>
+<h1 style="font-size:80px;">Ici retrouvez les différentes métacasquette créées par les joueurs : </small></h1>
+
+{% for id,casquette in metacasquette %}
+<hr/>
+<h1 style="font-size:60px;" id="{{id}}">{{ casquette["description"] }}
+
+</h1>
+<div class="row">
+      <div class="col-sm-12 text-center">
+        <img src="{{ asset(casquette["layer"]) }}" alt="{{ casquette["description"] }}" class="" onclick="window.description = new Audio('/{{casquette["sound"]}}'); window.description.play();" />
+      </div>
+</div>
+<hr/>
+{% endfor %}
+{% endblock %}

@@ -61,9 +61,9 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/expo/{id}")
+     * @Route("/jeu/participations")
      */
-    public function expoAction($id)
+    public function participationsJeuAction()
     {
       $telephone = $this->getParameter('app.telephone');
       $email = $this->getParameter('app.email');
@@ -72,25 +72,16 @@ class DefaultController extends Controller
       $ytid = $this->getParameter('app.ytid');
       $pathFiles = $this->getParameter('app.pathFiles');
 
-      $casquettesFile = file($pathFiles.'/liste.csv');
-
-      $expoDescFile = file($pathFiles.'/expo.csv');
-      $description = "";
-      foreach ($expoDescFile as $line_num => $row) {
-        $d = str_getcsv($row,';');
-        if(substr($row,0,6) !== 'Numero'  && substr($row,0,1) !== '#' && $d[0] == $id){
-        $description = $d[1];
+      $metaCasquettes = array();
+      foreach (scandir('jeudatas') as $fileName) {
+        if(strpos($fileName, "_layer.png") !== false){
+          $strName = explode('_',$fileName);
+          $id = $strName[0].'_'.$strName[1];
+          $id_prefixed = 'jeudatas/'.$id;
+          $metaCasquettes[$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
         }
       }
-
-      $casquettes = array();
-      foreach ($casquettesFile as $line_num => $row) {
-        $c = str_getcsv($row,';');
-        if(substr($row,0,6) !== 'Numero'  && substr($row,0,1) !== '#' && $c[11] == $id){
-        $casquettes[] = $c;
-        }
-      }
-      return $this->render('default/expo.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'casquettes' => $casquettes, 'description' => $description));
+      return $this->render('default/jeuparticipations.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'metacasquette' => $metaCasquettes));
     }
 
     /**
