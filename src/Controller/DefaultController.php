@@ -113,7 +113,15 @@ class DefaultController extends Controller
       $instagram = $this->getParameter('app.instagram');
       $ytid = $this->getParameter('app.ytid');
 
-      return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid));
+      $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+        ? $_SERVER['HTTP_CLIENT_IP']
+        : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+          ? $_SERVER['HTTP_X_FORWARDED_FOR']
+          : $_SERVER['REMOTE_ADDR']);
+
+      $hasPlayMoreThan2 = $this->numberIp($ip);
+
+      return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'hasPlayMoreThan2' => $hasPlayMoreThan2));
     }
 
 
@@ -131,8 +139,10 @@ class DefaultController extends Controller
           ? $_SERVER['HTTP_X_FORWARDED_FOR']
           : $_SERVER['REMOTE_ADDR']);
 
+      if($this->numberIp($ip) > 2){
+        return new JsonResponse(array('reason' => "maxGame", 'success' => false));
+      }
       $identifiant = $ip;
-      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
 
       $file = $request->files->get('file');
       $dir = __DIR__.'/../../data/';
@@ -164,8 +174,10 @@ class DefaultController extends Controller
           ? $_SERVER['HTTP_X_FORWARDED_FOR']
           : $_SERVER['REMOTE_ADDR']);
 
+      if($this->numberIp($ip) > 2){
+        return new JsonResponse(array('reason' => "maxGame", 'success' => false));
+      }
       $identifiant = $ip;
-      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
 
       $openaikey = $this->getParameter('app.openaikey');
       $googleapifile = $this->getParameter('app.googleapifile');
@@ -194,8 +206,10 @@ class DefaultController extends Controller
           ? $_SERVER['HTTP_X_FORWARDED_FOR']
           : $_SERVER['REMOTE_ADDR']);
 
+      if($this->numberIp($ip) > 2){
+        return new JsonResponse(array('reason' => "maxGame", 'success' => false));
+      }
       $identifiant = $ip;
-      //TODO: on verifiera qu'il n'y a pas plus de 2 fichier commencant par $identifiant dans data Sinon on retournera NOK
 
       $layers = array();
       foreach (scandir('jeudatas') as $fileName) {
@@ -231,5 +245,16 @@ class DefaultController extends Controller
     return $device->isMobile() || $device->isTablet();
   }
 
+  private function numberIp($ip){
 
+    $ctpLayerIp = 0;
+    foreach (scandir('jeudatas') as $fileName) {
+      if(preg_match("/^".$ip."_(.+)_layer.png$/", $fileName)){
+        $ctpLayerIp++;
+      }
+    }
+
+    return $ctpLayerIp;
+
+  }
 }

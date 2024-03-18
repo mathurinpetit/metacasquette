@@ -24,6 +24,12 @@ function init_step1() {
 
   $(".step0 a").click(function(){
 
+      var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
+      if(parseInt(hasPlayMoreThan2) > 1){
+        changeStep(0,3);
+        displayMaxGame();
+        return;
+      }
       changeStep(0,1);
 
       let video1 = document.getElementById("video1");
@@ -68,7 +74,9 @@ function init_step2(){
        if(responseObj.success){
          displayResultAndWaiting(responseObj);
        }else{
-           //TODO : ici faire le cas ou cette IP.../user/agent a dejà jouer 2 fois !
+          if(responseObj.reason == "maxGame"){
+            displayMaxGame();
+          }
        }
      };
   }
@@ -236,6 +244,19 @@ function init_step2(){
 
 }
 
+function displayMaxGame(){
+      window.mp3Reponse = new Audio('../sound/maxGame_fr.mp3');
+      mp3Reponse.play();
+
+      changeStep(2,3);
+      $(".step3").append(
+      '<div style="top:55%;"><p class="animate-text animate-text-max" >Désolé !</p>'+
+      '<p class="animate-text animate-text-max" >Tu ne peux jouer que deux fois par jour à ce jeu !</p>'+
+      '<p class="animate-text animate-text-max" >Mais reviens demain !</p>'+
+      '<p class="animate-text animate-text-max" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+      animate_text("animate-text-max",);
+  }
+
 function displayResultAndWaiting(responseObj){
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
@@ -265,7 +286,9 @@ function displayResultAndWaiting(responseObj){
         if(responseCreatedObj.success){
           advertisingBeforeCamera(responseCreatedObj,responseObj);
         }else{
-            //TODO : ici faire le cas ou cette IP.../user/agent a dejà jouer 2 fois !
+          if(responseObj.reason == "maxGame"){
+            displayMaxGame();
+          }
         }
       };
   }
@@ -278,6 +301,7 @@ init_step2();
  let video2 = document.querySelector("#video2");
  let click_button = document.querySelector("#click-photo");
  let canvas = document.querySelector("#canvas");
+
 
  camera_button.addEventListener('touchstart', async function() {
       $(".startCamera").hide();
@@ -341,11 +365,7 @@ init_step2();
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
     changeStep(4,5);
-
-    if (window.mp3CarrousselCurrent !== undefined) {
-      window.mp3CarrousselCurrent.pause();
-      window.mp3CarrousselCurrent.currentTime = 0;
-    }
+    document.querySelectorAll('audio').forEach(el => el.pause());
 
     $("#result_img").attr('src','/'+responseCreatedObj.result.filename);
 
@@ -409,7 +429,7 @@ function pictureMetacasquette(responseCreatedObj){
 
 function carrousselBeforePicture(){
 
-  if($(".step5:visible").length){
+  if($(".step5").is(":visible")){
     return;
   }
 
