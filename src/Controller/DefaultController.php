@@ -72,13 +72,18 @@ class DefaultController extends Controller
       $ytid = $this->getParameter('app.ytid');
       $pathFiles = $this->getParameter('app.pathFiles');
 
+      $startIpRegex = "/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)_.+$/";
+
       $metaCasquettes = array();
       foreach (scandir('jeudatas') as $fileName) {
         if(strpos($fileName, "_layer.png") !== false){
-          $strName = explode('_',$fileName);
-          $id = $strName[0].'_'.$strName[1];
-          $id_prefixed = 'jeudatas/'.$id;
-          $metaCasquettes[$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
+          $startWithIp = preg_match($startIpRegex, $fileName);
+          if(!$startWithIp){
+            $strName = explode('_',$fileName);
+            $id = $strName[0];
+            $id_prefixed = 'jeudatas/'.$id;
+            $metaCasquettes[$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
+          }
         }
       }
       return $this->render('default/jeuparticipations.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'metacasquette' => $metaCasquettes));
@@ -202,8 +207,8 @@ class DefaultController extends Controller
       $imagePath = $layers[0];
       $strName = explode('_',$imagePath);
 
-      $soundPath = $strName[0]."_".$strName[1]."_smallDescription.mp3";
-      $textPath = $strName[0]."_".$strName[1].".txt";
+      $soundPath = $strName[0]."_smallDescription.mp3";
+      $textPath = $strName[0].".txt";
       $text = "";
       if(!file_exists('jeudatas/'.$soundPath)){
         $soundPath = "";
