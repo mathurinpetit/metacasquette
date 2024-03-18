@@ -11,9 +11,35 @@
   *  Etape9 Partage
   */
 
+var langue = getCookie("langue");
+var mc1 = getCookie("mc1");
+var mc2 = getCookie("mc2");
 
+if(mc1 && mc2 && langue){
+  $(".step0").html("");
+  $(".step0").css('width','90%');
+  var mc1Txt = "";
+  fetch('/jeudatas/'+mc1+'.txt')
+  .then(response => response.text())
+  .then((data) => {
+    $(".step0").append('<img id="" width="90%" atl="metacasquette" src="/jeudatas/'+mc1+'_layer.png" style="top: 5%;position: sticky;">'+
+    '<h1 id="titre_carroussel">'+data+'</h1>');
+  });
 
-
+  var mc2Txt = "";
+  fetch('/jeudatas/'+mc2+'.txt')
+  .then(response => response.text())
+  .then((data) => {
+    $(".step0").append('<img id="" width="90%" atl="metacasquette" src="/jeudatas/'+mc2+'_layer.png" style="top: 5%;position: sticky;">'+
+    '<h1 id="titre_carroussel">'+data+'</h1>');
+  });
+  if(langue == "fr"){
+    $(".step0").append(
+    '<div style="top:55%;"><p class="animate-text animate-text-chosen" >Tu as déjà choisi tes deux MétaCasquette du jour !</p>'+
+    '<p class="animate-text animate-text-chosen" >Reviens demain pour rejouer !</p>');
+    animate_text("animate-text-chosen",);
+  }
+}
 
 function changeStep(stepA,stepB){
   $(".step"+stepB).show();
@@ -23,6 +49,9 @@ function changeStep(stepA,stepB){
 function init_step1() {
 
   $(".step0 a").click(function(){
+
+      langue = $(this).attr("data-id");
+      setCookie("langue",langue);
 
       var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
       if(parseInt(hasPlayMoreThan2) > 1){
@@ -258,6 +287,9 @@ function displayMaxGame(){
   }
 
 function displayResultAndWaiting(responseObj){
+
+      if(!getCookie("mc1")){ setCookie("mc1",responseObj.result.idUser); }
+      if(!getCookie("mc2")){ setCookie("mc2",responseObj.result.idUser); }
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
 
@@ -463,4 +495,27 @@ function carrousselBeforePicture(){
 
 
 
+}
+
+function setCookie(cname, cvalue) {
+  const d = new Date();
+  d.setTime(d.getTime() + (24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
