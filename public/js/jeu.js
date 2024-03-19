@@ -288,8 +288,11 @@ function displayMaxGame(){
 
 function displayResultAndWaiting(responseObj){
 
-      if(!getCookie("mc1")){ setCookie("mc1",responseObj.result.idUser); }
-      if(!getCookie("mc2")){ setCookie("mc2",responseObj.result.idUser); }
+      if(!getCookie("mc1")){
+        setCookie("mc1",responseObj.result.idUser);
+      }else if(!getCookie("mc2")){
+         setCookie("mc2",responseObj.result.idUser);
+       }
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
 
@@ -500,8 +503,8 @@ function carrousselBeforePicture(){
 function setCookie(cname, cvalue) {
   const d = new Date();
   d.setTime(d.getTime() + (24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  let expires = "Max-Age="+ $("#next").attr("data-value");;
+  document.cookie = cname + "=" + cvalue + ";" + expires + "; SameSite=Strict ;path=/";
 }
 
 function getCookie(cname) {

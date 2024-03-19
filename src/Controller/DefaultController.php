@@ -120,8 +120,8 @@ class DefaultController extends Controller
           : $_SERVER['REMOTE_ADDR']);
 
       $hasPlayMoreThan2 = $this->numberIp($ip);
-
-      return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'hasPlayMoreThan2' => $hasPlayMoreThan2));
+      $next = strtotime("today 10:40:00")-time();
+      return $this->render('jeu/jeu'.$id.'.html.twig',array('email' => $email, 'facebook' => $facebook, 'instagram' => $instagram, 'telephone' => $telephone, 'ytid' => $ytid, 'hasPlayMoreThan2' => $hasPlayMoreThan2,'next' => $next));
     }
 
 
