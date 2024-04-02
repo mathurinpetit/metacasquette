@@ -174,6 +174,7 @@ function init_step2(){
             $(".recordBtn").attr('src', '/img/record.png');
             $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arreter");
             $(".recordGif").show();
+            $(".arrowGif").hide();
 
             // creates the audio context
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -288,11 +289,6 @@ function displayMaxGame(){
 
 function displayResultAndWaiting(responseObj){
 
-      if(!getCookie("mc1")){
-        setCookie("mc1",responseObj.result.idUser);
-      }else if(!getCookie("mc2")){
-         setCookie("mc2",responseObj.result.idUser);
-       }
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
 
@@ -318,11 +314,18 @@ function displayResultAndWaiting(responseObj){
     xhr.send(formData);
     xhr.onload = function() {
         var responseCreatedObj = JSON.parse(xhr.response);
-        if(responseCreatedObj.success){
+        if(responseCreatedObj.success && responseCreatedObj.success != "0"){
+          if(!getCookie("mc1")){
+            setCookie("mc1",responseObj.result.idUser);
+          }else if(!getCookie("mc2")){
+             setCookie("mc2",responseObj.result.idUser);
+          }
           advertisingBeforeCamera(responseCreatedObj,responseObj);
         }else{
           if(responseObj.reason == "maxGame"){
             displayMaxGame();
+          }else{
+            console.log("Je ne peux pas générer cela");
           }
         }
       };

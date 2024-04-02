@@ -185,9 +185,9 @@ class DefaultController extends Controller
       $name = $request->request->get('name');
       $whatilove = $request->request->get('whatilove');
       $cmd = "python3 ../bin/createMetacasquette.py \"".$openaikey."\" \"".$googleapifile."\" \"".$idUser."\" \"".$name."\"  \"".$whatilove."\" 2>&1 ";
-
       $result = shell_exec($cmd);
-      return new JsonResponse(array('result' => json_decode($result), 'success' => true));
+      $json = json_decode($result);
+      return new JsonResponse(array('result' => $json, 'success' => $json->success));
 
     }
 
