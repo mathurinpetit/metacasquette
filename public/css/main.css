@@ -623,6 +623,25 @@ height: 100%;
   left: 13px;
 }
 
+@keyframes anim-glow {
+	0% {
+		box-shadow: 0 0 rgba(#FF0000, 1);
+	}
+	100% {
+		box-shadow: 0 0 10px 8px transparent;
+		border-width: 2px;
+	}
+}
+.icon-glow	{
+	border-radius: 50%;
+	border: 10px solid #FFFFFF;
+	width: 400px;
+	height: 400px;
+	text-align: center;
+	position: relative;
+	animation: anim-glow 2s ease infinite;
+}
+
 @keyframes textclip {
   to {
     background-position: 200% center;

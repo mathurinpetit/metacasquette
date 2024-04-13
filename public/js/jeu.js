@@ -394,6 +394,13 @@ init_step2();
              link.click();
       });
 
+      $("#download_casquette_result").click(function download (){
+             var link = document.createElement('a');
+             link.download = $(this).attr('data-name');
+             link.href = $('#cap_img').attr("src");
+             link.click();
+      });
+
       window.mp3EndExplanations = new Audio('../sound/endExplanations_fr.mp3');
       mp3EndExplanations.play();
       setTimeout(function() {
