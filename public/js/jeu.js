@@ -339,11 +339,25 @@ function displayMaxGame(){
       animate_text("animate-text-intro",);
   }
 
+
+  function forbidenCreation(){
+        window.mp3ForbidenCreation = new Audio('../sound/forbidenCreation_fr.mp3');
+        mp3ForbidenCreation.play();
+
+        changeStep(2,3);
+        $(".step3").append(
+        '<div style="top:55%;"><p class="animate-text animate-text-forbidenCreation" >Désolé !</p>'+
+        '<p class="animate-text animate-text-forbidenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
+        '<p class="animate-text animate-text-forbidenCreation" >Tu vas devoir me trouver autre chose</p>'+
+        '<p class="animate-text animate-text-forbidenCreation" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+        animate_text("animate-text-forbidenCreation",);
+    }
+
 function displayResultAndWaiting(responseObj){
 
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
-
+      $(".step3").empty();
       changeStep(2,3);
       $(".step3").append(responseObj.result.textReponseSections);
       animate_text("animate-text-response",carrousselBeforePicture,);
@@ -377,7 +391,7 @@ function displayResultAndWaiting(responseObj){
           if(responseObj.reason == "maxGame"){
             displayMaxGame();
           }else{
-            console.log("Je ne peux pas générer cela");
+            forbidenCreation();
           }
         }
       };
