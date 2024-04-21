@@ -112,6 +112,19 @@ function transition1To2(){
 }
 
 
+function timer(nbSec,btnObj){
+    var sec = nbSec;
+    var timer = setInterval(function(){
+        document.getElementById('safeTimerDisplay').innerHTML=''+sec;
+        sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+              var event1 = new Event('touchstart');
+              btnObj.dispatchEvent(event1);
+        }
+    }, 1000);
+}
+
 function init_step2(){
   var startRecordingButton = document.getElementById("startRecordingButton");
 
@@ -154,7 +167,8 @@ function init_step2(){
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
       $(".step2").append(
-      '<div style="top:55%;"><p class="animate-text animate-text-transition" >Parfait !</p>'+
+      '<div style="top:55%;">'+
+      '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
       '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
       '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
       '<p class="animate-text animate-text-transition" >très rapidement !</p></div>');
@@ -195,20 +209,24 @@ function init_step2(){
    }
 
   startRecordingButton.addEventListener("touchstart", function () {
+
+      var event2 = new Event('touchend');
+      startRecordingButton.dispatchEvent(event2);
+
       if(!isRecording) {
         // Initialize recorder
 
-        navigator.mediaDevices
-        .getUserMedia({
+        navigator.mediaDevices.getUserMedia({
             audio: true
-        })
-        .then((e) => {
+        }).then((e) => {
 
             recordingLength = 0;
             leftchannel = [];
             rightchannel = [];
             $(".recordBtn").attr('src', '/img/record.png');
             $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arreter");
+            $("#safeTimerDisplay").show();
+            timer(10,startRecordingButton);
             $(".recordGif").show();
             $(".arrowGif").hide();
 
@@ -243,16 +261,16 @@ function init_step2(){
         });
 
       }else{
+
         $(".recordBtn").attr('src', '/img/record_ready.png');
         $(".recordSpanBtn").removeClass('btn-danger').addClass('btn-default').html("Clickez pour répondre");
         $(".recordGif").hide();
-
+        $("#safeTimerDisplay").hide();
 
         recorder.disconnect(context.destination);
         mediaStream.disconnect(recorder);
 
         transitionSendingRecord();
-
 
         setTimeout(function() {
           // we flat the left and right channels down
