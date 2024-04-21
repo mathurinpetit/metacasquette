@@ -41,6 +41,16 @@ if(mc1 && mc2 && langue){
   }
 }
 
+function isIOSIPhone() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return true;
+    }
+
+    return false;
+}
+
 function changeStep(stepA,stepB){
   $(".step"+stepB).show();
   $(".step"+stepA).hide();
@@ -51,6 +61,8 @@ function init_step1() {
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
+      var ios = isIOSIPhone();
+
       setCookie("langue",langue);
 
       var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
@@ -61,21 +73,44 @@ function init_step1() {
       }
       changeStep(0,1);
 
-      let video1 = document.getElementById("video1");
+      if(!ios){
+        let video1 = document.getElementById("video1");
 
-      function playVid() {
-          video1.play();
+        function playVid() {
+            video1.play();
+        }
+        playVid();
+        video1.addEventListener("ended", (event) => {
+
+          changeStep(1,2);
+
+        });
+      }else{
+        window.mp3Introduction = new Audio('../sound/intro_fr.mp3');
+        mp3Introduction.play();
+
+        $(".step1").css('width','90%');
+        $(".step1").css('top','200px');
+        $(".step1").append(
+        '<div style="top:55%;"><p class="animate-text animate-text-intro" >Bonjour,</p>'+
+        '<p class="animate-text animate-text-intro" >la participation au jeu est très simple : </p>'+
+        '<p class="animate-text animate-text-intro" >Dans un premier temps, nous te conseillons de monter le volume de ton téléphone !</p>'+
+        '<p class="animate-text animate-text-intro" >Maintenant tu vas juste me dire quel est ton</p>'+
+        '<p class="animate-text animate-text-intro warm" >PRÉNOM</p>'+
+        '<p class="animate-text animate-text-intro" >et</p>'+
+        '<p class="animate-text animate-text-intro highlight" >CE QUE TU AIMES DANS LA VIE !</p>'+
+        '<p class="animate-text animate-text-intro lastOne" >Juste après que j\'ai fini de parler tu pourras appuyer sur le bouton pour t\'enregistrer</p>');
+        animate_text("animate-text-intro",transition1To2,);
+
       }
-      playVid();
-
-      video1.addEventListener("ended", (event) => {
-
-        changeStep(1,2);
-
-      });
 
   });
 }
+
+function transition1To2(){
+  changeStep(1,2);
+}
+
 
 function init_step2(){
   var startRecordingButton = document.getElementById("startRecordingButton");
@@ -162,12 +197,13 @@ function init_step2(){
   startRecordingButton.addEventListener("touchstart", function () {
       if(!isRecording) {
         // Initialize recorder
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        navigator.getUserMedia(
-        {
+
+        navigator.mediaDevices
+        .getUserMedia({
             audio: true
-        },
-        function (e) {
+        })
+        .then((e) => {
+
             recordingLength = 0;
             leftchannel = [];
             rightchannel = [];
@@ -204,10 +240,8 @@ function init_step2(){
             mediaStream.connect(recorder);
             recorder.connect(context.destination);
             isRecording = true;
-        },
-         function (e) {
-            console.error(e);
         });
+
       }else{
         $(".recordBtn").attr('src', '/img/record_ready.png');
         $(".recordSpanBtn").removeClass('btn-danger').addClass('btn-default').html("Clickez pour répondre");
@@ -275,16 +309,16 @@ function init_step2(){
 }
 
 function displayMaxGame(){
-      window.mp3Reponse = new Audio('../sound/maxGame_fr.mp3');
-      mp3Reponse.play();
+      window.mp3Maxgame = new Audio('../sound/maxGame_fr.mp3');
+      mp3Maxgame.play();
 
       changeStep(2,3);
       $(".step3").append(
-      '<div style="top:55%;"><p class="animate-text animate-text-max" >Désolé !</p>'+
-      '<p class="animate-text animate-text-max" >Tu ne peux jouer que deux fois par jour à ce jeu !</p>'+
-      '<p class="animate-text animate-text-max" >Mais reviens demain !</p>'+
-      '<p class="animate-text animate-text-max" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
-      animate_text("animate-text-max",);
+      '<div style="top:55%;"><p class="animate-text animate-text-intro" >Désolé !</p>'+
+      '<p class="animate-text animate-text-intro" >Tu ne peux jouer que deux fois par jour à ce jeu !</p>'+
+      '<p class="animate-text animate-text-intro" >Mais reviens demain !</p>'+
+      '<p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+      animate_text("animate-text-intro",);
   }
 
 function displayResultAndWaiting(responseObj){
