@@ -202,7 +202,7 @@ function init_step2(){
            }
        }, 1000);
    }
-   
+
    function stopRecordingAndSend(recorder,context,mediaStream){
 
      $(".recordBtn").attr('src', '/img/record_ready.png');
@@ -351,7 +351,8 @@ function displayMaxGame(){
         window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_fr.mp3');
         mp3ForbidenCreation.play();
 
-        changeStep(2,3);
+        changeStep(4,3);
+        $(".step3").empty();
         $(".step3").append(
         '<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
         '<p class="animate-text animate-text-forbiddenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
