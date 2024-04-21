@@ -111,20 +111,6 @@ function transition1To2(){
   changeStep(1,2);
 }
 
-
-function timer(nbSec,btnObj){
-    var sec = nbSec;
-    var timer = setInterval(function(){
-        document.getElementById('safeTimerDisplay').innerHTML=''+sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-              var event1 = new Event('touchstart');
-              btnObj.dispatchEvent(event1);
-        }
-    }, 1000);
-}
-
 function init_step2(){
   var startRecordingButton = document.getElementById("startRecordingButton");
 
@@ -202,6 +188,84 @@ function init_step2(){
        return result;
    }
 
+
+
+
+   function timer(nbSec,recorder,context,mediaStream){
+       var sec = nbSec;
+       var timer = setInterval(function(){
+           document.getElementById('safeTimerDisplay').innerHTML=''+sec;
+           sec--;
+           if (sec < 0) {
+               clearInterval(timer);
+               stopRecordingAndSend(recorder,context,mediaStream);
+           }
+       }, 1000);
+   }
+   
+   function stopRecordingAndSend(recorder,context,mediaStream){
+
+     $(".recordBtn").attr('src', '/img/record_ready.png');
+     $(".recordSpanBtn").removeClass('btn-danger').addClass('btn-default').html("Clickez pour répondre");
+     $(".recordGif").hide();
+     $("#safeTimerDisplay").hide();
+
+     recorder.disconnect(context.destination);
+     mediaStream.disconnect(recorder);
+
+     transitionSendingRecord();
+
+     setTimeout(function() {
+       // we flat the left and right channels down
+       // Float32Array[] => Float32Array
+       var leftBuffer = flattenArray(leftchannel, recordingLength);
+       var rightBuffer = flattenArray(rightchannel, recordingLength);
+       // we interleave both channels together
+       // [left[0],right[0],left[1],right[1],...]
+       var interleaved = interleave(leftBuffer, rightBuffer);
+
+       // we create our wav file
+       var buffer = new ArrayBuffer(44 + interleaved.length * 2);
+       var view = new DataView(buffer);
+
+       // RIFF chunk descriptor
+       writeUTFBytes(view, 0, 'RIFF');
+       view.setUint32(4, 44 + interleaved.length * 2, true);
+       writeUTFBytes(view, 8, 'WAVE');
+       // FMT sub-chunk
+       writeUTFBytes(view, 12, 'fmt ');
+       view.setUint32(16, 16, true); // chunkSize
+       view.setUint16(20, 1, true); // wFormatTag
+       view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+       view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+       view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+       view.setUint16(32, 4, true); // wBlockAlign
+       view.setUint16(34, 16, true); // wBitsPerSample
+       // data sub-chunk
+       writeUTFBytes(view, 36, 'data');
+       view.setUint32(40, interleaved.length * 2, true);
+
+       // write the PCM samples
+       var index = 44;
+       var volume = 1;
+       for (var i = 0; i < interleaved.length; i++) {
+           view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+           index += 2;
+       }
+
+       // our final blob
+       blob = new Blob([view], { type: 'audio/wav' });
+       isRecording = false;
+
+       if (blob == null) {
+           return;
+       }
+       postBlob(blob);
+     },500);
+   }
+
+
+
    function writeUTFBytes(view, offset, string) {
        for (var i = 0; i < string.length; i++) {
            view.setUint8(offset + i, string.charCodeAt(i));
@@ -226,7 +290,6 @@ function init_step2(){
             $(".recordBtn").attr('src', '/img/record.png');
             $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arreter");
             $("#safeTimerDisplay").show();
-            timer(10,startRecordingButton);
             $(".recordGif").show();
             $(".arrowGif").hide();
 
@@ -252,78 +315,22 @@ function init_step2(){
                 leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
                 rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
                 recordingLength += bufferSize;
+
             }
 
             // we connect the recorder
             mediaStream.connect(recorder);
             recorder.connect(context.destination);
             isRecording = true;
+            timer(10,recorder,context,mediaStream);
         });
 
       }else{
+        stopRecordingAndSend(recorder,context,mediaStream);
 
-        $(".recordBtn").attr('src', '/img/record_ready.png');
-        $(".recordSpanBtn").removeClass('btn-danger').addClass('btn-default').html("Clickez pour répondre");
-        $(".recordGif").hide();
-        $("#safeTimerDisplay").hide();
-
-        recorder.disconnect(context.destination);
-        mediaStream.disconnect(recorder);
-
-        transitionSendingRecord();
-
-        setTimeout(function() {
-          // we flat the left and right channels down
-          // Float32Array[] => Float32Array
-          var leftBuffer = flattenArray(leftchannel, recordingLength);
-          var rightBuffer = flattenArray(rightchannel, recordingLength);
-          // we interleave both channels together
-          // [left[0],right[0],left[1],right[1],...]
-          var interleaved = interleave(leftBuffer, rightBuffer);
-
-          // we create our wav file
-          var buffer = new ArrayBuffer(44 + interleaved.length * 2);
-          var view = new DataView(buffer);
-
-          // RIFF chunk descriptor
-          writeUTFBytes(view, 0, 'RIFF');
-          view.setUint32(4, 44 + interleaved.length * 2, true);
-          writeUTFBytes(view, 8, 'WAVE');
-          // FMT sub-chunk
-          writeUTFBytes(view, 12, 'fmt ');
-          view.setUint32(16, 16, true); // chunkSize
-          view.setUint16(20, 1, true); // wFormatTag
-          view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
-          view.setUint32(24, sampleRate, true); // dwSamplesPerSec
-          view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
-          view.setUint16(32, 4, true); // wBlockAlign
-          view.setUint16(34, 16, true); // wBitsPerSample
-          // data sub-chunk
-          writeUTFBytes(view, 36, 'data');
-          view.setUint32(40, interleaved.length * 2, true);
-
-          // write the PCM samples
-          var index = 44;
-          var volume = 1;
-          for (var i = 0; i < interleaved.length; i++) {
-              view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
-              index += 2;
-          }
-
-          // our final blob
-          blob = new Blob([view], { type: 'audio/wav' });
-          isRecording = false;
-
-          if (blob == null) {
-              return;
-          }
-          postBlob(blob);
-        },500);
       }
 
   });
-
-
 }
 
 function displayMaxGame(){
@@ -340,17 +347,17 @@ function displayMaxGame(){
   }
 
 
-  function forbidenCreation(){
-        window.mp3ForbidenCreation = new Audio('../sound/forbidenCreation_fr.mp3');
+  function forbiddenCreation(){
+        window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_fr.mp3');
         mp3ForbidenCreation.play();
 
         changeStep(2,3);
         $(".step3").append(
-        '<div style="top:55%;"><p class="animate-text animate-text-forbidenCreation" >Désolé !</p>'+
-        '<p class="animate-text animate-text-forbidenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
-        '<p class="animate-text animate-text-forbidenCreation" >Tu vas devoir me trouver autre chose</p>'+
-        '<p class="animate-text animate-text-forbidenCreation" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
-        animate_text("animate-text-forbidenCreation",);
+        '<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >Tu vas devoir me trouver autre chose</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+        animate_text("animate-text-forbiddenCreation",);
     }
 
 function displayResultAndWaiting(responseObj){
@@ -391,7 +398,7 @@ function displayResultAndWaiting(responseObj){
           if(responseObj.reason == "maxGame"){
             displayMaxGame();
           }else{
-            forbidenCreation();
+            forbiddenCreation();
           }
         }
       };
