@@ -180,7 +180,7 @@ function init_step2(){
    formData.append('langue', langue);
 
    const xhr = new XMLHttpRequest();
-   xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/upload', true);
+   xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/upload', true);
    xhr.send(formData);
    xhr.onload = function() {
        var responseObj = JSON.parse(xhr.response);
@@ -421,7 +421,7 @@ function displayResultAndWaiting(responseObj){
     $("#download_result").attr('data-name',"metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png")
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/createmetacasquette', true);
+    xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createmetacasquette', true);
     xhr.send(formData);
     xhr.onload = function() {
         var responseCreatedObj = JSON.parse(xhr.response);
@@ -593,7 +593,7 @@ function carrousselBeforePicture(){
   changeStep(3,4);
 
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/randomgenerated', true);
+  xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/randomgenerated', true);
   xhr.send(null);
   xhr.onload = function() {
       var responseObj = JSON.parse(xhr.response);
