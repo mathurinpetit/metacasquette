@@ -145,14 +145,15 @@ class DefaultController extends Controller
       $identifiant = $ip;
 
       $file = $request->files->get('file');
+      $langue = $request->request->get('langue');
       $dir = __DIR__.'/../../data/';
       $nameFile = uniqid($identifiant.'_', true);
       $completePath = $dir.$nameFile.'.wav';
       if(rename($file,$completePath) !== false){
         $openaikey = $this->getParameter('app.openaikey');
         $googleapifile = $this->getParameter('app.googleapifile');
-        $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" 2>&1 ";
-
+        $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" \"".$langue."\" 2>&1 ";
+        
         $result = shell_exec($cmd);
 
         return new JsonResponse(array('result' => json_decode($result), 'success' => true));

@@ -37,9 +37,18 @@ def createMp3(text="", type="response"):
 
   # Spécifiez les paramètres de la synthèse vocale
   synthesis_input = texttospeech.SynthesisInput(text=text)
+
+  language_code = 'fr-FR'
+  nameOfVoice = "fr-FR-Neural2-D"
+  if langue == "en" :
+    nameOfVoice = "en-US-Neural2-D"
+    language_code = 'en-US'
+
+
+
   voice = texttospeech.VoiceSelectionParams(
-      language_code="fr-FR",  # Code de langue pour le français
-      name="fr-FR-Neural2-D",  # Nom de la voix
+      language_code=language_code,  # Code de langue pour le français
+      name=nameOfVoice,  # Nom de la voix
   )
   audio_config = texttospeech.AudioConfig(
       audio_encoding=texttospeech.AudioEncoding.LINEAR16
@@ -64,6 +73,7 @@ openaikey = sys.argv[1]
 googleapifile = sys.argv[2]
 fileId = sys.argv[3]
 filePath = sys.argv[4]
+langue = sys.argv[5]
 
 client = OpenAI(api_key=openaikey)
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = googleapifile
@@ -85,12 +95,21 @@ json_user = json.loads(extractionGPTUser(userText,machineText))
 
 
 textReponse = "Très bien "+json_user["name"]+"! "+json_user["whatilove"]+" tu aimes, "+json_user["whatilove"]+" tu auras ! Je vais te construire une MétaCasquette en "+json_user["whatilove"]+". Cela peut prendre un peu de temps, alors je te propose de regarder ce que les autres participants ont choisi en attendant. La MétaCasquette la plus originale gagnera !";
+if langue == "en" :
+    textReponse = "Very good "+json_user["name"]+"! "+json_user["whatilove"]+" you love, "+json_user["whatilove"]+" will have ! I'm going to build you a "+json_user["whatilove"]+" MétaCasquette. This may take a little time, so I suggest you look at what the other participants have chosen in the meantime. The most original MétaCasquette will win !";
 
 textReponseSections = "<p class='animate-text animate-text-response'>Très bien </p><p class='animate-text animate-text-response warm'>"+json_user["name"]+"!</p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu aimes, </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> tu auras ! </p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>Je vais te construire une MétaCasquette en </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>En attendant que je la fabrique, je te propose de regarder ce que les autres participants ont choisi.</p>"
 textReponseSections = textReponseSections + "<p class='animate-text animate-text-response light lastOne'>La MétaCasquette la plus originale gagnera !</p>";
+
+if langue == "en" :
+    textReponseSections = "<p class='animate-text animate-text-response'>Very good</p><p class='animate-text animate-text-response warm'>"+json_user["name"]+"!</p>"
+    textReponseSections = textReponseSections + "<p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> you love, </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'> you will have ! </p>"
+    textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'> I'm going to build you a </p><p class='animate-text animate-text-response highlight'>"+json_user["whatilove"]+"</p><p class='animate-text animate-text-response'>MétaCasquette</p>"
+    textReponseSections = textReponseSections + "<p class='animate-text animate-text-response'>This may take a little time, so I suggest you look at what the other participants have chosen in the meantime.</p>"
+    textReponseSections = textReponseSections + "<p class='animate-text animate-text-response light lastOne'>The most original MétaCasquette will win !</p>";
 
 
 mp3Reponse = createMp3(textReponse,"response");
@@ -102,11 +121,21 @@ with open("jeudatas/"+fileId+".txt", 'w') as f:
     f.write(textSmallDescription);
 
 textReady = json_user["name"]+", ta MétaCasquette en "+json_user["whatilove"]+" est prête !"
+if langue == "en" :
+    textReady = json_user["name"]+", your MétaCasquette built in "+json_user["whatilove"]+" is ready !"
 
 textReadySections = "<p class='animate-text animate-text-ready warm'>"+json_user["name"]+",</p>";
-textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>ta MétaCasquette en</p>";
-textReadySections = textReadySections + "<p class='animate-text animate-text-ready highlight'>"+json_user["whatilove"]+"</p>";
-textReadySections = textReadySections + "<p class='animate-text animate-text-ready lastOne'>est prête !</p>";
+
+if langue == "fr" :
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>ta MétaCasquette en</p>";
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready highlight'>"+json_user["whatilove"]+"</p>";
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready lastOne'>est prête !</p>";
+
+if langue == "en" :
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready'>your MétaCasquette built in</p>";
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready highlight'>"+json_user["whatilove"]+"</p>";
+    textReadySections = textReadySections + "<p class='animate-text animate-text-ready lastOne'>is ready !</p>";
+
 
 mp3Ready = createMp3(textReady,"ready");
 

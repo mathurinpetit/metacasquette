@@ -1,3 +1,4 @@
+
  /*  Liste ici des Etapes du jeu interactif
   *  Etape0 Affichage => choix de la langue
   *  Etape1 Affichage => video d'introduction pour les appareils android et défilement de texte pour les ios
@@ -10,6 +11,64 @@
   *  Etape8 Photo
   *  Etape9 Partage
   */
+
+var texts = {
+
+      "already_played_cookie" : {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-chosen" >Tu as déjà choisi tes deux MétaCasquette du jour !</p><p class="animate-text animate-text-chosen" >Reviens demain pour rejouer !</p>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-chosen" >You have already chosen your two MétaCasquette of the day!</p><p class="animate-text animate-text-chosen" >Come back tomorrow to play again!</p>'
+      },
+      "already_played" : {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Désolé !</p><p class="animate-text animate-text-intro" >Tu ne peux jouer que deux fois par jour à ce jeu !</p><p class="animate-text animate-text-intro" >Mais reviens demain !</p><p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Sorry !</p><p class="animate-text animate-text-intro" >You can only play this game twice a day!</p><p class="animate-text animate-text-intro" >But come back tomorrow!</p><p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Click here to go back to the beginning...</p></div>',
+      },
+      "introduction" : {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Bonjour,</p>'+
+        '<p class="animate-text animate-text-intro" >la participation au jeu est très simple : </p>'+
+        '<p class="animate-text animate-text-intro" >Dans un premier temps, nous te conseillons de monter le volume de ton téléphone !</p>'+
+        '<p class="animate-text animate-text-intro" >Maintenant tu vas juste me dire quel est ton</p>'+
+        '<p class="animate-text animate-text-intro warm" >PRÉNOM</p>'+
+        '<p class="animate-text animate-text-intro" >et</p>'+
+        '<p class="animate-text animate-text-intro highlight" >CE QUE TU AIMES DANS LA VIE !</p>'+
+        '<p class="animate-text animate-text-intro lastOne" >Juste après que j\'ai fini de parler tu pourras appuyer sur le bouton pour t\'enregistrer</p>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Hello,</p>'+
+        '<p class="animate-text animate-text-intro" >participating in the game is very simple:</p>'+
+        '<p class="animate-text animate-text-intro" >First of all, we advise you to turn up the volume on your phone!</p>'+
+        '<p class="animate-text animate-text-intro" >Now you\'re just going to tell me what your</p>'+
+        '<p class="animate-text animate-text-intro warm" >FIRST NAME</p>'+
+        '<p class="animate-text animate-text-intro" >and</p>'+
+        '<p class="animate-text animate-text-intro highlight" >WHAT YOU LOVE IN LIFE!</p>'+
+        '<p class="animate-text animate-text-intro lastOne" >Right after I finish speaking you can press the button to register your answer</p>'
+      },
+      "transitionSendingRecord":{
+        'fr' : '<div style="top:55%;">'+
+        '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
+        '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
+        '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
+        '<p class="animate-text animate-text-transition" >très rapidement !</p></div>',
+        'en' : '<div style="top:55%;">'+
+        '<p class="animate-text animate-text-transition warm" >Perfect !</p>'+
+        '<p class="animate-text animate-text-transition" >I\'m going to pay attention to what you just told me very soon</p></div>'
+      },
+      "forbiddenCreation" : {
+        'fr' :'<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >Tu vas devoir me trouver autre chose</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Sorry !</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >I cannot Create such a MétaCasquette</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" >You\'re going to have to find me something else</p>'+
+        '<p class="animate-text animate-text-forbiddenCreation" onClick="window.location.href=window.location.href">Click here to go back to the beginning...</p></div>'
+      },
+      "advertisingForGame": {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-advertising" >Maintenant, tu vas pouvoir te prendre en photo avec </p>'+
+          '<p class="animate-text animate-text-advertising lastOne" >ta MétaCasquette !</p></div>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-advertising" >Now you will be able to take a photo of yourself with</p>'+
+          '<p class="animate-text animate-text-advertising lastOne" >your MétaCasquette !</p></div>'
+      }
+
+}
+
 
 var langue = getCookie("langue");
 var mc1 = getCookie("mc1");
@@ -33,12 +92,10 @@ if(mc1 && mc2 && langue){
     $(".step0").append('<img id="" width="90%" atl="metacasquette" src="/jeudatas/'+mc2+'_layer.png" style="top: 5%;position: sticky;">'+
     '<h1 id="titre_carroussel">'+data+'</h1>');
   });
-  if(langue == "fr"){
-    $(".step0").append(
-    '<div style="top:55%;"><p class="animate-text animate-text-chosen" >Tu as déjà choisi tes deux MétaCasquette du jour !</p>'+
-    '<p class="animate-text animate-text-chosen" >Reviens demain pour rejouer !</p>');
-    animate_text("animate-text-chosen",);
-  }
+
+  $(".step0").append(texts['already_played_cookie'][langue]);
+
+  animate_text("animate-text-chosen",);
 }
 
 function isIOSIPhone() {
@@ -86,20 +143,12 @@ function init_step1() {
 
         });
       }else{
-        window.mp3Introduction = new Audio('../sound/intro_fr.mp3');
+        window.mp3Introduction = new Audio('../sound/intro_'+langue+'.mp3');
         mp3Introduction.play();
 
         $(".step1").css('width','90%');
         $(".step1").css('top','200px');
-        $(".step1").append(
-        '<div style="top:55%;"><p class="animate-text animate-text-intro" >Bonjour,</p>'+
-        '<p class="animate-text animate-text-intro" >la participation au jeu est très simple : </p>'+
-        '<p class="animate-text animate-text-intro" >Dans un premier temps, nous te conseillons de monter le volume de ton téléphone !</p>'+
-        '<p class="animate-text animate-text-intro" >Maintenant tu vas juste me dire quel est ton</p>'+
-        '<p class="animate-text animate-text-intro warm" >PRÉNOM</p>'+
-        '<p class="animate-text animate-text-intro" >et</p>'+
-        '<p class="animate-text animate-text-intro highlight" >CE QUE TU AIMES DANS LA VIE !</p>'+
-        '<p class="animate-text animate-text-intro lastOne" >Juste après que j\'ai fini de parler tu pourras appuyer sur le bouton pour t\'enregistrer</p>');
+        $(".step1").append(texts['introduction'][langue]);
         animate_text("animate-text-intro",transition1To2,);
 
       }
@@ -128,6 +177,7 @@ function init_step2(){
   function postBlob(blob){
    const formData = new FormData();
    formData.append('file', blob);
+   formData.append('langue', langue);
 
    const xhr = new XMLHttpRequest();
    xhr.open('POST', '/jeu/eab7306f-49f6-45ef-bfa3-a376be81b31f/upload', true);
@@ -148,16 +198,11 @@ function init_step2(){
       $(".recordBtn").hide();
       $(".recordSpanBtn").hide();
       $(".step2").prepend('<img src="/video/eyes.gif" class="eyes" style="width:110%; position: absolute; left:-5%;" ><br/>');
-      window.mp3Transition = new Audio('../sound/transitionSendingRecord_fr.mp3');
+      window.mp3Transition = new Audio('../sound/transitionSendingRecord_'+langue+'.mp3');
       mp3Transition.play();
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
-      $(".step2").append(
-      '<div style="top:55%;">'+
-      '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
-      '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
-      '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
-      '<p class="animate-text animate-text-transition" >très rapidement !</p></div>');
+      $(".step2").append(texts['transitionSendingRecord'][langue]);
       animate_text("animate-text-transition",);
 
   }
@@ -334,30 +379,22 @@ function init_step2(){
 }
 
 function displayMaxGame(){
-      window.mp3Maxgame = new Audio('../sound/maxGame_fr.mp3');
+      window.mp3Maxgame = new Audio('../sound/maxGame_'+langue+'.mp3');
       mp3Maxgame.play();
 
       changeStep(2,3);
-      $(".step3").append(
-      '<div style="top:55%;"><p class="animate-text animate-text-intro" >Désolé !</p>'+
-      '<p class="animate-text animate-text-intro" >Tu ne peux jouer que deux fois par jour à ce jeu !</p>'+
-      '<p class="animate-text animate-text-intro" >Mais reviens demain !</p>'+
-      '<p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+      $(".step3").append(texts['already_played'][langue]);
       animate_text("animate-text-intro",);
   }
 
 
   function forbiddenCreation(){
-        window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_fr.mp3');
+        window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_'+langue+'.mp3');
         mp3ForbidenCreation.play();
 
         changeStep(4,3);
         $(".step3").empty();
-        $(".step3").append(
-        '<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
-        '<p class="animate-text animate-text-forbiddenCreation" >Je ne peux pas Créer une telle MétaCasquette</p>'+
-        '<p class="animate-text animate-text-forbiddenCreation" >Tu vas devoir me trouver autre chose</p>'+
-        '<p class="animate-text animate-text-forbiddenCreation" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>');
+        $(".step3").append(texts['forbiddenCreation'][langue]);
         animate_text("animate-text-forbiddenCreation",);
     }
 
@@ -417,6 +454,7 @@ init_step2();
 
  camera_button.addEventListener('touchstart', async function() {
       $(".startCamera").hide();
+      $(".arrowGifCam").hide();
     	let stream = await navigator.mediaDevices.getUserMedia({ video: true });
  	    video2.srcObject = stream;
       setTimeout(function() {
@@ -475,10 +513,10 @@ init_step2();
              link.click();
       });
 
-      window.mp3EndExplanations = new Audio('../sound/endExplanations_fr.mp3');
+      window.mp3EndExplanations = new Audio('../sound/endExplanations_'+langue+'.mp3');
       mp3EndExplanations.play();
       setTimeout(function() {
-        $("#share").show();
+        $("#share_"+langue).show();
       }, 1000);
  });
 
@@ -497,11 +535,11 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
   function advertisingForGame(responseCreatedObj){
 
-    window.mp3Advertising = new Audio('../sound/advertisingForGame_fr.mp3');
+    window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
     mp3Advertising.play();
 
     $(".step5 .result-text").children().remove();
-    $(".step5 .result-text").append('<p class="animate-text animate-text-advertising" >Maintenant, tu vas pouvoir te prendre en photo avec </p><p class="animate-text animate-text-advertising lastOne" >ta MétaCasquette !</p>');
+    $(".step5 .result-text").append(texts['advertisingForGame'][langue]);
     animate_text("animate-text-advertising",pictureMetacasquette,responseCreatedObj);
 
 
