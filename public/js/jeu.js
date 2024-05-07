@@ -12,6 +12,9 @@
   *  Etape9 Partage
   */
 
+$(".email").html('<a href="/" class="btn btn-default" style="height:80px; background-color:black; color :white;  font-size: 30px; border:2px solid white; font-weight : bold;">← <img height="60" src="/img/logo/logo_detache_white.png" alt="/MetaCasquette"></h1>')
+
+
 var texts = {
 
       "already_played_cookie" : {
@@ -419,7 +422,7 @@ function displayResultAndWaiting(responseObj){
     formData.append('name', responseObj.result.name);
     formData.append('idUser', responseObj.result.idUser);
 
-    $("#download_result").attr('data-name',"metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png")
+    $("#share_"+langue).find("#download_result").attr('data-name',"metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png")
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createmetacasquette', true);
@@ -500,18 +503,22 @@ init_step2();
 
 
 
-      $("#download_result").click(function download (){
+      $(".download_result").each(function(){
+          $(this).click(function download (){
              var link = document.createElement('a');
              link.download = $(this).attr('data-name');
              link.href = canvas.toDataURL()
              link.click();
+           });
       });
 
-      $("#download_casquette_result").click(function download (){
+      $(".download_casquette_result").each(function(){
+          $(this).click(function download (){
              var link = document.createElement('a');
              link.download = $(this).attr('data-name');
              link.href = $('#cap_img').attr("src");
              link.click();
+           });
       });
 
       window.mp3EndExplanations = new Audio('../sound/endExplanations_'+langue+'.mp3');
