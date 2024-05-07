@@ -82,7 +82,9 @@ class DefaultController extends Controller
             $strName = explode('_',$fileName);
             $id = $strName[0];
             $id_prefixed = 'jeudatas/'.$id;
-            $metaCasquettes[$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
+            if(file_exists($id_prefixed.'.txt')){
+              $metaCasquettes[date("YmdHis",filemtime($id_prefixed.'.txt')).$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
+            }
           }
         }
       }
@@ -153,7 +155,6 @@ class DefaultController extends Controller
         $openaikey = $this->getParameter('app.openaikey');
         $googleapifile = $this->getParameter('app.googleapifile');
         $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" \"".$langue."\" 2>&1 ";
-        
         $result = shell_exec($cmd);
 
         return new JsonResponse(array('result' => json_decode($result), 'success' => true));

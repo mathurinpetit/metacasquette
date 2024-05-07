@@ -12,6 +12,8 @@
   *  Etape9 Partage
   */
 
+if($(".generativGame").length){
+
 $(".email").html('<a href="/" class="btn btn-default" style="height:80px; background-color:black; color :white;  font-size: 30px; border:2px solid white; font-weight : bold;">← <img height="60" src="/img/logo/logo_detache_white.png" alt="/MetaCasquette"></h1>')
 
 
@@ -651,4 +653,11 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+}
+
+
+if($(".gameParticipation").length){
+  $('.overlay-mask').css('position','absolute');$('.overlay-mask').css('top','0');
+  $(".email").html('<a href="/" class="btn btn-default" style="height:80px; background-color:black; color :white;  font-size: 30px; border:2px solid white; font-weight : bold;">← <img height="60" src="/img/logo/logo_detache_white.png" alt="/MetaCasquette"></h1>')
 }
