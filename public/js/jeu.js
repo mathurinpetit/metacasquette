@@ -131,9 +131,10 @@ function init_step1() {
       changeStep(0,1);
 
       if(!ios){
-        let video1 = document.getElementById("video1");
+        let video1 = document.getElementById("video_"+langue);
 
         function playVid() {
+            video1.style.display = '';
             video1.play();
         }
         playVid();
@@ -147,7 +148,7 @@ function init_step1() {
         mp3Introduction.play();
 
         $(".step1").css('width','90%');
-        $(".step1").css('top','200px');
+        $(".step1").css('top','50%');
         $(".step1").append(texts['introduction'][langue]);
         animate_text("animate-text-intro",transition1To2,);
 
