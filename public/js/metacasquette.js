@@ -148,10 +148,7 @@ function initRotateElements(){
 				$(this).remove();
 			});
 
-
-				    $(document).ready(function(){
-				        $("#modalJeu").modal('show');
-				    });
+			$("#modalJeu").modal('show');
 
 		}else{
 
