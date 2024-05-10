@@ -148,7 +148,13 @@ function initRotateElements(){
 				$(this).remove();
 			});
 
-			$("#modalJeu").modal('show');
+
+			$(document).ready(function(){
+			    $("#modalJeu").modal('show');
+					$("#modalJeu").on("hidden.bs.modal", function () {
+					    $("#modalJeu").remove();
+					});
+			});
 
 		}else{
 
