@@ -89,6 +89,9 @@ function initRotateElements(){
 					rotates360[id].animate360(2000);
 				}
 		});
+		if($(window).scrollTop() + $(window).height() + 50 >= $(document).height()) {
+	       $("a#plus").click();
+	   }
 	});
 
 
@@ -144,8 +147,18 @@ function initRotateElements(){
 			$('.img-mobile').each(function(){
 				$(this).remove();
 			});
+
+
+				    $(document).ready(function(){
+				        $("#modalJeu").modal('show');
+				    });
+
 		}else{
-			$(".rotate360mobile").each(function(){
+
+
+
+
+			$(".rotate360mobile:visible").each(function(){
 				var id = $(this).attr("id");
 				var name = $(this).data("name");
 				var numberPictures = $(this).data("number");

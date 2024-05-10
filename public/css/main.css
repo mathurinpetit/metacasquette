@@ -146,6 +146,10 @@ tr {
 }
 
 
+.closeDesktop{
+  margin-top: -21px !important;
+
+}
 /* VIDEO BACKGROUND */
 
 .video-background {
