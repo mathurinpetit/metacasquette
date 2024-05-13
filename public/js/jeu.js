@@ -124,7 +124,6 @@ function init_step1() {
 
       langue = $(this).attr("data-id");
       var ios = isIOSIPhone();
-
       setCookie("langue",langue);
 
       var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
@@ -611,7 +610,7 @@ function carrousselBeforePicture(){
         $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
         $('#titre_carroussel').html(responseObj.result.text);
 
-        if(responseObj.result.soundPath){
+        if(!isIOSIPhone() && responseObj.result.soundPath){
           window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
           mp3CarrousselCurrent.play();
 
@@ -623,7 +622,7 @@ function carrousselBeforePicture(){
         }else{
           setTimeout(function() {
             carrousselBeforePicture();
-          },5000);
+          },3000);
         }
       }
   };
