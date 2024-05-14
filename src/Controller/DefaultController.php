@@ -148,6 +148,10 @@ class DefaultController extends Controller
       $identifiant = $ip;
 
       $file = $request->files->get('file');
+      if(!preg_match('/audio/i',$file->getClientMimeType())){
+        return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
+      }
+
       $langue = $request->request->get('langue');
       $dir = __DIR__.'/../../data/';
       $nameFile = uniqid($identifiant.'_', true);
@@ -155,11 +159,12 @@ class DefaultController extends Controller
       if(rename($file,$completePath) !== false){
         $openaikey = $this->getParameter('app.openaikey');
         $googleapifile = $this->getParameter('app.googleapifile');
-        $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" \"".$langue."\" 2>&1 ";
+        $cmd = "python3 ../bin/identify.py \"".$openaikey."\" \"".$googleapifile."\" \"".$nameFile."\" \"".$completePath."\" \"".$langue."\" 2>> /tmp/metaCasquette.err ";
         $result = shell_exec($cmd);
 
         return new JsonResponse(array('result' => json_decode($result), 'success' => true));
       }
+      return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
     }
 
     /**
@@ -187,7 +192,7 @@ class DefaultController extends Controller
       $idUser = $request->request->get('idUser');
       $name = $request->request->get('name');
       $whatilove = $request->request->get('whatilove');
-      $cmd = "python3 ../bin/createMetacasquette.py \"".$openaikey."\" \"".$googleapifile."\" \"".$idUser."\" \"".$name."\"  \"".$whatilove."\" 2>&1 ";
+      $cmd = "python3 ../bin/createMetacasquette.py \"".$openaikey."\" \"".$googleapifile."\" \"".$idUser."\" \"".$name."\"  \"".$whatilove."\" 2>> /tmp/metaCasquette.err ";
       $result = shell_exec($cmd);
       $json = json_decode($result);
       return new JsonResponse(array('result' => $json, 'success' => $json->success));
