@@ -248,6 +248,15 @@ tr {
 	}
 
 
+  .dot1 {
+  height: 200px;
+  width: 200px;
+  background-color: #000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
 .overlay-mobile
 {
   position:absolute;
@@ -644,7 +653,7 @@ height: 100%;
 }
 .icon-glow	{
 	border-radius: 50%;
-	border: 10px solid #FFFFFF;
+	border: 20px solid #bbb;
 	width: 400px;
 	height: 400px;
 	text-align: center;

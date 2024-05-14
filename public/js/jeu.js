@@ -255,8 +255,7 @@ function init_step2(){
 
    function stopRecordingAndSend(recorder,context,mediaStream){
 
-     $(".recordBtn").attr('src', '/img/record_ready.png');
-     $(".recordSpanBtn").removeClass('btn-danger').addClass('btn-default').html("Clickez pour répondre");
+     $("#startRecordingButton").hide();
      $(".recordGif").hide();
      $("#safeTimerDisplay").hide();
 
@@ -322,31 +321,26 @@ function init_step2(){
        }
    }
 
-  startRecordingButton.addEventListener("touchstart", function () {
-
-      var event2 = new Event('touchend');
-      startRecordingButton.dispatchEvent(event2);
-
+  startRecordingButton.addEventListener("touchstart", function (event) {
+      event.preventDefault();
       if(!isRecording) {
         // Initialize recorder
 
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then((e) => {
-
             recordingLength = 0;
             leftchannel = [];
             rightchannel = [];
-            $(".recordBtn").attr('src', '/img/record.png');
-            $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arreter");
+            $("#startRecordingButton").css('background-color', '#f41414');
+            $("#startRecordingButton").css('border', '20px solid #bd2f2f');
+            $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arrêter l'enregistrement");
             $("#safeTimerDisplay").show();
             $(".recordGif").show();
             $(".arrowGif").hide();
-
             // creates the audio context
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
             context = new AudioContext();
-
             // creates an audio node from the microphone incoming stream
             mediaStream = context.createMediaStreamSource(e);
 
