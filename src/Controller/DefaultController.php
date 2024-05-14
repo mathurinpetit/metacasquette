@@ -83,7 +83,8 @@ class DefaultController extends Controller
             $id = $strName[0];
             $id_prefixed = 'jeudatas/'.$id;
             if(file_exists($id_prefixed.'.txt')){
-              $metaCasquettes[date("YmdHis",filemtime($id_prefixed.'.txt')).$id] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
+              $id_auto_sort = date("YmdHis",filemtime($id_prefixed.'.txt')).'_'.$id;
+              $metaCasquettes[$id_auto_sort] = array('layer' => $id_prefixed.'_layer.png', 'sound' => $id_prefixed.'_smallDescription.mp3','description' => file_get_contents($id_prefixed.'.txt'));
             }
           }
         }
