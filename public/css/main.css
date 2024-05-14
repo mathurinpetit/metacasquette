@@ -227,6 +227,7 @@ tr {
 
 .affichette{
   max-height: 60vh !important;
+  display: inline;
 }
 
 .close{
@@ -245,6 +246,7 @@ tr {
   transform: rotate(-20deg);
   opacity: 0.8;
 	}
+
 
 .overlay-mobile
 {

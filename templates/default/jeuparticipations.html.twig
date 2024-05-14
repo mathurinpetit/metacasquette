@@ -8,7 +8,7 @@
 
 {% for id,casquette in metacasquette|reverse %}
 <hr/>
-<h1 style="font-size:60px;" id="{{id | split('_')[1]}}">{{ casquette["description"] }}
+<h1 style="font-size:60px;" id="{{id|split('_')[1]}}">{{ casquette["description"] }}
 
 </h1>
 <div class="row">

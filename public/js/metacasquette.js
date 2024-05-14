@@ -113,6 +113,14 @@ function initRotateElements(){
 					blocked[id] = false;
 				}
 		});
+
+		$(document).ready(function(){
+				$("#modalJeu").modal('show');
+				$("#modalJeu").on("hidden.bs.modal", function () {
+						$("#modalJeu").remove();
+				});
+		});
+
 		if(!mobile_test){
 
 			$('.wrapper:not(.hidden)').children(".rotate360").each(function(){
@@ -146,14 +154,6 @@ function initRotateElements(){
 			});
 			$('.img-mobile').each(function(){
 				$(this).remove();
-			});
-
-
-			$(document).ready(function(){
-			    $("#modalJeu").modal('show');
-					$("#modalJeu").on("hidden.bs.modal", function () {
-					    $("#modalJeu").remove();
-					});
 			});
 
 		}else{
