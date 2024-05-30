@@ -70,6 +70,14 @@ var texts = {
           '<p class="animate-text animate-text-advertising lastOne" >ta MétaCasquette !</p></div>',
         'en' : '<div style="top:55%;"><p class="animate-text animate-text-advertising" >Now you will be able to take a photo of yourself with</p>'+
           '<p class="animate-text animate-text-advertising lastOne" >your MétaCasquette !</p></div>'
+      },
+      "textButtonRecord":{
+        'fr' : 'Cliquez ici pour répondre. Vous pouvez faire des phrases entières comme "J\'adore les sushis et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
+        'en' : 'Click here to speak. You can make whole sentences like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
+      },
+      "textButtonStopRecord":{
+        'fr' : 'Clickez pour arrêter l\'enregistrement',
+        'en' : 'Click to stop recording'
       }
 
 }
@@ -123,6 +131,7 @@ function init_step1() {
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
+      $(".recordSpanBtn").html(texts['textButtonRecord'][langue]);
       var ios = isIOSIPhone();
       setCookie("langue",langue);
 
@@ -329,12 +338,16 @@ function init_step2(){
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then((e) => {
+            startRecordingButton.disabled = true;
+            setTimeout(function() {
+              startRecordingButton.disabled = false;
+            },5000);
             recordingLength = 0;
             leftchannel = [];
             rightchannel = [];
             $("#startRecordingButton").css('background-color', '#f41414');
             $("#startRecordingButton").css('border', '20px solid #bd2f2f');
-            $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html("Clickez pour arrêter l'enregistrement");
+            $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html(texts['textButtonStopRecord'][langue]);
             $("#safeTimerDisplay").show();
             $(".recordGif").show();
             $(".arrowGif").hide();
