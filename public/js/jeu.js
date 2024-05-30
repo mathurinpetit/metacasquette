@@ -330,6 +330,7 @@ function init_step2(){
        }
    }
 
+  var lockedButton = false;
   startRecordingButton.addEventListener("touchstart", function (event) {
       event.preventDefault();
       if(!isRecording) {
@@ -338,9 +339,9 @@ function init_step2(){
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then((e) => {
-            startRecordingButton.disabled = true;
+            lockedButton = true;
             setTimeout(function() {
-              startRecordingButton.disabled = false;
+              lockedButton = false;
             },5000);
             recordingLength = 0;
             leftchannel = [];
@@ -382,11 +383,9 @@ function init_step2(){
             timer(10,recorder,context,mediaStream);
         });
 
-      }else{
+      }else if (!lockedButton) {
         stopRecordingAndSend(recorder,context,mediaStream);
-
       }
-
   });
 }
 
