@@ -72,8 +72,8 @@ var texts = {
           '<p class="animate-text animate-text-advertising lastOne" >your MétaCasquette !</p></div>'
       },
       "textButtonRecord":{
-        'fr' : 'Cliquez ici pour répondre. Vous pouvez faire des phrases entières comme "J\'adore les sushis et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
-        'en' : 'Click here to speak. You can make whole sentences like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
+        'fr' : 'Cliquez ici pour parler. Vous allez créer une MétaCasquette en ce que vous aimez ! Énoncer une phrase entière comme "J\'adore les stylos et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
+        'en' : 'Click here to speak. You will create a MétaCasquette in what you love ! Say a whole sentence like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
       },
       "textButtonStopRecord":{
         'fr' : 'Clickez pour arrêter l\'enregistrement',
