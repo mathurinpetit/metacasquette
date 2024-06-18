@@ -579,7 +579,7 @@ height: 100%;
 }
 
 .warm {
-  font: 80px "Resolve Sans Bolder";
+  font: 60px "Resolve Sans Bolder";
   font-weight: bolder;
   background: linear-gradient(to right, #14FF00 20%, #AAA8A8 40%, #0010FF 60%, #85FFA4 80%);
   background-size: 200% auto;
@@ -611,7 +611,7 @@ height: 100%;
 }
 
 .highlight {
-  font: 80px "Resolve Sans Bolder";
+  font: 60px "Resolve Sans Bolder";
   font-weight: bolder;
   box-sizing: content-box;
   width: 100%;

@@ -241,7 +241,7 @@ function init_step2(){
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
       $(".step2").append(texts['transitionSendingRecord'][langue]);
-      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:60pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
+      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:50pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
@@ -669,14 +669,11 @@ function carrousselBeforePicture(){
 
           window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
           mp3CarrousselCurrent.play();
-
-        if(!isIOSIPhone() && responseObj.result.soundPath){
           mp3CarrousselCurrent.onended = (event) => {
             setTimeout(function() {
-
+              $("#carrousselNext").show();
             },2000);
-          };
-        }
+          }
       }
   };
 
