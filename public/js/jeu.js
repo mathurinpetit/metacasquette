@@ -50,10 +50,13 @@ var texts = {
         '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
         '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
         '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
-        '<p class="animate-text animate-text-transition" >très rapidement !</p></div>',
+        '<p class="animate-text animate-text-transition" >très rapidement !</p></div>'+
+        '<p class="animate-text animate-text-transition" >(Cela peut prendre quelques secondes)</p></div>',
         'en' : '<div style="top:55%;">'+
         '<p class="animate-text animate-text-transition warm" >Perfect !</p>'+
-        '<p class="animate-text animate-text-transition" >I\'m going to pay attention to what you just told me very soon</p></div>'
+        '<p class="animate-text animate-text-transition" >I\'m going to pay attention to what you just told me very soon</p>'+
+        '<p class="animate-text animate-text-transition" >(It may take a few seconds)</p></div>'+
+        '</div>'
       },
       "forbiddenCreation" : {
         'fr' :'<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
@@ -74,6 +77,10 @@ var texts = {
       "textButtonRecord":{
         'fr' : 'Cliquez ici pour parler. Vous allez créer une MétaCasquette en ce que vous aimez ! Énoncer une phrase entière comme "J\'adore les stylos et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
         'en' : 'Click here to speak. You will create a MétaCasquette in what you love ! Say a whole sentence like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
+      },
+      "textButtonReady":{
+        'fr' : 'On y va ',
+        'en' : 'Let\'s go ',
       },
       "textButtonStopRecord":{
         'fr' : 'Clickez pour arrêter l\'enregistrement',
@@ -199,7 +206,12 @@ function init_step2(){
    xhr.onload = function() {
        var responseObj = JSON.parse(xhr.response);
        if(responseObj.success){
-         displayResultAndWaiting(responseObj);
+         $("#textButtonReady").html(texts['textButtonReady'][langue]+responseObj.result.name+" !")
+         $('#textButtonReady').show();
+         $('#textButtonReady').on('touchstart',function (event) {
+             event.preventDefault();
+             displayResultAndWaiting(responseObj);
+           });
        }else{
           if(responseObj.reason == "maxGame"){
             displayMaxGame();
@@ -217,6 +229,7 @@ function init_step2(){
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
       $(".step2").append(texts['transitionSendingRecord'][langue]);
+      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:60pt; border-radius: 25px;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
@@ -507,7 +520,6 @@ init_step2();
       $("#video2").hide();
       $('#cap_img').hide();
       $("#click-photo").hide();
-
 
 
       $(".download_result").each(function(){
