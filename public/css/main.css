@@ -566,7 +566,7 @@ height: 100%;
 }
 
 .animate-text {
-  font: 60px "Resolve Sans Bolder";
+  font: 50px "Resolve Sans Bolder";
   text-transform: uppercase;
   font-weight: bolder;
   visibility:hidden;

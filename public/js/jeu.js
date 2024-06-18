@@ -85,8 +85,19 @@ var texts = {
       "textButtonStopRecord":{
         'fr' : 'Clickez pour arrêter l\'enregistrement',
         'en' : 'Click to stop recording'
+      },
+      "carrousselInitBtn":{
+        'fr' : 'Voir ce que les autres participants ont choisi!',
+        'en' : 'See what other participants chose!'
+      },
+      "carrousselNext":{
+        'fr' : 'Voir la MétaCasquette suivante',
+        'en' : 'Next MetaCasquette'
+      },
+       "textMetaCasquetteButtonReady":{
+        'fr' : ', ta MétaCasquette est prête !',
+        'en' : ', your MetaCasquette is ready !'
       }
-
 }
 
 
@@ -210,6 +221,7 @@ function init_step2(){
          $('#textButtonReady').show();
          $('#textButtonReady').on('touchstart',function (event) {
              event.preventDefault();
+             $(this).hide();
              displayResultAndWaiting(responseObj);
            });
        }else{
@@ -229,7 +241,7 @@ function init_step2(){
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
       $(".step2").append(texts['transitionSendingRecord'][langue]);
-      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:60pt; border-radius: 25px;' class='btn btn-default btn-lg'></button>");
+      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:60pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
@@ -429,11 +441,21 @@ function displayResultAndWaiting(responseObj){
       $(".step3").empty();
       changeStep(2,3);
       $(".step3").append(responseObj.result.textReponseSections);
-      animate_text("animate-text-response",carrousselBeforePicture,);
+      animate_text("animate-text-response",createCarrousselBtn);
       setTimeout(function() {
         createMetaCasquette(responseObj);
       },2000);
 
+  }
+
+  function createCarrousselBtn(){
+    $(".step3").append("<br/><button id='carrousselLaunch' style='width : 100%; font-size:50pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+texts['carrousselInitBtn'][langue]+"</button>");
+
+    $("#carrousselLaunch").on('touchstart',function (event) {
+        event.preventDefault();
+        $(this).hide();
+        carrousselBeforePicture();
+      });
   }
 
   function createMetaCasquette(responseObj){
@@ -455,7 +477,18 @@ function displayResultAndWaiting(responseObj){
           }else if(!getCookie("mc2")){
              setCookie("mc2",responseObj.result.idUser);
           }
-          advertisingBeforeCamera(responseCreatedObj,responseObj);
+          // ICI On crée le btn de resultat !
+          $("#carrousselNext").unbind();
+          $("#carrousselNext").attr("id","resultMetaCasquette");
+          $("#resultMetaCasquette").html(responseObj.result.name+texts['textMetaCasquetteButtonReady'][langue]);
+          $("#resultMetaCasquette").show()
+
+          $("#resultMetaCasquette").on('touchstart',function (event) {
+              event.preventDefault();
+              $(this).hide();
+              advertisingBeforeCamera(responseCreatedObj,responseObj);
+            });
+
         }else{
           if(responseObj.reason == "maxGame"){
             displayMaxGame();
@@ -616,9 +649,15 @@ function carrousselBeforePicture(){
   if($(".step5").is(":visible")){
     return;
   }
-
   changeStep(3,4);
-
+  $("#carrousselNext").unbind();
+  $("#carrousselNext").hide();
+  $("#carrousselNext").html(texts['carrousselNext'][langue]);
+  $("#carrousselNext").on('touchstart',function (event) {
+      event.preventDefault();
+      $(this).hide();
+      carrousselBeforePicture();
+    });
   const xhr = new XMLHttpRequest();
   xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/randomgenerated', true);
   xhr.send(null);
@@ -628,19 +667,15 @@ function carrousselBeforePicture(){
         $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
         $('#titre_carroussel').html(responseObj.result.text);
 
-        if(!isIOSIPhone() && responseObj.result.soundPath){
           window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
           mp3CarrousselCurrent.play();
 
+        if(!isIOSIPhone() && responseObj.result.soundPath){
           mp3CarrousselCurrent.onended = (event) => {
             setTimeout(function() {
-              carrousselBeforePicture();
+
             },2000);
           };
-        }else{
-          setTimeout(function() {
-            carrousselBeforePicture();
-          },3000);
         }
       }
   };
