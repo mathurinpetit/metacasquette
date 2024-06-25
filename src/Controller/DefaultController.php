@@ -226,7 +226,10 @@ class DefaultController extends Controller
       }
       $cmd = "bash ../bin/createVideoForInsta.sh \"".$idUser."\" 2>> /tmp/metaCasquette.err ";
       $result = shell_exec($cmd);
-      return new JsonResponse(array('link' => $result, 'success' => 1));
+      if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
+        return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
+      }
+      return new JsonResponse(array('reason' => "noPostInsta", 'success' => false));
 
     }
 
