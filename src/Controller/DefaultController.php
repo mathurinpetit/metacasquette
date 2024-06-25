@@ -195,8 +195,6 @@ class DefaultController extends Controller
       $cmd = "python3 ../bin/createMetacasquette.py \"".$openaikey."\" \"".$googleapifile."\" \"".$idUser."\" \"".$name."\"  \"".$whatilove."\" 2>> /tmp/metaCasquette.err ";
       $result = shell_exec($cmd);
       $json = json_decode($result);
-      $cmd = "bash ../bin/createVideoForInsta.sh \"".$idUser."\" 2>> /tmp/metaCasquette.err ";
-      $result = shell_exec($cmd);
       return new JsonResponse(array('result' => $json, 'success' => $json->success));
 
     }
