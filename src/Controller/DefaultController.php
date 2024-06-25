@@ -222,7 +222,7 @@ class DefaultController extends Controller
       if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
         return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
       }
-      $cmd = "bash ../bin/createVideoForInsta.sh \"".$idUser."\" 2>> /tmp/metaCasquette.err ";
+      $cmd = "bash ../bin/createVideoForInsta.sh \"".$idUser."\" >> /tmp/metaCasquette.err ";
       $result = shell_exec($cmd);
       if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
         return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));

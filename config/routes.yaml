@@ -30,6 +30,10 @@ createmetacasquette:
    path: /jeu/{id}/createmetacasquette
    defaults: { _controller: 'Controller\DefaultController::createmetacasquette' }
 
+createVideoForInsta:
+   path: /jeu/{id}/createVideoForInsta
+   defaults: { _controller: 'Controller\DefaultController::createVideoForInsta' }
+
 getRandomGenerated:
    path: /jeu/{id}/randomgenerated
    defaults: { _controller: 'Controller\DefaultController::randomgenerated' }
