@@ -79,8 +79,8 @@ var texts = {
         'en' : 'Click here to speak. You will create a MétaCasquette in what you love ! Say a whole sentence like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
       },
       "textButtonReady":{
-        'fr' : 'On y va ',
-        'en' : 'Let\'s go ',
+        'fr' : ', on y va ! Cliques ici pour continuer...',
+        'en' : ', let\'s go ! Click here to continue...',
       },
       "textButtonStopRecord":{
         'fr' : 'Clickez pour arrêter l\'enregistrement',
@@ -217,7 +217,7 @@ function init_step2(){
    xhr.onload = function() {
        var responseObj = JSON.parse(xhr.response);
        if(responseObj.success){
-         $("#textButtonReady").html(texts['textButtonReady'][langue]+responseObj.result.name+" !")
+         $("#textButtonReady").html(responseObj.result.name+texts['textButtonReady'][langue])
          $('#textButtonReady').show();
          $('#textButtonReady').on('touchstart',function (event) {
              event.preventDefault();
@@ -241,7 +241,7 @@ function init_step2(){
       $(".step2").css('width','90%');
       $(".eyes").css('top','-100%');
       $(".step2").append(texts['transitionSendingRecord'][langue]);
-      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:50pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
+      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
@@ -449,7 +449,7 @@ function displayResultAndWaiting(responseObj){
   }
 
   function createCarrousselBtn(){
-    $(".step3").append("<br/><button id='carrousselLaunch' style='width : 100%; font-size:50pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+texts['carrousselInitBtn'][langue]+"</button>");
+    $(".step3").append("<br/><button id='carrousselLaunch' style='width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+texts['carrousselInitBtn'][langue]+"</button>");
 
     $("#carrousselLaunch").on('touchstart',function (event) {
         event.preventDefault();
@@ -488,6 +488,15 @@ function displayResultAndWaiting(responseObj){
               $(this).hide();
               advertisingBeforeCamera(responseCreatedObj,responseObj);
             });
+
+          xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createVideoForInsta', true);
+          xhr.send(formData);
+          xhr.onload = function() {
+            var responseLink = JSON.parse(xhr.response);
+            if(responseLink.success && responseLink.success != "0"){
+              $("#reel_insta").attr("href",responseLink.link);
+            }
+          }
 
         }else{
           if(responseObj.reason == "maxGame"){
@@ -590,15 +599,34 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
     mp3Ready.play();
 
     $(".step5 .result-text").append(responseObj.result.textReadySections);
-    animate_text("animate-text-ready",advertisingForGame, responseCreatedObj);
+    animate_text("animate-text-ready",endOfResult, responseCreatedObj);
   }
+
+  function endOfResult(responseCreatedObj){
+    //great = "Télécharger ma Métacasquette" puis étape 2/
+    $("#great").show();
+    $("#great").on('touchstart',function (event) {
+        event.preventDefault();
+        $(this).hide();
+        advertisingForGame(responseCreatedObj)
+      });
+  }
+
 
   function advertisingForGame(responseCreatedObj){
 
-    window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
-    mp3Advertising.play();
+    // ICI ON VA REPRENDRE LE PARCOURT USER :
+    // 1/ Message pour dire que la casquette est prête
+    // 2/ Casquette prête => on donne une info sur soit !
+    // 3/ Enregistrement de l'info => result amene vers le telechargement
+    // 4/ post téléchargement => si tu veux tu peux te prendre en Photo
+    // 5/ partage sur instagram ton image =>
+
+
 
     $(".step5 .result-text").children().remove();
+    window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
+    mp3Advertising.play();
     $(".step5 .result-text").append(texts['advertisingForGame'][langue]);
     animate_text("animate-text-advertising",pictureMetacasquette,responseCreatedObj);
 

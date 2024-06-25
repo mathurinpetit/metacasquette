@@ -202,6 +202,35 @@ class DefaultController extends Controller
     }
 
     /**
+      * @Route("/jeu/{id}/createVideoForInsta")
+    */
+    public function createVideoForInsta($id, Request $request): Response
+    {
+      if (!$request->isMethod('POST')) {
+          return $this->redirect($this->generateUrl('jeu', array('id' => $id)));
+      }
+
+      $ip = isset($_SERVER['HTTP_CLIENT_IP'])
+        ? $_SERVER['HTTP_CLIENT_IP']
+        : (isset($_SERVER['HTTP_X_FORWARDED_FOR'])
+          ? $_SERVER['HTTP_X_FORWARDED_FOR']
+          : $_SERVER['REMOTE_ADDR']);
+
+      if($this->numberIp($ip) > 2){
+        return new JsonResponse(array('reason' => "maxGame", 'success' => false));
+      }
+      $identifiant = $ip;
+      $idUser = $request->request->get('idUser');
+      if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
+        return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
+      }
+      $cmd = "bash ../bin/createVideoForInsta.sh \"".$idUser."\" 2>> /tmp/metaCasquette.err ";
+      $result = shell_exec($cmd);
+      return new JsonResponse(array('link' => $result, 'success' => 1));
+
+    }
+
+    /**
       * @Route("/jeu/{id}/randomgenerated")
     */
     public function randomgenerated($id, Request $request): Response
