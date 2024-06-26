@@ -1,16 +1,8 @@
 
- /*  Liste ici des Etapes du jeu interactif
-  *  Etape0 Affichage => choix de la langue
-  *  Etape1 Affichage => video d'introduction pour les appareils android et défilement de texte pour les ios
-  *  Etape2 Enregistrement audio TODO : Ajouter compteur
-  *  Etape3 Message d'attente
-  *  Etape4 Retour audio
-  *  Etape5 Carroussel
-  *  Etape6 Resultat et message personnalisé
-  *  Etape7 Annonce photo
-  *  Etape8 Photo
-  *  Etape9 Partage
+ /*
+  * Jeu génératif de MétaCasquette
   */
+
 
 if($(".generativGame").length){
 
@@ -27,36 +19,53 @@ var texts = {
         'fr' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Désolé !</p><p class="animate-text animate-text-intro" >Tu ne peux jouer que deux fois par jour à ce jeu !</p><p class="animate-text animate-text-intro" >Mais reviens demain !</p><p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Clique ici pour revenir au début...</p></div>',
         'en' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Sorry !</p><p class="animate-text animate-text-intro" >You can only play this game twice a day!</p><p class="animate-text animate-text-intro" >But come back tomorrow!</p><p class="animate-text animate-text-intro" onClick="window.location.href=window.location.href">Click here to go back to the beginning...</p></div>',
       },
-      "introduction" : {
+      "introduction1" : {
         'fr' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Bonjour,</p>'+
         '<p class="animate-text animate-text-intro" >la participation au jeu est très simple : </p>'+
-        '<p class="animate-text animate-text-intro" >Dans un premier temps, nous te conseillons de monter le volume de ton téléphone !</p>'+
-        '<p class="animate-text animate-text-intro" >Maintenant tu vas juste me dire quel est ton</p>'+
-        '<p class="animate-text animate-text-intro warm" >PRÉNOM</p>'+
-        '<p class="animate-text animate-text-intro" >et</p>'+
-        '<p class="animate-text animate-text-intro highlight" >CE QUE TU AIMES DANS LA VIE !</p>'+
-        '<p class="animate-text animate-text-intro lastOne" >Juste après que j\'ai fini de parler tu pourras appuyer sur le bouton pour t\'enregistrer</p>',
+        '<p class="animate-text animate-text-intro" >Dans un premier temps, je te conseille de monter le volume de ton téléphone afin de mieux communiquer avec moi !</p>'+
+        '<p class="animate-text animate-text-intro" >Je te propose de créer ta propre </p>'+
+        '<p class="animate-text animate-text-intro warm" >METACASQUETTE</p>'+
+        '<p class="animate-text animate-text-intro" >Si elle est réussie, je la fabriquerai dans la </p>'+
+        '<p class="animate-text animate-text-intro highlight" >VRAIE VIE</p>'+
+        '<p class="animate-text animate-text-intro lastOne" >et tu pourras la gagner !</p>',
         'en' : '<div style="top:55%;"><p class="animate-text animate-text-intro" >Hello,</p>'+
         '<p class="animate-text animate-text-intro" >participating in the game is very simple:</p>'+
-        '<p class="animate-text animate-text-intro" >First of all, we advise you to turn up the volume on your phone!</p>'+
-        '<p class="animate-text animate-text-intro" >Now you\'re just going to tell me what your</p>'+
-        '<p class="animate-text animate-text-intro warm" >FIRST NAME</p>'+
-        '<p class="animate-text animate-text-intro" >and</p>'+
-        '<p class="animate-text animate-text-intro highlight" >WHAT YOU LOVE IN LIFE!</p>'+
-        '<p class="animate-text animate-text-intro lastOne" >Right after I finish speaking you can press the button to register your answer</p>'
+        '<p class="animate-text animate-text-intro" >First of all, we advise you to turn up the volume on your phone in order to better communicate with me !</p>'+
+        '<p class="animate-text animate-text-intro" >you will create your own</p>'+
+        '<p class="animate-text animate-text-intro warm" >METACASQUETTE</p>'+
+        '<p class="animate-text animate-text-intro" >If it is successful, I will make it in </p>'+
+        '<p class="animate-text animate-text-intro highlight" >REAL LIFE</p>'+
+        '<p class="animate-text animate-text-intro lastOne" >and you can win it !</p>'
+      },
+      "introduction2" : {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-intro2" >Pour concevoir ta propre</p>'+
+        '<p class="animate-text animate-text-intro2 warm" >MÉTACASQUETTE</p>'+
+        '<p class="animate-text animate-text-intro2" >tu auras juste à me dire quel est ton</p>'+
+        '<p class="animate-text animate-text-intro2 firstname" >PRÉNOM</p>'+
+        '<p class="animate-text animate-text-intro2" >et</p>'+
+        '<p class="animate-text animate-text-intro2 highlight" >CE QUE TU AIMES DANS LA VIE</p>'+
+        '<p class="animate-text animate-text-intro2 lastOne" >Je m\'occupe du reste !</p>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-intro2" >To design your own</p>'+
+        '<p class="animate-text animate-text-intro2 warm" >MÉTACASQUETTE</p>'+
+        '<p class="animate-text animate-text-intro2" >you will just have to tell me what your</p>'+
+        '<p class="animate-text animate-text-intro2 firstname" >FIRSTNAME</p>'+
+        '<p class="animate-text animate-text-intro2" >is and</p>'+
+        '<p class="animate-text animate-text-intro2 highlight" >WHAT YOU LOVE IN LIFE</p>'+
+        '<p class="animate-text animate-text-intro2 lastOne" >I take care of the rest !</p>'
       },
       "transitionSendingRecord":{
         'fr' : '<div style="top:55%;">'+
         '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
-        '<p class="animate-text animate-text-transition" >Je vais prendre en compte</p>'+
-        '<p class="animate-text animate-text-transition" >ce que tu viens de me dire</p>'+
-        '<p class="animate-text animate-text-transition" >très rapidement !</p></div>'+
-        '<p class="animate-text animate-text-transition" >(Cela peut prendre quelques secondes)</p></div>',
+        '<p class="animate-text animate-text-transition" >J\'ai bien pris en compte ce que tu m\'as dit.</p>'+
+        '<p class="animate-text animate-text-transition" >Cela peut prendre un peu de temps, car je réfléchis à comment je peux appliquer ton idée.</p>'+
+        '<p class="animate-text animate-text-transition" >En attendant, je te propose de regarder ce que les</p></div>'+
+        '<p class="animate-text animate-text-transition highlight" >autres joueurs</p>'+
+        '<p class="animate-text animate-text-transition" >ont choisi</p></div>',
         'en' : '<div style="top:55%;">'+
         '<p class="animate-text animate-text-transition warm" >Perfect !</p>'+
-        '<p class="animate-text animate-text-transition" >I\'m going to pay attention to what you just told me very soon</p>'+
-        '<p class="animate-text animate-text-transition" >(It may take a few seconds)</p></div>'+
-        '</div>'
+        '<p class="animate-text animate-text-transition" >I took into account what you told me.</p>'+
+        '<p class="animate-text animate-text-transition" >This may take a little while as I think about how I can implement your idea!</p>'+
+        '<p class="animate-text animate-text-transition" >In the meantime, I suggest you look at what the other players have chosen.</p></div>'
       },
       "forbiddenCreation" : {
         'fr' :'<div style="top:55%;"><p class="animate-text animate-text-forbiddenCreation" >Désolé !</p>'+
@@ -68,43 +77,85 @@ var texts = {
         '<p class="animate-text animate-text-forbiddenCreation" >You\'re going to have to find me something else</p>'+
         '<p class="animate-text animate-text-forbiddenCreation" onClick="window.location.href=window.location.href">Click here to go back to the beginning...</p></div>'
       },
-      "advertisingForGame": {
-        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-advertising" >Maintenant, tu vas pouvoir te prendre en photo avec </p>'+
-          '<p class="animate-text animate-text-advertising lastOne" >ta MétaCasquette !</p></div>',
-        'en' : '<div style="top:55%;"><p class="animate-text animate-text-advertising" >Now you will be able to take a photo of yourself with</p>'+
-          '<p class="animate-text animate-text-advertising lastOne" >your MétaCasquette !</p></div>'
+      "takePictureOrNext": {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-takepicture" >Attends, ne pars pas tout de suite sinon tu ne pourras pas gagner !</p>'+
+          '<p class="animate-text animate-text-takepicture" >Si tu veux, tu peux te prendre en photo avec</p>'+
+          '<p class="animate-text animate-text-takepicture warm " >ta MétaCasquette</p>'+
+          '<p class="animate-text animate-text-takepicture lastOne" >mais cela n\'est pas obligatoire. Tu peux aussi cliquer sûr suivant.</p></div>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-takepicture" >Wait, don\'t leave yet otherwise you won\'t be able to win !</p>'+
+          '<p class="animate-text animate-text-takepicture" >If you want, you can take a photo of yourself with</p>'+
+          '<p class="animate-text animate-text-takepicture warm " >your MetaCasquette</p>'+
+          '<p class="animate-text animate-text-takepicture lastOne" >but this is not obligatory. You can also click next.</p></div>'
+      },
+      "lastMsg" : {
+        'fr' : '<div style="top:55%;"><p class="animate-text animate-text-lastMsg" >Si tu veux gagner, il faudra te rendre sur mon instagram !</p>'+
+          '<p class="animate-text animate-text-lastMsg" >J\'ai déjà posté pour toi ce que tu as choisi !</p>'+
+          '<p class="animate-text animate-text-lastMsg warm " >Alors commente le réel</p>'+
+          '<p class="animate-text animate-text-lastMsg " >pour que je sache qui tu es et tu </p>'+
+          '<p class="animate-text animate-text-lastMsg highlight" >gagneras</p>'+
+          '<p class="animate-text animate-text-lastMsg lastOne" >peut-être la MétaCasquette que tu as inventée !</p></div>',
+        'en' : '<div style="top:55%;"><p class="animate-text animate-text-lastMsg" >If you want to win, you\'ll have to go to my Instagram !</p>'+
+          '<p class="animate-text animate-text-lastMsg" >I have already posted for you what you chose !</p>'+
+          '<p class="animate-text animate-text-lastMsg warm " >So comment on the real</p>'+
+          '<p class="animate-text animate-text-lastMsg " >and I will know who you are ! You might</p>'+
+          '<p class="animate-text animate-text-lastMsg highlight" >win</p>'+
+          '<p class="animate-text animate-text-lastMsg lastOne" >the MétaCasquette you invented !</p></div>'
+      },
+      "textButtonNext":{
+        'fr' : "Suivant →",
+        'en' : "Next →"
       },
       "textButtonRecord":{
-        'fr' : 'Cliquez ici pour parler. Vous allez créer une MétaCasquette en ce que vous aimez ! Énoncer une phrase entière comme "J\'adore les stylos et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
-        'en' : 'Click here to speak. You will create a MétaCasquette in what you love ! Say a whole sentence like "I love sushi and I\'m Audrey!" or “My name is Michael and I like shoes!”'
+        'fr' : 'Clique sur le cercle pour parler. Tu vas créer une MétaCasquette en ce que tu aimes ! Énonce une phrase entière comme "J\'adore les stylos et je suis Camille !" ou "Je m\'appelle Andréa et j\'aime les chaussures ! "',
+        'en' : 'Click on the circle to speak... Don\'t hesitate to give me a whole sentence like "I love pens and I\'m Camille!" or “My name is Andréa and I like shoes!”. You can also mix things up like "I like flowers and video games and my name is Steve!"'
       },
       "textButtonReady":{
-        'fr' : ', on y va ! Cliques ici pour continuer...',
-        'en' : ', let\'s go ! Click here to continue...',
+        'fr' : ', regardons le choix des autres joueurs →',
+        'en' : ', let\'s look at the choices of other players →'
       },
       "textButtonStopRecord":{
         'fr' : 'Clickez pour arrêter l\'enregistrement',
         'en' : 'Click to stop recording'
       },
       "carrousselInitBtn":{
-        'fr' : 'Voir ce que les autres participants ont choisi!',
-        'en' : 'See what other participants chose!'
+        'fr' : 'Voir le choix des autres joueurs →',
+        'en' : 'See what other participants chose →'
       },
       "carrousselNext":{
-        'fr' : 'Voir la MétaCasquette suivante',
-        'en' : 'Next MetaCasquette'
+        'fr' : 'MétaCasquette suivante →',
+        'en' : 'Next MetaCasquette →'
       },
        "textMetaCasquetteButtonReady":{
         'fr' : ', ta MétaCasquette est prête !',
         'en' : ', your MetaCasquette is ready !'
-      }
+      },
+      "textDownloadImageButton":{
+       'fr' : 'Télécharge ta MétaCasquette ici →',
+       'en' : 'Download your MétaCasquette here →'
+     },
+     "realIsNotReady":{
+      'fr' : 'Votre réel est en court de réalisation...',
+      'en' : 'Your reality is being created...'
+    },
+    "realIsReady":{
+     'fr' : 'Votre réel est prêt',
+     'en' : 'Your real is ready'
+   }
+
+
 }
 
-
+/*
+* Récupération des Cookies
+*/
 var langue = getCookie("langue");
 var mc1 = getCookie("mc1");
 var mc2 = getCookie("mc2");
 
+
+/*
+* Utilisation des Cookies
+*/
 if(mc1 && mc2 && langue){
   $(".step0").html("");
   $(".step0").css('width','90%');
@@ -139,20 +190,113 @@ function isIOSIPhone() {
     return false;
 }
 
+
+/*
+* Fonctions d'aides
+*/
+
 function changeStep(stepA,stepB){
   $(".step"+stepB).show();
   $(".step"+stepA).hide();
 }
 
-function init_step1() {
+function createStepButton(step,id,text){
+  step.append("<br/><br/><button id='"+id+"' style='width : 90%; font-size:40pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+text+"</button>");
 
+}
+
+function animate_text(animateTextClass, nextFunction, arg){
+  let delay = 71,
+      delay_start = 0,
+      contents,
+      letters;
+
+  $("."+animateTextClass).each(function(index, obj) {
+    contents = $(obj).text().trim();
+    $(obj).html(''); // on vide le contenu
+    letters = contents.split("");
+    var first = true;
+
+    $(letters).each(function(index_1, letter) {
+      setTimeout(function() {
+        if($(obj).hasClass('lastOne') && first){
+          setTimeout(function() {
+              return nextFunction(arg);
+          }
+          ,2000);
+        }
+        if(first){ $(obj).css('visibility','visible'); first=false; }
+        // effet machine à écrire simple
+        $(obj).html( $(obj).html() + letter ); // on ajoute chaque lettre l une après l autre
+
+      }, delay_start + delay * index_1);
+    });
+    // le suivant démarre à la fin du précédent
+    delay_start += delay * letters.length;
+  });
+}
+
+function setCookie(cname, cvalue) {
+  const d = new Date();
+  d.setTime(d.getTime() + (24*60*60*1000));
+  let expires = "Max-Age="+ $("#next").attr("data-value");;
+  document.cookie = cname + "=" + cvalue + ";" + expires + "; SameSite=Strict ;path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+/*
+ * Etapes 0 => retour d'erreurs
+ */
+
+ function displayMaxGame(){
+       window.mp3Maxgame = new Audio('../sound/maxGame_'+langue+'.mp3');
+       mp3Maxgame.play();
+
+       changeStep(2,0); // ??? de quelle étape cela part ?
+       $(".step0").append(texts['already_played'][langue]);
+       animate_text("animate-text-intro",);
+       displayBtnStep2(); // Afficher le bouton de réél instagram
+   }
+
+
+ function forbiddenCreation(){
+       window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_'+langue+'.mp3');
+       mp3ForbidenCreation.play();
+
+       $(".step0").empty();
+       changeStep(2,0); // ??? de quelle étape cela part ?
+       $(".step0").append(texts['forbiddenCreation'][langue]);
+       animate_text("animate-text-forbiddenCreation",);
+       displayBtnStep2();
+   }
+
+/*
+ * Initialisation de l'étape 1
+ */
+
+function init_step1() {
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
       $(".recordSpanBtn").html(texts['textButtonRecord'][langue]);
       var ios = isIOSIPhone();
       setCookie("langue",langue);
-
+      
       var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
       if(parseInt(hasPlayMoreThan2) > 1){
         changeStep(0,3);
@@ -171,28 +315,75 @@ function init_step1() {
         playVid();
         video1.addEventListener("ended", (event) => {
 
-          changeStep(1,2);
+          displayBtnStep2();
+
 
         });
       }else{
-        window.mp3Introduction = new Audio('../sound/intro_'+langue+'.mp3');
+        window.mp3Introduction = new Audio('../sound/intro1_'+langue+'.mp3');
         mp3Introduction.play();
 
         $(".step1").css('width','90%');
         $(".step1").css('top','50%');
-        $(".step1").append(texts['introduction'][langue]);
-        animate_text("animate-text-intro",transition1To2,);
+        $(".step1").prepend(texts['introduction1'][langue]);
+        animate_text("animate-text-intro",displayBtnStep2,);
 
       }
 
   });
 }
 
-function transition1To2(){
-  changeStep(1,2);
+/*
+ * Création bouton vers étape 2
+ */
+function displayBtnStep2(){
+  createStepButton($(".step1"),"btnStep2",texts['textButtonNext'][langue]);
+  $("#btnStep2").on('touchstart',function (event) {
+      event.preventDefault();
+      $(this).hide();
+      init_step2();
+    });
+
 }
 
+/*
+ * Initialisation de l'étape 2
+ */
+
 function init_step2(){
+  changeStep(1,2);
+  window.mp3Introduction2 = new Audio('../sound/intro2_'+langue+'.mp3');
+  mp3Introduction2.play();
+
+  $(".step2").css('width','90%');
+  $(".step2").css('top','50%');
+  $(".step2").prepend(texts['introduction2'][langue]);
+  animate_text("animate-text-intro2",displayBtnStep3,);
+}
+
+/*
+ * Création bouton vers étape 3
+ */
+
+function displayBtnStep3(){
+  createStepButton($(".step2"),"btnStep3",texts['textButtonNext'][langue]);
+  $("#btnStep3").on('touchstart',function (event) {
+      event.preventDefault();
+      changeStep(2,3);
+      init_step3();
+    });
+
+}
+
+/*
+ * Initialisation de l'étape 3
+ */
+
+function init_step3(){
+
+  window.speakExplaination = new Audio('../sound/speak_explaination_'+langue+'.mp3');
+  speakExplaination.play();
+
   var startRecordingButton = document.getElementById("startRecordingButton");
 
   var leftchannel = [];
@@ -235,13 +426,13 @@ function init_step2(){
   function transitionSendingRecord(){
       $(".recordBtn").hide();
       $(".recordSpanBtn").hide();
-      $(".step2").prepend('<img src="/video/eyes.gif" class="eyes" style="width:110%; position: absolute; left:-5%;" ><br/>');
+      $(".step3").prepend('<img src="/video/eyes.gif" class="eyes" style="width:110%; position: absolute; left:-5%;" >');
       window.mp3Transition = new Audio('../sound/transitionSendingRecord_'+langue+'.mp3');
       mp3Transition.play();
-      $(".step2").css('width','90%');
+      $(".step3").css('width','90%');
       $(".eyes").css('top','-100%');
-      $(".step2").append(texts['transitionSendingRecord'][langue]);
-      $(".step2").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
+      $(".step3").append(texts['transitionSendingRecord'][langue]);
+      $(".step3").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
@@ -282,7 +473,10 @@ function init_step2(){
            sec--;
            if (sec < 0) {
                clearInterval(timer);
-               stopRecordingAndSend(recorder,context,mediaStream);
+               if($(".step3").is(":visible")){
+                 console.log(recorder,mediaStream);
+                 stopRecordingAndSend(recorder,context,mediaStream);
+                }
            }
        }, 1000);
    }
@@ -358,9 +552,10 @@ function init_step2(){
   var lockedButton = false;
   startRecordingButton.addEventListener("touchstart", function (event) {
       event.preventDefault();
+      speakExplaination.pause();
+
       if(!isRecording) {
         // Initialize recorder
-
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then((e) => {
@@ -414,48 +609,71 @@ function init_step2(){
   });
 }
 
-function displayMaxGame(){
-      window.mp3Maxgame = new Audio('../sound/maxGame_'+langue+'.mp3');
-      mp3Maxgame.play();
 
-      changeStep(2,3);
-      $(".step3").append(texts['already_played'][langue]);
-      animate_text("animate-text-intro",);
-  }
-
-
-  function forbiddenCreation(){
-        window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_'+langue+'.mp3');
-        mp3ForbidenCreation.play();
-
-        changeStep(4,3);
-        $(".step3").empty();
-        $(".step3").append(texts['forbiddenCreation'][langue]);
-        animate_text("animate-text-forbiddenCreation",);
-    }
+/*
+ * Etape 4 => On a le mp3, on fait un peu patienter
+ */
 
 function displayResultAndWaiting(responseObj){
-
+      window.mp3Transition.pause();
+      changeStep(3,4);
       window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
       mp3Reponse.play();
-      $(".step3").empty();
-      changeStep(2,3);
-      $(".step3").append(responseObj.result.textReponseSections);
-      animate_text("animate-text-response",createCarrousselBtn);
+      $(".step4").empty();
+      $(".step4").append(responseObj.result.textReponseSections);
+      animate_text("animate-text-response",displayBtnStep5);
       setTimeout(function() {
         createMetaCasquette(responseObj);
-      },2000);
-
+      },1);
   }
 
-  function createCarrousselBtn(){
-    $(".step3").append("<br/><button id='carrousselLaunch' style='width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+texts['carrousselInitBtn'][langue]+"</button>");
+  /*
+   * Etape 5 => Valorisation de l'utilisateur, on lui spécifie qu'on a bien compris
+   */
+  function displayBtnStep5(){
+    createStepButton($(".step4"),"btnStep5",texts['carrousselInitBtn'][langue]);
 
-    $("#carrousselLaunch").on('touchstart',function (event) {
+    $("#btnStep5").on('touchstart',function (event) {
         event.preventDefault();
         $(this).hide();
         carrousselBeforePicture();
       });
+  }
+
+
+  function carrousselBeforePicture(){
+
+    if($(".step0").is(":visible")){
+      return;
+    }
+    changeStep(4,5);
+    $("#carrousselNext").unbind();
+    $("#carrousselNext").hide();
+    $("#carrousselNext").html(texts['carrousselNext'][langue]);
+    $("#carrousselNext").on('touchstart',function (event) {
+        event.preventDefault();
+        $(this).hide();
+        carrousselBeforePicture();
+      });
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/randomgenerated', true);
+    xhr.send(null);
+    xhr.onload = function() {
+        var responseObj = JSON.parse(xhr.response);
+        if(responseObj.success){
+          $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
+          $('#titre_carroussel').html(responseObj.result.text);
+
+            window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
+            mp3CarrousselCurrent.play();
+            mp3CarrousselCurrent.onended = (event) => {
+              setTimeout(function() {
+                $("#carrousselNext").show();
+              },2000);
+            }
+        }
+    };
+
   }
 
   function createMetaCasquette(responseObj){
@@ -463,8 +681,6 @@ function displayResultAndWaiting(responseObj){
     formData.append('whatilove', responseObj.result.whatilove);
     formData.append('name', responseObj.result.name);
     formData.append('idUser', responseObj.result.idUser);
-
-    $("#share_"+langue).find("#download_result").attr('data-name',"metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png")
 
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createmetacasquette', true);
@@ -495,6 +711,7 @@ function displayResultAndWaiting(responseObj){
             var responseLink = JSON.parse(xhr.response);
             if(responseLink.success && responseLink.success != "0"){
               $("#reel_insta").attr("href",responseLink.link);
+              $("#reel_insta_msg").html(texts['realNotReady'][langue]);
             }
           }
 
@@ -508,10 +725,6 @@ function displayResultAndWaiting(responseObj){
       };
   }
 
-init_step1();
-init_step2();
-
-
  let camera_button = document.querySelector("#start-camera");
  let video2 = document.querySelector("#video2");
  let click_button = document.querySelector("#click-photo");
@@ -521,6 +734,8 @@ init_step2();
  camera_button.addEventListener('touchstart', async function() {
       $(".startCamera").hide();
       $(".arrowGifCam").hide();
+      $(".takePictureOrNext").hide();
+      $("#btnStep8").hide();
     	let stream = await navigator.mediaDevices.getUserMedia({ video: true });
  	    video2.srcObject = stream;
       setTimeout(function() {
@@ -573,15 +788,6 @@ init_step2();
            });
       });
 
-      $(".download_casquette_result").each(function(){
-          $(this).click(function download (){
-             var link = document.createElement('a');
-             link.download = $(this).attr('data-name');
-             link.href = $('#cap_img').attr("src");
-             link.click();
-           });
-      });
-
       window.mp3EndExplanations = new Audio('../sound/endExplanations_'+langue+'.mp3');
       mp3EndExplanations.play();
       setTimeout(function() {
@@ -590,7 +796,7 @@ init_step2();
  });
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
-    changeStep(4,5);
+    changeStep(5,6);
     document.querySelectorAll('audio').forEach(el => el.pause());
 
     $("#result_img").attr('src','/'+responseCreatedObj.result.filename);
@@ -598,143 +804,72 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
     window.mp3Ready = new Audio('../'+responseObj.result.mp3Ready);
     mp3Ready.play();
 
-    $(".step5 .result-text").append(responseObj.result.textReadySections);
-    animate_text("animate-text-ready",endOfResult, responseCreatedObj);
+    $(".step6 .result-text").append(responseObj.result.textReadySections);
+    animate_text("animate-text-ready",downloadProposition, responseObj);
   }
 
-  function endOfResult(responseCreatedObj){
-    //great = "Télécharger ma Métacasquette" puis étape 2/
-    $("#great").show();
-    $("#great").on('touchstart',function (event) {
+  /*
+   * Step 6 => téléchargement de l'image et en même temps on lance étape 7
+   */
+  function downloadProposition(responseObj){
+    createStepButton($(".step6"),"download_casquette_result",texts['textDownloadImageButton'][langue]);
+    $("#download_casquette_result").css("top","10%").css("position","relative");
+    $("#download_casquette_result").on('touchstart',function (event) {
         event.preventDefault();
-        $(this).hide();
-        advertisingForGame(responseCreatedObj)
+
+        var link = document.createElement('a');
+        link.download = "metacasquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+".png";
+        link.href = $('#result_img').attr("src");
+        link.click();
+
+        init_step7();
       });
   }
 
+  /*
+   * Etape 7 => téléchargement de l'image et en même temps on lance étape 7
+   */
+  function init_step7(){
 
-  function advertisingForGame(responseCreatedObj){
-
-    // ICI ON VA REPRENDRE LE PARCOURT USER :
-    // 1/ Message pour dire que la casquette est prête
-    // 2/ Casquette prête => on donne une info sur soit !
-    // 3/ Enregistrement de l'info => result amene vers le telechargement
-    // 4/ post téléchargement => si tu veux tu peux te prendre en Photo
-    // 5/ partage sur instagram ton image =>
-
-
-
-    $(".step5 .result-text").children().remove();
+    $("#cap_img").attr('src',$("#result_img").attr("src"));
+    changeStep(6,7);
     window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
     mp3Advertising.play();
-    $(".step5 .result-text").append(texts['advertisingForGame'][langue]);
-    animate_text("animate-text-advertising",pictureMetacasquette,responseCreatedObj);
+    $(".step7 .takePictureOrNext").append(texts['takePictureOrNext'][langue]);
+    animate_text("animate-text-takepicture",displayBtnStep8);
 
-
-}
-
-
-function pictureMetacasquette(responseCreatedObj){
-
-      $("#cap_img").attr('src',"/"+responseCreatedObj.result.filename);
-      changeStep(5,6);
-}
-
- function animate_text(animateTextClass, nextFunction, arg)
- {
-  let delay = 70,
-      delay_start = 0,
-      contents,
-      letters;
-
-  $("."+animateTextClass).each(function(index, obj) {
-    contents = $(obj).text().trim();
-    $(obj).html(''); // on vide le contenu
-    letters = contents.split("");
-    var first = true;
-
-    $(letters).each(function(index_1, letter) {
-      setTimeout(function() {
-        if($(obj).hasClass('lastOne') && first){
-          setTimeout(function() {
-              return nextFunction(arg);
-          }
-          ,4000);
-        }
-        if(first){ $(obj).css('visibility','visible'); first=false; }
-        // effet machine à écrire simple
-        $(obj).html( $(obj).html() + letter ); // on ajoute chaque lettre l une après l autre
-
-      }, delay_start + delay * index_1);
-    });
-    // le suivant démarre à la fin du précédent
-    delay_start += delay * letters.length;
-  });
-}
-
-function carrousselBeforePicture(){
-
-  if($(".step5").is(":visible")){
-    return;
   }
-  changeStep(3,4);
-  $("#carrousselNext").unbind();
-  $("#carrousselNext").hide();
-  $("#carrousselNext").html(texts['carrousselNext'][langue]);
-  $("#carrousselNext").on('touchstart',function (event) {
-      event.preventDefault();
-      $(this).hide();
-      carrousselBeforePicture();
-    });
-  const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/randomgenerated', true);
-  xhr.send(null);
-  xhr.onload = function() {
-      var responseObj = JSON.parse(xhr.response);
-      if(responseObj.success){
-        $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
-        $('#titre_carroussel').html(responseObj.result.text);
 
-          window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
-          mp3CarrousselCurrent.play();
-          mp3CarrousselCurrent.onended = (event) => {
-            setTimeout(function() {
-              $("#carrousselNext").show();
-            },2000);
-          }
-      }
-  };
-
-
-
-}
-
-function setCookie(cname, cvalue) {
-  const d = new Date();
-  d.setTime(d.getTime() + (24*60*60*1000));
-  let expires = "Max-Age="+ $("#next").attr("data-value");;
-  document.cookie = cname + "=" + cvalue + ";" + expires + "; SameSite=Strict ;path=/";
-}
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
+  function displayBtnStep8(){
+    $("#btnStep8").html(texts['textButtonNext'][langue]).show();
+    $("#btnStep8").on('touchstart',function (event) {
+        event.preventDefault();
+        $(this).hide();
+        init_step8();
+      });
   }
-  return "";
-}
-}
 
+  function init_step8(){
+    $('#finish_img').attr('src', $('#cap_img').attr('src'));
+    $("#reel_insta_msg").html(texts['realIsNotReady'][langue]);
+    changeStep(7,8);
+
+    window.lastMsg = new Audio('../sound/lastMsg_'+langue+'.mp3');
+    lastMsg.play();
+
+    $(".step8 .lastMsg").append(texts['lastMsg'][langue]);
+    animate_text('animate-text-lastMsg',displayLastBtn)
+  }
+
+  function displayLastBtn(){
+    $("#lastPanelBtn").show();
+  }
 
 if($(".gameParticipation").length){
   $('.overlay-mask').css('position','absolute');$('.overlay-mask').css('top','0');
   $(".email").html('<a href="/" class="btn btn-default" style="height:80px; background-color:black; color :white;  font-size: 30px; border:2px solid white; font-weight : bold;">← <img height="60" src="/img/logo/logo_detache_white.png" alt="/MetaCasquette"></h1>')
+}
+
+
+init_step1();
 }
