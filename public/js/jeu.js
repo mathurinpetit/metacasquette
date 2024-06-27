@@ -788,6 +788,8 @@ function displayResultAndWaiting(responseObj){
       img_casquette.src = $('#cap_img').attr('src');
 
       img_casquette.onload = function(){
+             context.translate(width, 0);
+             context.scale(-1, 1);
              context.drawImage(img_casquette,left_casquette,150, width_casquette, height_casquette);
       };
 
