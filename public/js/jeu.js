@@ -183,10 +183,7 @@ if(mc1 && mc2 && langue){
     '<h1 id="titre_carroussel">'+data+'</h1>');
   });
 
-  $(".step0").html("");
-
-  $(".step0").append(texts['already_played_cookie'][langue]);
-
+  $(".step0").html(texts['already_played_cookie'][langue]);
   animate_text("animate-text-chosen",);
 }
 
@@ -208,6 +205,14 @@ function isIOSIPhone() {
 function changeStep(stepA,stepB){
   $(".step"+stepB).show();
   $(".step"+stepA).hide();
+}
+
+function toStep(stepA){
+  for (var i = 0; i < 9; i++) {
+
+    $(".step"+i).hide();
+  }
+  $(".step"+stepA).show();
 }
 
 function createStepButton(step,id,text){
@@ -277,8 +282,9 @@ function getCookie(cname) {
        window.mp3Maxgame = new Audio('../sound/maxGame_'+langue+'.mp3');
        mp3Maxgame.play();
 
-       changeStep(2,0); // ??? de quelle étape cela part ?
-       $(".step0").append(texts['already_played'][langue]);
+       $(".step0").empty();
+       toStep(0);
+       $(".step0").html(texts['already_played'][langue]);
        animate_text("animate-text-intro",);
        displayBtnStep2(); // Afficher le bouton de réél instagram
    }
@@ -289,7 +295,7 @@ function getCookie(cname) {
        mp3ForbidenCreation.play();
 
        $(".step0").empty();
-       changeStep(2,0); // ??? de quelle étape cela part ?
+       toStep(0);
        $(".step0").append(texts['forbiddenCreation'][langue]);
        animate_text("animate-text-forbiddenCreation",);
        displayBtnStep2();
