@@ -79,13 +79,13 @@ var texts = {
       },
       "takePictureOrNext": {
         'fr' : '<div style="top:55%;"><p class="animate-text animate-text-takepicture" >Attends, ne pars pas tout de suite sinon tu ne pourras pas gagner !</p>'+
-          '<p class="animate-text animate-text-takepicture" >Si tu veux, tu peux te prendre en photo avec</p>'+
-          '<p class="animate-text animate-text-takepicture warm " >ta MétaCasquette</p>'+
-          '<p class="animate-text animate-text-takepicture lastOne" >mais cela n\'est pas obligatoire. Tu peux aussi cliquer sûr suivant.</p></div>',
+          '<p class="animate-text animate-text-takepicture" >Tu peux te prendre en photo avec</p>'+
+          '<p class="animate-text animate-text-takepicture warm " >ta MétaCasquette !</p>'+
+          '<p class="animate-text animate-text-takepicture lastOne" >Montres toi sur ton meilleur jour, cette photo sera un bon souvenir pour toi !</p></div>',
         'en' : '<div style="top:55%;"><p class="animate-text animate-text-takepicture" >Wait, don\'t leave yet otherwise you won\'t be able to win !</p>'+
-          '<p class="animate-text animate-text-takepicture" >If you want, you can take a photo of yourself with</p>'+
+          '<p class="animate-text animate-text-takepicture" >You can take a photo of yourself with</p>'+
           '<p class="animate-text animate-text-takepicture warm " >your MetaCasquette</p>'+
-          '<p class="animate-text animate-text-takepicture lastOne" >but this is not obligatory. You can also click next.</p></div>'
+          '<p class="animate-text animate-text-takepicture lastOne" >Show yourself on your best day, this photo will be a good memory for you !</p></div>'
       },
       "lastMsg" : {
         'fr' : '<div style="top:55%;"><p class="animate-text animate-text-lastMsg" >Si tu veux gagner, il faudra te rendre sur mon instagram !</p>'+
@@ -118,8 +118,8 @@ var texts = {
         'en' : 'Click to stop recording'
       },
       "carrousselInitBtn":{
-        'fr' : 'Voir le choix des autres joueurs →',
-        'en' : 'See what other participants chose →'
+        'fr' : 'Voir le choix des autres joueurs en attendant la création →',
+        'en' : 'See other players\' choices while waiting for creation →'
       },
       "carrousselNext":{
         'fr' : 'MétaCasquette suivante →',
@@ -133,14 +133,22 @@ var texts = {
        'fr' : 'Télécharge ta MétaCasquette ici →',
        'en' : 'Download your MétaCasquette here →'
      },
-     "realIsNotReady":{
+     "realNotReady":{
       'fr' : 'Votre réel est en court de réalisation...',
       'en' : 'Your reality is being created...'
     },
     "realIsReady":{
-     'fr' : 'Votre réel est prêt',
-     'en' : 'Your real is ready'
-   }
+     'fr' : 'Votre réel est prêt !',
+     'en' : 'Your real is ready !'
+   },
+   "takePictureBtnLegend":{
+    'fr' : 'Prendre une photo',
+    'en' : 'Take a picture'
+  },
+  "textButtonKeepPicture":{
+   'fr' : 'Je garde cette photo !',
+   'en' : 'I keep this picture !'
+ }
 
 
 }
@@ -296,7 +304,11 @@ function init_step1() {
       $(".recordSpanBtn").html(texts['textButtonRecord'][langue]);
       var ios = isIOSIPhone();
       setCookie("langue",langue);
-      
+
+      // changeStep(0,3);
+      // init_step3();
+      // return;
+
       var hasPlayMoreThan2 = $("#hasPlayMoreThan2").attr("data-value");
       if(parseInt(hasPlayMoreThan2) > 1){
         changeStep(0,3);
@@ -681,7 +693,7 @@ function displayResultAndWaiting(responseObj){
     formData.append('whatilove', responseObj.result.whatilove);
     formData.append('name', responseObj.result.name);
     formData.append('idUser', responseObj.result.idUser);
-
+    $("#canvas").attr("data-nameOfPic","Metacaquette_"+responseObj.result.name+"_"+responseObj.result.whatilove+"_myPic.png")
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createmetacasquette', true);
     xhr.send(formData);
@@ -711,7 +723,8 @@ function displayResultAndWaiting(responseObj){
             var responseLink = JSON.parse(xhr.response);
             if(responseLink.success && responseLink.success != "0"){
               $("#reel_insta").attr("href",responseLink.link);
-              $("#reel_insta_msg").html(texts['realNotReady'][langue]);
+              $("#reel_insta_msg").html(texts['realIsReady'][langue]);
+              $(".loader").hide();
             }
           }
 
@@ -731,11 +744,12 @@ function displayResultAndWaiting(responseObj){
  let canvas = document.querySelector("#canvas");
 
 
- camera_button.addEventListener('touchstart', async function() {
-      $(".startCamera").hide();
-      $(".arrowGifCam").hide();
+ camera_button.addEventListener('touchstart', async function(event) {
+      event.preventDefault();
       $(".takePictureOrNext").hide();
-      $("#btnStep8").hide();
+
+      $(".btnPicturePanel").hide();
+
     	let stream = await navigator.mediaDevices.getUserMedia({ video: true });
  	    video2.srcObject = stream;
       setTimeout(function() {
@@ -743,28 +757,33 @@ function displayResultAndWaiting(responseObj){
         $("#cap_img").after($(video2));
         $("#cap_img").attr( "style", "left:25%;top: 150px;position: absolute; z-index:998; width:50%" );
 
-      },2000);
+      },100);
  });
 
- click_button.addEventListener('touchstart', function() {
+ click_button.addEventListener('touchstart', function(event) {
+      event.preventDefault();
     	let image_data_url = canvas.toDataURL('image/jpeg');
 
-      width = parseInt(document.defaultView.getComputedStyle(video2).width);
-      height = parseInt(document.defaultView.getComputedStyle(video2).height);
+      video2 = document.querySelector("#video2");
+
+      var width = parseInt(document.defaultView.getComputedStyle(video2).width);
+      var height = parseInt(document.defaultView.getComputedStyle(video2).height);
       canvas.width = width;
       canvas.height = height;
 
       var context=canvas.getContext("2d");
 
+      context.translate(width, 0);
+      context.scale(-1, 1);
       context.fillRect(0,0,width,height);
       context.drawImage(video2,0,0,width,height);
 
       var img_casquette=new Image();
-      width_casquette = parseInt($('#cap_img').width());
-      height_casquette = parseInt($('#cap_img').height());
+      var width_casquette = parseInt($('#cap_img').width());
+      var height_casquette = parseInt($('#cap_img').height());
 
-      left_casquette = parseInt($('#cap_img').offset().left);
-      top_casquette = parseInt($('#cap_img').offset().top);
+      var left_casquette = parseInt($('#cap_img').offset().left);
+      var top_casquette = parseInt($('#cap_img').offset().top);
 
       img_casquette.src = $('#cap_img').attr('src');
 
@@ -774,25 +793,15 @@ function displayResultAndWaiting(responseObj){
 
       $(canvas).css("position","relative");
       $(canvas).css("z-index","1");
+
       $("#video2").hide();
       $('#cap_img').hide();
       $("#click-photo").hide();
 
+      window.mp3Valorisation = new Audio('../sound/mp3Valorisation_'+langue+'.mp3');
+      mp3Valorisation.play();
 
-      $(".download_result").each(function(){
-          $(this).click(function download (){
-             var link = document.createElement('a');
-             link.download = $(this).attr('data-name');
-             link.href = canvas.toDataURL()
-             link.click();
-           });
-      });
-
-      window.mp3EndExplanations = new Audio('../sound/endExplanations_'+langue+'.mp3');
-      mp3EndExplanations.play();
-      setTimeout(function() {
-        $("#share_"+langue).show();
-      }, 1000);
+      displayBtnStep8();
  });
 
 function advertisingBeforeCamera(responseCreatedObj, responseObj){
@@ -836,14 +845,25 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
     window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
     mp3Advertising.play();
     $(".step7 .takePictureOrNext").append(texts['takePictureOrNext'][langue]);
-    animate_text("animate-text-takepicture",displayBtnStep8);
+    animate_text("animate-text-takepicture",displayTakePictureElts);
 
   }
 
+  function displayTakePictureElts(){
+    $(".step7 .startCamera_text").html(texts['takePictureBtnLegend'][langue]).show();
+    $(".btnPicturePanel").show();
+  }
+
   function displayBtnStep8(){
-    $("#btnStep8").html(texts['textButtonNext'][langue]).show();
+    $("#btnStep8").html(texts['textButtonKeepPicture'][langue]).show();
     $("#btnStep8").on('touchstart',function (event) {
         event.preventDefault();
+
+        var link = document.createElement('a');
+        link.download = $("#canvas").attr("data-nameOfPic");
+        link.href = canvas.toDataURL()
+        link.click();
+
         $(this).hide();
         init_step8();
       });
@@ -851,7 +871,7 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
   function init_step8(){
     $('#finish_img').attr('src', $('#cap_img').attr('src'));
-    $("#reel_insta_msg").html(texts['realIsNotReady'][langue]);
+    $("#reel_insta_msg").html(texts['realNotReady'][langue]);
     changeStep(7,8);
 
     window.lastMsg = new Audio('../sound/lastMsg_'+langue+'.mp3');
