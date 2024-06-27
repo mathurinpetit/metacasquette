@@ -183,6 +183,8 @@ if(mc1 && mc2 && langue){
     '<h1 id="titre_carroussel">'+data+'</h1>');
   });
 
+  $(".step0").html("");
+
   $(".step0").append(texts['already_played_cookie'][langue]);
 
   animate_text("animate-text-chosen",);
@@ -298,6 +300,8 @@ function getCookie(cname) {
  */
 
 function init_step1() {
+
+  $("#reel_insta_msg").html(texts['realNotReady'][langue]);
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
@@ -716,7 +720,7 @@ function displayResultAndWaiting(responseObj){
               $(this).hide();
               advertisingBeforeCamera(responseCreatedObj,responseObj);
             });
-
+          $("#reel_insta").attr("href",responseLink.link);
           xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createVideoForInsta', true);
           xhr.send(formData);
           xhr.onload = function() {
@@ -873,7 +877,6 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
   function init_step8(){
     $('#finish_img').attr('src', $('#cap_img').attr('src'));
-    $("#reel_insta_msg").html(texts['realNotReady'][langue]);
     changeStep(7,8);
 
     window.lastMsg = new Audio('../sound/lastMsg_'+langue+'.mp3');
