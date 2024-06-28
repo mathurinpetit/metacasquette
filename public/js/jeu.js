@@ -284,9 +284,11 @@ function getCookie(cname) {
        mp3Maxgame.play();
 
        $(".step0").empty();
+       $(".step0").css("width","90%")
        toStep(0);
-       $(".step0").html(texts['already_played'][langue]);
-       animate_text("animate-text-intro",);
+       $(".step0").append(texts['already_played'][langue]);
+       animate_text("animate-text-intro",displayBtnStep2);
+       $(".step0").append($("#participantsGamesLink").html());
        displayBtnStep2(); // Afficher le bouton de réél instagram
    }
 
