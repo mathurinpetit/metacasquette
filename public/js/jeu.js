@@ -338,7 +338,7 @@ function init_step1() {
         video1.addEventListener("ended", (event) => {
 
           displayBtnStep2();
-
+          $("#btnStep2").attr("style","width : 50%; font-size:40pt; border-radius: 25px; white-space: normal;position: absolute;top: 75%;left: 25%;");
 
         });
       }else{
