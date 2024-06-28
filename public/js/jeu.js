@@ -134,12 +134,16 @@ var texts = {
        'en' : 'Download your MétaCasquette here →'
      },
      "realNotReady":{
-      'fr' : 'Votre réel est en court de réalisation...',
-      'en' : 'Your reality is being created...'
+      'fr' : 'Ton réel est en court de réalisation...',
+      'en' : 'Your real is being created...'
     },
+    "realNotReadyConfirmation":{
+     'fr' : "Es-tu sûr ? Si tu attends quelques secondes de plus, tu pourras accéder au post instagram que je suis en train de concevoir par ce même bouton...",
+     'en' : 'Are you sure ? If you wait a few more seconds, you will be able to access the Instagram post that I am creating using this same button...'
+   },
     "realIsReady":{
-     'fr' : 'Votre réel est prêt !',
-     'en' : 'Your real is ready !'
+     'fr' : 'Ton réel est prêt ! Clique ici pour le regarder et commente le pour gagner !',
+     'en' : 'Your real is ready ! Click here to watch it and comment it to win !'
    },
    "takePictureBtnLegend":{
     'fr' : 'Prendre une photo',
@@ -312,6 +316,7 @@ function getCookie(cname) {
 function init_step1() {
 
   $("#reel_insta_msg").html(texts['realNotReady'][langue]);
+  $("#reel_insta_msg").attr('onclick',"javascript:return confirm('"+texts['realNotReadyConfirmation'][langue]+"')" );
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
@@ -738,6 +743,7 @@ function displayResultAndWaiting(responseObj){
             if(responseLink.success && responseLink.success != "0"){
               $("#reel_insta").attr("href",responseLink.link);
               $("#reel_insta_msg").html(texts['realIsReady'][langue]);
+              $("#reel_insta").attr("onclick", null);
               $(".loader").hide();
             }
           }
