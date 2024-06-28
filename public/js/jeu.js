@@ -288,7 +288,7 @@ function getCookie(cname) {
        toStep(0);
        $(".step0").append(texts['already_played'][langue]);
        animate_text("animate-text-intro",displayBtnStep2);
-       $(".step0").append($("#participantsGamesLink").html());
+       $(".step0").append("<a href=\""+ $("#participantsGamesLink").attr("href")+"\" target=\"_blank\" id=\"participantsGamesAlreadyPlayedLink\" ><span class=\"shareMsg\" style=\"text-decoration: underline white !important;\">Les MétaCasquettes créées par les autres joueurs sont ici</span></a></li>");
        displayBtnStep2(); // Afficher le bouton de réél instagram
    }
 
