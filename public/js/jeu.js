@@ -121,6 +121,10 @@ var texts = {
         'fr' : 'Voir le choix des autres joueurs en attendant la création →',
         'en' : 'See other players\' choices while waiting for creation →'
       },
+      "carrousselTitle":{
+        'fr' : 'Je suis en train de fabriquer ta MétaCasquette<br/>Voici ce que les autres joueurs ont choisi',
+        'en' : 'I\'m making your MétaCasquette<br/>Here\'s what the other players chose'
+      },
       "carrousselNext":{
         'fr' : 'MétaCasquette suivante →',
         'en' : 'Next MetaCasquette →'
@@ -316,7 +320,7 @@ function getCookie(cname) {
 function init_step1() {
 
   $("#reel_insta_msg").html(texts['realNotReady'][langue]);
-  $("#reel_insta_msg").attr('onclick',"javascript:return confirm('"+texts['realNotReadyConfirmation'][langue]+"')" );
+  $("#reel_insta").attr('onclick',"javascript:return confirm('"+texts['realNotReadyConfirmation'][langue]+"')" );
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
