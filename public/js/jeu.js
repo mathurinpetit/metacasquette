@@ -181,12 +181,12 @@ if(mc1 && mc2 && langue){
   .then((data) => {
     $(".step0").append('<img id="" width="90%" atl="metacasquette" src="/jeudatas/'+mc2+'_layer.png" style="top: 5%;position: sticky;">'+
     '<h1 id="titre_carroussel">'+data+'</h1>');
+    $(".step0").append("<a href=\""+ $("#participantsGamesLink").attr("href")+"\" target=\"_blank\" id=\"participantsGamesAlreadyPlayedLink\" ><span class=\"shareMsg\" style=\"text-decoration: underline white !important;\">Les MétaCasquettes créées par les autres joueurs sont ici</span></a></li>");
   });
 
   $(".step0").html(texts['already_played_cookie'][langue]);
   animate_text("animate-text-chosen",);
-  $(".step0").append("<a href=\""+ $("#participantsGamesLink").attr("href")+"\" target=\"_blank\" id=\"participantsGamesAlreadyPlayedLink\" ><span class=\"shareMsg\" style=\"text-decoration: underline white !important;\">Les MétaCasquettes créées par les autres joueurs sont ici</span></a></li>");
-  
+
 }
 
 function isIOSIPhone() {
