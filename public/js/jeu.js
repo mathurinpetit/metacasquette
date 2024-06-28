@@ -185,6 +185,7 @@ if(mc1 && mc2 && langue){
 
   $(".step0").html(texts['already_played_cookie'][langue]);
   animate_text("animate-text-chosen",);
+  $(".step0").append($("#participantsGamesLink").html());
 }
 
 function isIOSIPhone() {
@@ -726,7 +727,7 @@ function displayResultAndWaiting(responseObj){
               $(this).hide();
               advertisingBeforeCamera(responseCreatedObj,responseObj);
             });
-          $("#reel_insta").attr("href",responseLink.link);
+
           xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createVideoForInsta', true);
           xhr.send(formData);
           xhr.onload = function() {
