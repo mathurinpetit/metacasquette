@@ -185,7 +185,8 @@ if(mc1 && mc2 && langue){
 
   $(".step0").html(texts['already_played_cookie'][langue]);
   animate_text("animate-text-chosen",);
-  $(".step0").append($("#participantsGamesLink").html());
+  $(".step0").append("<a href=\""+ $("#participantsGamesLink").attr("href")+"\" target=\"_blank\" id=\"participantsGamesAlreadyPlayedLink\" ><span class=\"shareMsg\" style=\"text-decoration: underline white !important;\">Les MétaCasquettes créées par les autres joueurs sont ici</span></a></li>");
+  
 }
 
 function isIOSIPhone() {
@@ -287,9 +288,9 @@ function getCookie(cname) {
        $(".step0").css("width","90%")
        toStep(0);
        $(".step0").append(texts['already_played'][langue]);
-       animate_text("animate-text-intro",displayBtnStep2);
+       animate_text("animate-text-intro",);
        $(".step0").append("<a href=\""+ $("#participantsGamesLink").attr("href")+"\" target=\"_blank\" id=\"participantsGamesAlreadyPlayedLink\" ><span class=\"shareMsg\" style=\"text-decoration: underline white !important;\">Les MétaCasquettes créées par les autres joueurs sont ici</span></a></li>");
-       displayBtnStep2(); // Afficher le bouton de réél instagram
+
    }
 
 
