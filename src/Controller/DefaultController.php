@@ -185,7 +185,6 @@ class DefaultController extends Controller
       if($this->numberIp($ip) > 2){
         return new JsonResponse(array('reason' => "maxGame", 'success' => false));
       }
-      $identifiant = $ip;
 
       $openaikey = $this->getParameter('app.openaikey');
       $googleapifile = $this->getParameter('app.googleapifile');
@@ -214,11 +213,16 @@ class DefaultController extends Controller
           ? $_SERVER['HTTP_X_FORWARDED_FOR']
           : $_SERVER['REMOTE_ADDR']);
 
-      if($this->numberIp($ip) > 2){
+      if($this->numberIp($ip) > 3){
         return new JsonResponse(array('reason' => "maxGame", 'success' => false));
       }
-      $identifiant = $ip;
+
       $idUser = $request->request->get('idUser');
+
+      if(!file_exists("jeudatas/".$idUser."_layer.png")) {
+         return new JsonResponse(array('reason' => "noPostInsta", 'success' => false));
+      }
+
       if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
         return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
       }
@@ -228,6 +232,25 @@ class DefaultController extends Controller
         return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
       }
       return new JsonResponse(array('reason' => "noPostInsta", 'success' => false));
+
+    }
+
+    /**
+      * @Route("/jeu/{id}/notifyLinkForInsta")
+    */
+    public function notifyLinkForInsta($id, Request $request): Response
+    {
+      if (!$request->isMethod('POST')) {
+          return new JsonResponse(array('reason' => "noPostInsta", 'success' => false));
+      }
+      $idUser = $request->request->get('idUser');
+      if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
+        return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
+      }
+
+      $linkInsta = $request->request->get('linkInsta');
+      file_put_contents($pathFile,$linkInsta);
+      return new JsonResponse(array('link' => $linkInsta, 'success' => 1));
 
     }
 
@@ -249,7 +272,6 @@ class DefaultController extends Controller
       if($this->numberIp($ip) > 2){
         return new JsonResponse(array('reason' => "maxGame", 'success' => false));
       }
-      $identifiant = $ip;
 
       $layers = array();
       foreach (scandir('jeudatas') as $fileName) {

@@ -34,6 +34,11 @@ createVideoForInsta:
    path: /jeu/{id}/createVideoForInsta
    defaults: { _controller: 'Controller\DefaultController::createVideoForInsta' }
 
+notifyLinkForInsta:
+   path: /jeu/{id}/notifyLinkForInsta
+   defaults: { _controller: 'Controller\DefaultController::notifyLinkForInsta' }
+
+
 getRandomGenerated:
    path: /jeu/{id}/randomgenerated
    defaults: { _controller: 'Controller\DefaultController::randomgenerated' }
