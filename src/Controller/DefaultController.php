@@ -245,12 +245,12 @@ class DefaultController extends Controller
       }
       $idUser = $request->request->get('idUser');
       if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
-        return new JsonResponse(array('link' => file_get_contents($pathFile), 'success' => 1));
+        return new JsonResponse(array('link' => file_get_contents($pathFile), 'pathFile' => $pathFile, 'success' => "presentBefore"));
       }
 
       $linkInsta = $request->request->get('linkInsta');
-      file_put_contents($pathFile,$linkInsta);
-      return new JsonResponse(array('link' => $linkInsta, 'success' => 1));
+      $result = file_put_contents($pathFile,$linkInsta);
+      return new JsonResponse(array('link' => $linkInsta, 'pathFile' => $pathFile,'fpc_result' => $result, 'success' => 1));
 
     }
 
