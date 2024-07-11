@@ -717,7 +717,7 @@ function displayResultAndWaiting(responseObj){
     $("#carrousselNext").html(texts['carrousselNext'][langue]);
     $("#carrousselProgressCreation").html(texts['carrousselProgressCreation'][langue]);
 
-    progressBarCarrousselFct = setInterval(function(){ progressBar(0.01,95); },40);
+    progressBarCarrousselFct = setInterval(function(){ progressBar(0.08,95); },40);
 
     changeStep(4,5);
     carrousselReload();
