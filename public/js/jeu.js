@@ -325,8 +325,6 @@ function getCookie(cname) {
 
 function init_step1() {
 
-  $("#reel_insta_msg").html(texts['realNotReady'][langue]);
-  $("#reel_insta").attr('onclick',"javascript:return confirm('"+texts['realNotReadyConfirmation'][langue]+"')" );
   $(".step0 a").click(function(){
 
       langue = $(this).attr("data-id");
@@ -789,15 +787,18 @@ function displayResultAndWaiting(responseObj){
               advertisingBeforeCamera(responseCreatedObj,responseObj);
             });
 
+          $("#reel_insta_msg").html(texts['realNotReady'][langue]);
+          $("#reel_insta").attr('onclick',"javascript:return confirm('"+texts['realNotReadyConfirmation'][langue]+"')" );
+
           xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/createVideoForInsta', true);
           xhr.send(formData);
           xhr.onload = function() {
             var responseLink = JSON.parse(xhr.response);
             if(responseLink.success && responseLink.success != "0"){
               $("#reel_insta").attr("href",responseLink.link);
-              $("#reel_insta_msg").html(texts['realIsReady'][langue]);
-              $("#reel_insta").attr("onclick", null);
+              $("#reel_insta_msg").html(texts['realIsReady'][langue]).css("left","10%");
               $(".loader").hide();
+              $("#reel_insta").attr("onclick", null);
             }
           }
 
