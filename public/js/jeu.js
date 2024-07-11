@@ -129,6 +129,10 @@ var texts = {
         'fr' : 'MétaCasquette suivante →',
         'en' : 'Next MetaCasquette →'
       },
+      "carrousselProgressCreation":{
+        'fr' : 'Progression de votre création...',
+        'en' : 'Progress of your creation...'
+      },
        "textMetaCasquetteButtonReady":{
         'fr' : ', ta MétaCasquette est prête !',
         'en' : ', your MetaCasquette is ready !'
@@ -169,6 +173,7 @@ var mc1 = getCookie("mc1");
 var mc2 = getCookie("mc2");
 
 var isDisconnected = false;
+var progressBarCarrousselFct = null;
 
 /*
 * Utilisation des Cookies
@@ -696,6 +701,14 @@ function displayResultAndWaiting(responseObj){
       });
   }
 
+  function progressBar(stepProgress,blockValue){
+      var val = $('#progress progress').attr('value');
+      if(val>blockValue){ val=blockValue; }
+      var newVal = val*1+stepProgress;
+      var txt = Math.floor(newVal)+'%';
+      $('#progress progress').attr('value',newVal).text(txt);
+      $('#progress strong').html(txt);
+  }
 
 
   function carrousselBeforePicture(){
@@ -704,12 +717,17 @@ function displayResultAndWaiting(responseObj){
       return;
     }
     $("#carrousselNext").html(texts['carrousselNext'][langue]);
+    $("#carrousselProgressCreation").html(texts['carrousselProgressCreation'][langue]);
+
+    progressBarCarrousselFct = setInterval(function(){ progressBar(0.05,95); },40);
+
+    changeStep(4,5);
+    carrousselReload();
 
     $("#carrousselNext").on('touchstart',function (event) {
         event.preventDefault();
         carrousselReload();
       });
-    changeStep(4,5);
 
     };
 
@@ -751,11 +769,19 @@ function displayResultAndWaiting(responseObj){
           }else if(!getCookie("mc2")){
              setCookie("mc2",responseObj.result.idUser);
           }
-          // ICI On crée le btn de resultat !
+
+          if(progressBarCarrousselFct){
+            clearInterval(progressBarCarrousselFct);
+          }
+
+          progressBarCarrousselFct = setInterval(function(){ progressBar(0.25,100); },40);
+
           $("#carrousselNext").unbind();
+          $("#carrousselNext").removeAttr("disabled");
+
           $("#carrousselNext").attr("id","resultMetaCasquette");
           $("#resultMetaCasquette").html(responseObj.result.name+texts['textMetaCasquetteButtonReady'][langue]);
-          $("#resultMetaCasquette").show()
+
 
           $("#resultMetaCasquette").on('touchstart',function (event) {
               event.preventDefault();
