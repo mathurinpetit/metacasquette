@@ -527,7 +527,6 @@ label.cameraButton input[accept*="camera"] {
 #progress {
   width: 0%;
   height: 100%;
-  background-color: #4CAF50;
 }
 
 
@@ -656,6 +655,10 @@ height: 100%;
   background: linear-gradient(to right, #F00 10%, #F5BC12 20%, #FF6C00 40%, #F5BC12 80%, #F00 90%);
   background-size: auto auto;
   background-clip: border-box;
+}
+
+#carrousselProgressCreation{
+  font-size: 20pt;
 }
 
 #progress{
