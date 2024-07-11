@@ -717,7 +717,7 @@ function displayResultAndWaiting(responseObj){
     $("#carrousselNext").html(texts['carrousselNext'][langue]);
     $("#carrousselProgressCreation").html(texts['carrousselProgressCreation'][langue]);
 
-    progressBarCarrousselFct = setInterval(function(){ progressBar(0.05,95); },40);
+    progressBarCarrousselFct = setInterval(function(){ progressBar(0.01,95); },40);
 
     changeStep(4,5);
     carrousselReload();
@@ -772,7 +772,7 @@ function displayResultAndWaiting(responseObj){
             clearInterval(progressBarCarrousselFct);
           }
 
-          progressBarCarrousselFct = setInterval(function(){ progressBar(0.25,100); },40);
+          progressBarCarrousselFct = setInterval(function(){ progressBar(0.5,100); },40);
 
           $("#carrousselNext").unbind();
           $("#carrousselNext").removeAttr("disabled");
