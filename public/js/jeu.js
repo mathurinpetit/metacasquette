@@ -168,6 +168,7 @@ var langue = getCookie("langue");
 var mc1 = getCookie("mc1");
 var mc2 = getCookie("mc2");
 
+var isDisconnected = false;
 
 /*
 * Utilisation des Cookies
@@ -419,7 +420,11 @@ function init_step3(){
   window.speakExplaination = new Audio('../sound/speak_explaination_'+langue+'.mp3');
   speakExplaination.play();
 
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
   var startRecordingButton = document.getElementById("startRecordingButton");
+
+  var contextAudio = new AudioContext();
 
   var leftchannel = [];
   var rightchannel = [];
@@ -428,7 +433,6 @@ function init_step3(){
   var volume = null;
   var mediaStream = null;
   var sampleRate = 44100;
-  var context = null;
   var blob = null;
   var isRecording = false;
 
@@ -501,7 +505,7 @@ function init_step3(){
 
 
 
-   function timer(nbSec,recorder,context,mediaStream){
+   function timer(nbSec,recorder,contextAudio,mediaStream){
        var sec = nbSec;
        var timer = setInterval(function(){
            document.getElementById('safeTimerDisplay').innerHTML=''+sec;
@@ -509,73 +513,79 @@ function init_step3(){
            if (sec < 0) {
                clearInterval(timer);
                if($(".step3").is(":visible")){
-                 console.log(recorder,mediaStream);
-                 stopRecordingAndSend(recorder,context,mediaStream);
+                 stopRecordingAndSend(recorder,contextAudio,mediaStream);
                 }
            }
        }, 1000);
    }
 
-   function stopRecordingAndSend(recorder,context,mediaStream){
+   function stopRecordingAndSend(recorder,contextAudio,mediaStream){
 
      $("#startRecordingButton").hide();
      $(".recordGif").hide();
      $("#safeTimerDisplay").hide();
 
-     recorder.disconnect(context.destination);
-     mediaStream.disconnect(recorder);
+     if(!isDisconnected){
+       recorder.disconnect(contextAudio.destination);
+       mediaStream.disconnect(recorder);
+       isDisconnected = true;
 
-     transitionSendingRecord();
-
-     setTimeout(function() {
-       // we flat the left and right channels down
-       // Float32Array[] => Float32Array
-       var leftBuffer = flattenArray(leftchannel, recordingLength);
-       var rightBuffer = flattenArray(rightchannel, recordingLength);
-       // we interleave both channels together
-       // [left[0],right[0],left[1],right[1],...]
-       var interleaved = interleave(leftBuffer, rightBuffer);
-
-       // we create our wav file
-       var buffer = new ArrayBuffer(44 + interleaved.length * 2);
-       var view = new DataView(buffer);
-
-       // RIFF chunk descriptor
-       writeUTFBytes(view, 0, 'RIFF');
-       view.setUint32(4, 44 + interleaved.length * 2, true);
-       writeUTFBytes(view, 8, 'WAVE');
-       // FMT sub-chunk
-       writeUTFBytes(view, 12, 'fmt ');
-       view.setUint32(16, 16, true); // chunkSize
-       view.setUint16(20, 1, true); // wFormatTag
-       view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
-       view.setUint32(24, sampleRate, true); // dwSamplesPerSec
-       view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
-       view.setUint16(32, 4, true); // wBlockAlign
-       view.setUint16(34, 16, true); // wBitsPerSample
-       // data sub-chunk
-       writeUTFBytes(view, 36, 'data');
-       view.setUint32(40, interleaved.length * 2, true);
-
-       // write the PCM samples
-       var index = 44;
-       var volume = 1;
-       for (var i = 0; i < interleaved.length; i++) {
-           view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
-           index += 2;
+       if(typeof navigator.audioSession !== "undefined"){
+         navigator.audioSession.type = 'playback';
        }
 
-       // our final blob
-       blob = new Blob([view], { type: 'audio/wav' });
-       isRecording = false;
+       transitionSendingRecord();
 
-       if (blob == null) {
-           return;
-       }
-       postBlob(blob);
-     },500);
+       setTimeout(function() {
+         // we flat the left and right channels down
+         // Float32Array[] => Float32Array
+         var leftBuffer = flattenArray(leftchannel, recordingLength);
+         var rightBuffer = flattenArray(rightchannel, recordingLength);
+         // we interleave both channels together
+         // [left[0],right[0],left[1],right[1],...]
+         var interleaved = interleave(leftBuffer, rightBuffer);
+
+         // we create our wav file
+         var buffer = new ArrayBuffer(44 + interleaved.length * 2);
+         var view = new DataView(buffer);
+
+         // RIFF chunk descriptor
+         writeUTFBytes(view, 0, 'RIFF');
+         view.setUint32(4, 44 + interleaved.length * 2, true);
+         writeUTFBytes(view, 8, 'WAVE');
+         // FMT sub-chunk
+         writeUTFBytes(view, 12, 'fmt ');
+         view.setUint32(16, 16, true); // chunkSize
+         view.setUint16(20, 1, true); // wFormatTag
+         view.setUint16(22, 2, true); // wChannels: stereo (2 channels)
+         view.setUint32(24, sampleRate, true); // dwSamplesPerSec
+         view.setUint32(28, sampleRate * 4, true); // dwAvgBytesPerSec
+         view.setUint16(32, 4, true); // wBlockAlign
+         view.setUint16(34, 16, true); // wBitsPerSample
+         // data sub-chunk
+         writeUTFBytes(view, 36, 'data');
+         view.setUint32(40, interleaved.length * 2, true);
+
+         // write the PCM samples
+         var index = 44;
+         var volume = 1;
+         for (var i = 0; i < interleaved.length; i++) {
+             view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
+             index += 2;
+         }
+
+         // our final blob
+         blob = new Blob([view], { type: 'audio/wav' });
+         isRecording = false;
+
+         if (blob == null) {
+             return;
+         }
+         postBlob(blob);
+       },500);
+     }
+
    }
-
 
 
    function writeUTFBytes(view, offset, string) {
@@ -607,21 +617,24 @@ function init_step3(){
             $("#safeTimerDisplay").show();
             $(".recordGif").show();
             $(".arrowGif").hide();
-            // creates the audio context
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            context = new AudioContext();
+
             // creates an audio node from the microphone incoming stream
-            mediaStream = context.createMediaStreamSource(e);
+
+
+            const sourceMicVolume = contextAudio.createGain();
+            sourceMicVolume.gain.value = 0;
+
+            mediaStream = contextAudio.createMediaStreamSource(e);
 
             // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
             // bufferSize: the onaudioprocess event is called when the buffer is full
             var bufferSize = 2048;
             var numberOfInputChannels = 2;
             var numberOfOutputChannels = 2;
-            if (context.createScriptProcessor) {
-                recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+            if (contextAudio.createScriptProcessor) {
+                recorder = contextAudio.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
             } else {
-                recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+                recorder = contextAudio.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
             }
 
             recorder.onaudioprocess = function (e) {
@@ -631,15 +644,23 @@ function init_step3(){
 
             }
 
+            isDisconnected = false;
+
+            if(typeof navigator.audioSession !== "undefined"){
+              navigator.audioSession.type = 'play-and-record';
+            }
+
             // we connect the recorder
+
             mediaStream.connect(recorder);
-            recorder.connect(context.destination);
+            recorder.connect(contextAudio.destination);
+            recorder.connect(sourceMicVolume);
             isRecording = true;
-            timer(10,recorder,context,mediaStream);
+            timer(10,recorder,contextAudio,mediaStream);
         });
 
       }else if (!lockedButton) {
-        stopRecordingAndSend(recorder,context,mediaStream);
+        stopRecordingAndSend(recorder,contextAudio,mediaStream);
       }
   });
 }
@@ -676,20 +697,24 @@ function displayResultAndWaiting(responseObj){
   }
 
 
+
   function carrousselBeforePicture(){
 
     if($(".step0").is(":visible")){
       return;
     }
-    changeStep(4,5);
-    $("#carrousselNext").unbind();
-    $("#carrousselNext").hide();
     $("#carrousselNext").html(texts['carrousselNext'][langue]);
+
     $("#carrousselNext").on('touchstart',function (event) {
         event.preventDefault();
-        $(this).hide();
-        carrousselBeforePicture();
+        carrousselReload();
       });
+    changeStep(4,5);
+
+    };
+
+    function carrousselReload(){
+    $("#carrousselNext").attr("disabled", 'disabled');
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/jeu/'+$('.generativGame').attr("data-key")+'/randomgenerated', true);
     xhr.send(null);
@@ -702,9 +727,7 @@ function displayResultAndWaiting(responseObj){
             window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
             mp3CarrousselCurrent.play();
             mp3CarrousselCurrent.onended = (event) => {
-              setTimeout(function() {
-                $("#carrousselNext").show();
-              },2000);
+              $("#carrousselNext").removeAttr("disabled");
             }
         }
     };
