@@ -241,7 +241,7 @@ function toStep(stepA){
 }
 
 function createStepButton(step,id,text){
-  step.append("<br/><br/><button id='"+id+"' style='width : 90%; font-size:40pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+text+"</button>");
+  step.append("<br/><br/><button id='"+id+"' style='width : 90%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'>"+text+"</button>");
 
 }
 
@@ -329,8 +329,7 @@ function playMp3(srcPath){
 
 
  function forbiddenCreation(){
-       window.mp3ForbidenCreation = playMp3io('../sound/forbiddenCreation_'+langue+'.mp3');
-       mp3ForbidenCreation.play();
+       playMp3('../sound/forbiddenCreation_'+langue+'.mp3');
 
        $(".step0").empty();
        toStep(0);
@@ -498,6 +497,8 @@ function init_step3(){
       $(".step3").css('width','90%');
       $(".eyes").css('top','-100%');
       animate_text("animate-text-transition",);
+
+
 
   }
 
@@ -673,8 +674,6 @@ function init_step3(){
          if (blob == null) {
              return;
          }
-         console.log(blob);
-         postBlob(blob);
        },20);
 
        createStepButton($(".step3"),"btnStepSend",texts['textButtonSendAudio'][langue]);
@@ -682,7 +681,7 @@ function init_step3(){
        $("#btnStepSend").on('touchstart',function (event) {
            event.preventDefault();
            $(this).hide();
-
+           postBlob(blob);
            transitionSendingRecord();
            contextAudio.close();
          });
@@ -750,6 +749,7 @@ function displayResultAndWaiting(responseObj){
     if($(".step0").is(":visible")){
       return;
     }
+    $("#carrousselTitle").html(texts['carrousselTitle'][langue]);
     $("#carrousselNext").html(texts['carrousselNext'][langue]);
     $("#carrousselProgressCreation").html(texts['carrousselProgressCreation'][langue]);
 
@@ -776,9 +776,8 @@ function displayResultAndWaiting(responseObj){
           $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
           $('#titre_carroussel').html(responseObj.result.text);
 
-            window.mp3CarrousselCurrent = playMp3('/jeudatas/'+responseObj.result.soundPath);
-            mp3CarrousselCurrent.play();
-            mp3CarrousselCurrent.onended = (event) => {
+            playMp3('/jeudatas/'+responseObj.result.soundPath);
+            window.currentMp3.onended = (event) => {
               $("#carrousselNext").removeAttr("disabled");
             }
         }
@@ -953,8 +952,9 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
     $("#cap_img").attr('src',$("#result_img").attr("src"));
     changeStep(6,7);
-    window.mp3Advertising = playMp3io('../sound/advertisingForGame_'+langue+'.mp3');
-    mp3Advertising.play();
+
+    playMp3('../sound/advertisingForGame_'+langue+'.mp3');
+
     $(".step7 .takePictureOrNext").append(texts['takePictureOrNext'][langue]);
     animate_text("animate-text-takepicture",displayTakePictureElts);
 
