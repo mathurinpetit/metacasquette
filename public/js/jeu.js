@@ -53,6 +53,15 @@ var texts = {
         '<p class="animate-text animate-text-intro2 highlight" >WHAT YOU LOVE IN LIFE</p>'+
         '<p class="animate-text animate-text-intro2 lastOne" >I take care of the rest !</p>'
       },
+      "textButtonSendAudio":{
+        'fr' : "Envoyer mon enregistrement →",
+        'en' : "Send my record →"
+      },
+      "textPresendAudio":{
+        'fr' :   "Ok, cela me semble bien !",
+        'en' : "Ok, that sounds good to me !"
+
+      },
       "transitionSendingRecord":{
         'fr' : '<div style="top:55%;">'+
         '<p class="animate-text animate-text-transition warm" >Parfait !</p>'+
@@ -290,13 +299,24 @@ function getCookie(cname) {
   return "";
 }
 
+function playMp3(srcPath){
+  window.currentMp3 = new Audio(srcPath);
+  const contextAudio = new AudioContext();
+  const source = contextAudio.createMediaElementSource(window.currentMp3);
+  const gainNode = contextAudio.createGain();
+  gainNode.gain.value = 1.2; // 10 %
+  gainNode.connect(contextAudio.destination);
+  source.connect(gainNode);
+  window.currentMp3.play();
+}
+
 /*
  * Etapes 0 => retour d'erreurs
  */
 
  function displayMaxGame(){
-       window.mp3Maxgame = new Audio('../sound/maxGame_'+langue+'.mp3');
-       mp3Maxgame.play();
+
+       playMp3('../sound/maxGame_'+langue+'.mp3')
 
        $(".step0").empty();
        $(".step0").css("width","90%")
@@ -309,7 +329,7 @@ function getCookie(cname) {
 
 
  function forbiddenCreation(){
-       window.mp3ForbidenCreation = new Audio('../sound/forbiddenCreation_'+langue+'.mp3');
+       window.mp3ForbidenCreation = playMp3io('../sound/forbiddenCreation_'+langue+'.mp3');
        mp3ForbidenCreation.play();
 
        $(".step0").empty();
@@ -359,8 +379,7 @@ function init_step1() {
 
         });
       }else{
-        window.mp3Introduction = new Audio('../sound/intro1_'+langue+'.mp3');
-        mp3Introduction.play();
+        playMp3('../sound/intro1_'+langue+'.mp3');
 
         $(".step1").css('width','90%');
         $(".step1").css('top','50%');
@@ -391,8 +410,8 @@ function displayBtnStep2(){
 
 function init_step2(){
   changeStep(1,2);
-  window.mp3Introduction2 = new Audio('../sound/intro2_'+langue+'.mp3');
-  mp3Introduction2.play();
+
+  playMp3('../sound/intro2_'+langue+'.mp3');
 
   $(".step2").css('width','90%');
   $(".step2").css('top','50%');
@@ -420,10 +439,9 @@ function displayBtnStep3(){
 
 function init_step3(){
 
-  window.speakExplaination = new Audio('../sound/speak_explaination_'+langue+'.mp3');
-  speakExplaination.play();
+  playMp3('../sound/speak_explaination_'+langue+'.mp3');
 
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  // window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
   var startRecordingButton = document.getElementById("startRecordingButton");
 
@@ -438,6 +456,8 @@ function init_step3(){
   var sampleRate = 44100;
   var blob = null;
   var isRecording = false;
+  var lockedButton = false;
+  var notSend = true;
 
   function postBlob(blob){
    const formData = new FormData();
@@ -454,7 +474,6 @@ function init_step3(){
          $('#textButtonReady').show();
          $('#textButtonReady').on('touchstart',function (event) {
              event.preventDefault();
-             $(this).hide();
              displayResultAndWaiting(responseObj);
            });
        }else{
@@ -466,21 +485,23 @@ function init_step3(){
   }
 
   function transitionSendingRecord(){
+
+      $("#startRecordingButton").before(texts['transitionSendingRecord'][langue]);
+      $("#startRecordingButton").remove();
+      $("#recordSpanBtn").hide();
       $(".recordBtn").hide();
       $(".recordSpanBtn").hide();
       $(".step3").prepend('<img src="/video/eyes.gif" class="eyes" style="width:110%; position: absolute; left:-5%;" >');
-      window.mp3Transition = new Audio('../sound/transitionSendingRecord_'+langue+'.mp3');
-      mp3Transition.play();
+
+      playMp3('../sound/transitionSendingRecord_'+langue+'.mp3');
+
       $(".step3").css('width','90%');
       $(".eyes").css('top','-100%');
-      $(".step3").append(texts['transitionSendingRecord'][langue]);
-      $(".step3").append("<br/><br/><button id='textButtonReady' style='display:none; width : 100%; font-size:30pt; border-radius: 25px; white-space: normal;' class='btn btn-default btn-lg'></button>");
       animate_text("animate-text-transition",);
 
   }
 
-
-   function flattenArray(channelBuffer, recordingLength) {
+  function flattenArray(channelBuffer, recordingLength) {
        var result = new Float32Array(recordingLength);
        var offset = 0;
        for (var i = 0; i < channelBuffer.length; i++) {
@@ -491,7 +512,7 @@ function init_step3(){
        return result;
    }
 
-   function interleave(leftChannel, rightChannel) {
+  function interleave(leftChannel, rightChannel) {
        var length = leftChannel.length + rightChannel.length;
        var result = new Float32Array(length);
 
@@ -505,28 +526,98 @@ function init_step3(){
        return result;
    }
 
-
-
-
-   function timer(nbSec,recorder,contextAudio,mediaStream){
+  function timer(nbSec,recorder,contextAudio,mediaStream){
        var sec = nbSec;
        var timer = setInterval(function(){
            document.getElementById('safeTimerDisplay').innerHTML=''+sec;
            sec--;
            if (sec < 0) {
                clearInterval(timer);
-               if($(".step3").is(":visible")){
+               if($(".step3").is(":visible") && notSend){
                  stopRecordingAndSend(recorder,contextAudio,mediaStream);
                 }
            }
        }, 1000);
    }
 
-   function stopRecordingAndSend(recorder,contextAudio,mediaStream){
+  function recordingAction(event) {
 
-     $("#startRecordingButton").hide();
+       event.preventDefault();
+       window.currentMp3.pause();
+       if(!isRecording) {
+         // Initialize recorder
+         navigator.mediaDevices.getUserMedia({
+             audio: true
+         }).then((e) => {
+             lockedButton = true;
+             setTimeout(function() {
+               lockedButton = false;
+             },5000);
+             recordingLength = 0;
+             leftchannel = [];
+             rightchannel = [];
+             $("#startRecordingButton").css('background-color', '#f41414');
+             $("#startRecordingButton").css('border', '20px solid #bd2f2f');
+             $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html(texts['textButtonStopRecord'][langue]);
+             $("#safeTimerDisplay").show();
+             $(".recordGif").show();
+             $(".arrowGif").hide();
+
+             // creates an audio node from the microphone incoming stream
+
+             const sourceMicVolume = contextAudio.createGain();
+             sourceMicVolume.gain.value = 0;
+
+             mediaStream = contextAudio.createMediaStreamSource(e);
+
+             // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
+             // bufferSize: the onaudioprocess event is called when the buffer is full
+             var bufferSize = 2048;
+             var numberOfInputChannels = 2;
+             var numberOfOutputChannels = 2;
+             if (contextAudio.createScriptProcessor) {
+                 recorder = contextAudio.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+             } else {
+                 recorder = contextAudio.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
+             }
+
+             recorder.onaudioprocess = function (e) {
+                 leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
+                 rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
+                 recordingLength += bufferSize;
+
+             }
+
+             isDisconnected = false;
+
+             if(typeof navigator.audioSession !== "undefined"){
+               navigator.audioSession.type = 'play-and-record';
+             }
+
+             // we connect the recorder
+
+             mediaStream.connect(recorder);
+             recorder.connect(contextAudio.destination);
+             recorder.connect(sourceMicVolume);
+             isRecording = true;
+             timer(10,recorder,contextAudio,mediaStream);
+         });
+        }else if (!lockedButton) {
+
+             stopRecordingAndSend(recorder,contextAudio,mediaStream);
+        }
+    }
+
+  function stopRecordingAndSend(recorder,contextAudio,mediaStream){
+
+     notSend = false;
+     $("#startRecordingButton").attr("style","animation : none; background-color: #530000; background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);");
+     $("#recordSpanBtn").removeClass("btn-danger").html(texts['textPresendAudio'][langue])
      $(".recordGif").hide();
      $("#safeTimerDisplay").hide();
+
+     var startRecordingButton = document.getElementById("startRecordingButton");
+     startRecordingButton.removeEventListener("touchstart",recordingAction, false);
 
      if(!isDisconnected){
        recorder.disconnect(contextAudio.destination);
@@ -536,8 +627,6 @@ function init_step3(){
        if(typeof navigator.audioSession !== "undefined"){
          navigator.audioSession.type = 'playback';
        }
-
-       transitionSendingRecord();
 
        setTimeout(function() {
          // we flat the left and right channels down
@@ -584,88 +673,34 @@ function init_step3(){
          if (blob == null) {
              return;
          }
+         console.log(blob);
          postBlob(blob);
-       },500);
+       },20);
+
+       createStepButton($(".step3"),"btnStepSend",texts['textButtonSendAudio'][langue]);
+
+       $("#btnStepSend").on('touchstart',function (event) {
+           event.preventDefault();
+           $(this).hide();
+
+           transitionSendingRecord();
+           contextAudio.close();
+         });
+
      }
 
    }
 
-
-   function writeUTFBytes(view, offset, string) {
+  function writeUTFBytes(view, offset, string) {
        for (var i = 0; i < string.length; i++) {
            view.setUint8(offset + i, string.charCodeAt(i));
        }
    }
 
-  var lockedButton = false;
-  startRecordingButton.addEventListener("touchstart", function (event) {
-      event.preventDefault();
-      speakExplaination.pause();
 
-      if(!isRecording) {
-        // Initialize recorder
-        navigator.mediaDevices.getUserMedia({
-            audio: true
-        }).then((e) => {
-            lockedButton = true;
-            setTimeout(function() {
-              lockedButton = false;
-            },5000);
-            recordingLength = 0;
-            leftchannel = [];
-            rightchannel = [];
-            $("#startRecordingButton").css('background-color', '#f41414');
-            $("#startRecordingButton").css('border', '20px solid #bd2f2f');
-            $(".recordSpanBtn").removeClass('btn-default').addClass('btn-danger').html(texts['textButtonStopRecord'][langue]);
-            $("#safeTimerDisplay").show();
-            $(".recordGif").show();
-            $(".arrowGif").hide();
+  startRecordingButton.addEventListener("touchstart", recordingAction);
+  $("#startRecordingButton").unbind().on('touchstart',function(event){ event.preventDefault(); return; })
 
-            // creates an audio node from the microphone incoming stream
-
-
-            const sourceMicVolume = contextAudio.createGain();
-            sourceMicVolume.gain.value = 0;
-
-            mediaStream = contextAudio.createMediaStreamSource(e);
-
-            // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
-            // bufferSize: the onaudioprocess event is called when the buffer is full
-            var bufferSize = 2048;
-            var numberOfInputChannels = 2;
-            var numberOfOutputChannels = 2;
-            if (contextAudio.createScriptProcessor) {
-                recorder = contextAudio.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-            } else {
-                recorder = contextAudio.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-            }
-
-            recorder.onaudioprocess = function (e) {
-                leftchannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
-                rightchannel.push(new Float32Array(e.inputBuffer.getChannelData(1)));
-                recordingLength += bufferSize;
-
-            }
-
-            isDisconnected = false;
-
-            if(typeof navigator.audioSession !== "undefined"){
-              navigator.audioSession.type = 'play-and-record';
-            }
-
-            // we connect the recorder
-
-            mediaStream.connect(recorder);
-            recorder.connect(contextAudio.destination);
-            recorder.connect(sourceMicVolume);
-            isRecording = true;
-            timer(10,recorder,contextAudio,mediaStream);
-        });
-
-      }else if (!lockedButton) {
-        stopRecordingAndSend(recorder,contextAudio,mediaStream);
-      }
-  });
 }
 
 
@@ -674,10 +709,11 @@ function init_step3(){
  */
 
 function displayResultAndWaiting(responseObj){
-      window.mp3Transition.pause();
+      window.currentMp3.pause();
       changeStep(3,4);
-      window.mp3Reponse = new Audio('../'+responseObj.result.mp3Reponse);
-      mp3Reponse.play();
+
+      playMp3('../'+responseObj.result.mp3Reponse);
+
       $(".step4").empty();
       $(".step4").append(responseObj.result.textReponseSections);
       animate_text("animate-text-response",displayBtnStep5);
@@ -740,7 +776,7 @@ function displayResultAndWaiting(responseObj){
           $('#image_carroussel').attr('src', '/jeudatas/'+responseObj.result.imagePath);
           $('#titre_carroussel').html(responseObj.result.text);
 
-            window.mp3CarrousselCurrent = new Audio('/jeudatas/'+responseObj.result.soundPath);
+            window.mp3CarrousselCurrent = playMp3('/jeudatas/'+responseObj.result.soundPath);
             mp3CarrousselCurrent.play();
             mp3CarrousselCurrent.onended = (event) => {
               $("#carrousselNext").removeAttr("disabled");
@@ -874,8 +910,7 @@ function displayResultAndWaiting(responseObj){
       $('#cap_img').hide();
       $("#click-photo").hide();
 
-      window.mp3Valorisation = new Audio('../sound/mp3Valorisation_'+langue+'.mp3');
-      mp3Valorisation.play();
+      playMp3('../sound/mp3Valorisation_'+langue+'.mp3');
 
       displayBtnStep8();
  });
@@ -886,8 +921,8 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
     $("#result_img").attr('src','/'+responseCreatedObj.result.filename);
 
-    window.mp3Ready = new Audio('../'+responseObj.result.mp3Ready);
-    mp3Ready.play();
+    playMp3('../'+responseObj.result.mp3Ready);
+
 
     $(".step6 .result-text").append(responseObj.result.textReadySections);
     animate_text("animate-text-ready",downloadProposition, responseObj);
@@ -918,7 +953,7 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
 
     $("#cap_img").attr('src',$("#result_img").attr("src"));
     changeStep(6,7);
-    window.mp3Advertising = new Audio('../sound/advertisingForGame_'+langue+'.mp3');
+    window.mp3Advertising = playMp3io('../sound/advertisingForGame_'+langue+'.mp3');
     mp3Advertising.play();
     $(".step7 .takePictureOrNext").append(texts['takePictureOrNext'][langue]);
     animate_text("animate-text-takepicture",displayTakePictureElts);
@@ -949,8 +984,8 @@ function advertisingBeforeCamera(responseCreatedObj, responseObj){
     $('#finish_img').attr('src', $('#cap_img').attr('src'));
     changeStep(7,8);
 
-    window.lastMsg = new Audio('../sound/lastMsg_'+langue+'.mp3');
-    lastMsg.play();
+
+    playMp3('../sound/lastMsg_'+langue+'.mp3');
 
     $(".step8 .lastMsg").append(texts['lastMsg'][langue]);
     animate_text('animate-text-lastMsg',displayLastBtn)
