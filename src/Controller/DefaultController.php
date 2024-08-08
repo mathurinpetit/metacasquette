@@ -220,7 +220,7 @@ class DefaultController extends Controller
       $idUser = $request->request->get('idUser');
 
       if(!file_exists("jeudatas/".$idUser."_layer.png")) {
-         return new JsonResponse(array('reason' => "noPostInsta", 'success' => false));
+         return new JsonResponse(array('reason' => "noPostInstaFileNotExists", 'success' => false));
       }
 
       if(file_exists($pathFile = "jeudatas/".$idUser."_insta.mp4.txt")){
