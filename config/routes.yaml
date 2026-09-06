@@ -3,62 +3,88 @@
 
 index:
    path: /
-   defaults: { _controller: 'Controller\DefaultController::indexAction' }
+   defaults: { _controller: 'App\Controller\DefaultController::indexAction' }
 
 produit:
    path: /produit/{id}
-   defaults: { _controller: 'Controller\DefaultController::produitAction' }
+   defaults: { _controller: 'App\Controller\DefaultController::produitAction' }
 
 participationsjeu:
    path: /jeu/participations
-   defaults: { _controller: 'Controller\DefaultController::participationsJeuAction' }
+   defaults: { _controller: 'App\Controller\DefaultController::participationsJeuAction' }
 
 jeuredirect:
    path: /jeuredirect
-   defaults: { _controller: 'Controller\DefaultController::jeuredirectAction' }
+   defaults: { _controller: 'App\Controller\DefaultController::jeuredirectAction' }
 
 jeu:
    path: /jeu/{id}
-   defaults: { _controller: 'Controller\DefaultController::jeu' }
+   defaults: { _controller: 'App\Controller\DefaultController::jeuAction' }
 
 
 jeuupload:
    path: /jeu/{id}/upload
-   defaults: { _controller: 'Controller\DefaultController::upload' }
+   defaults: { _controller: 'App\Controller\DefaultController::upload' }
+
+jeuRecordings:
+   path: /jeu/{id}/recordings
+   defaults: { _controller: 'App\Controller\DefaultController::uploadTemporaryRecording' }
+
+jeuProcessRecording:
+   path: /jeu/{id}/recordings/{recordingId}/process
+   defaults: { _controller: 'App\Controller\DefaultController::processTemporaryRecording' }
+
+jeuRecordingStatus:
+   path: /jeu/{id}/recordings/{recordingId}/status
+   defaults: { _controller: 'App\Controller\DefaultController::recordingGenerationStatus' }
+
+jeuGeneratedAsset:
+   path: /jeu/{id}/generated/{fileName}
+   defaults: { _controller: 'App\Controller\DefaultController::generatedAsset' }
+   requirements:
+      fileName: '.+'
 
 createmetacasquette:
    path: /jeu/{id}/createmetacasquette
-   defaults: { _controller: 'Controller\DefaultController::createmetacasquette' }
+   defaults: { _controller: 'App\Controller\DefaultController::createmetacasquette' }
 
 createVideoForInsta:
    path: /jeu/{id}/createVideoForInsta
-   defaults: { _controller: 'Controller\DefaultController::createVideoForInsta' }
+   defaults: { _controller: 'App\Controller\DefaultController::createVideoForInsta' }
 
 notifyLinkForInsta:
    path: /jeu/{id}/notifyLinkForInsta
-   defaults: { _controller: 'Controller\DefaultController::notifyLinkForInsta' }
+   defaults: { _controller: 'App\Controller\DefaultController::notifyLinkForInsta' }
 
 
 getRandomGenerated:
    path: /jeu/{id}/randomgenerated
-   defaults: { _controller: 'Controller\DefaultController::randomgenerated' }
+   defaults: { _controller: 'App\Controller\DefaultController::randomgenerated' }
+
+admin:
+   path: /admin
+   defaults: { _controller: 'App\Controller\AdminController::adminAction' }
 
 adminList:
    path: /admin/list
-   defaults: { _controller: 'Controller\AdminController::adminListAction' }
+   defaults: { _controller: 'App\Controller\AdminController::adminListAction' }
 
 adminEdit:
    path: /admin/edit/{id}
-   defaults: { _controller: 'Controller\AdminController::adminEditAction' }
+   defaults: { _controller: 'App\Controller\AdminController::adminEditAction' }
 
 adminImages:
    path: /admin/images/{id}
-   defaults: { _controller: 'Controller\AdminController::adminImagesAction' }
+   defaults: { _controller: 'App\Controller\AdminController::adminImagesAction' }
 
 adminAdd:
    path: /admin/add
-   defaults: { _controller: 'Controller\AdminController::adminAddAction' }
+   defaults: { _controller: 'App\Controller\AdminController::adminAddAction' }
+
+adminUpload:
+   path: /admin/upload
+   defaults: { _controller: 'App\Controller\AdminController::upload' }
 
 adminCsv:
    path: /admin/csv/list/{fileName}
-   defaults: { _controller: 'Controller\AdminController::adminCsvListAction' }
+   defaults: { _controller: 'App\Controller\AdminController::adminCsvListAction' }

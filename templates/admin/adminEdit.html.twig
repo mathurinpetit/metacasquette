@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-{% set id = "%04d"|format(metacasquette['Numero']) %}
+{% set id = "%04d"|format(metacasquette['Numero']|replace({'#': ''})) %}
 <div class="container">
   <div class="col-xs-12 col-sm-12" >
     <div class="row">

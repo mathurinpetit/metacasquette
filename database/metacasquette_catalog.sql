@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS metacasquette_catalog (
+    id INT AUTO_INCREMENT NOT NULL,
+    numero_raw VARCHAR(32) NOT NULL,
+    numero_int INT NOT NULL,
+    annee VARCHAR(16) DEFAULT NULL,
+    description LONGTEXT DEFAULT NULL,
+    matieres LONGTEXT DEFAULT NULL,
+    taille VARCHAR(255) DEFAULT NULL,
+    code VARCHAR(255) DEFAULT NULL,
+    disponibilite VARCHAR(255) DEFAULT NULL,
+    proprietaire VARCHAR(255) DEFAULT NULL,
+    nombre_photos INT DEFAULT NULL,
+    numero_logo VARCHAR(64) DEFAULT NULL,
+    cache_value VARCHAR(255) DEFAULT NULL,
+    etat VARCHAR(255) DEFAULT NULL,
+    instagram VARCHAR(32) DEFAULT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    UNIQUE INDEX uniq_metacasquette_catalog_numero_raw (numero_raw),
+    INDEX idx_metacasquette_catalog_numero_int (numero_int),
+    INDEX idx_metacasquette_catalog_code (code),
+    PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;

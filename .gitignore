@@ -1,11 +1,14 @@
 
 ###> symfony/framework-bundle ###
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local
 /public/bundles/
 /var/
 /vendor/
+/node_modules/
+/.venv*/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -17,3 +20,17 @@
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+/public/instagram-reels/
+/jeudatas/*
+!/jeudatas/.gitkeep
+/data/*
+!/data/.gitkeep
+
+/.codex
+/.vscode/
+**/__pycache__/
+*.py[cod]
+
+# Local service-account credentials.
+/bin/*.json

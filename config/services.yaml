@@ -4,6 +4,25 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    env(APP_TELEPHONE): ''
+    env(APP_EMAIL): ''
+    env(APP_FACEBOOK): ''
+    env(APP_INSTAGRAM): ''
+    env(APP_YTID): ''
+    env(APP_PATHFILES): '%kernel.project_dir%/data'
+    env(APP_GAMEURL): '/'
+    env(APP_OPENAIKEY): ''
+    env(APP_GOOGLEAPIFILE): ''
+
+    app.telephone: '%env(APP_TELEPHONE)%'
+    app.email: '%env(APP_EMAIL)%'
+    app.facebook: '%env(APP_FACEBOOK)%'
+    app.instagram: '%env(APP_INSTAGRAM)%'
+    app.ytid: '%env(APP_YTID)%'
+    app.pathFiles: '%env(APP_PATHFILES)%'
+    app.gameurl: '%env(APP_GAMEURL)%'
+    app.openaikey: '%env(APP_OPENAIKEY)%'
+    app.googleapifile: '%env(APP_GOOGLEAPIFILE)%'
 
 services:
     # default configuration for services in *this* file
@@ -17,6 +36,7 @@ services:
         class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
         public: false
         tags: [serializer.normalizer]
+
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -31,3 +51,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\CatalogueCsvService:
+        arguments:
+            - '%app.pathFiles%'
+            - '%kernel.project_dir%'
+
+    App\Command\SyncCatalogueDatabaseCommand:
+        tags:
+            - { name: 'console.command', command: 'app:catalog:sync-db' }
+
+    App\Service\CreationRateLimiter:
+        arguments:
+            $directory: '%kernel.project_dir%/var/creation-rate-limits'

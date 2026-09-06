@@ -1,0 +1,915 @@
+#metacasquette-game-app {
+  min-height: 100vh;
+}
+
+.game-stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #000;
+  color: #fff;
+}
+
+.game-stage-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 30%),
+    radial-gradient(circle at bottom, rgba(145, 13, 13, 0.2), transparent 32%);
+  pointer-events: none;
+}
+
+.game-stage-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  filter: none;
+}
+
+.game-stage-content {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: 40px 22px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.game-stage-content-video-only {
+  justify-content: flex-start;
+  padding-bottom: 38px;
+}
+
+.game-stage-content-video-only .game-next-button {
+  position: absolute;
+  top: 66vh;
+  left: 50%;
+  margin-top: 0;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.game-stage-language .game-stage-content {
+  gap: 26px;
+}
+
+.game-language-caption {
+  width: min(90vw, 760px);
+  margin: 0;
+  color: #fff;
+  font: clamp(1.6rem, 3.2vw, 2.8rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: bolder;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.game-language-list {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+}
+
+.game-language-button,
+.game-next-button,
+.game-secondary-button,
+.game-record-button {
+  appearance: none;
+  cursor: pointer;
+  border: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.game-language-button {
+  display: grid;
+  place-items: center;
+  width: min(60vw, 520px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.game-language-button:hover,
+.game-next-button:hover,
+.game-secondary-button:hover,
+.game-record-button:hover {
+  transform: translateY(-2px);
+}
+
+.game-stage-content-video-only .game-next-button:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.game-flag {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.game-lines {
+  width: min(90%, 1200px);
+  display: grid;
+  gap: 8px;
+}
+
+.game-line {
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: #d3d3d3;
+  color: #000;
+  font: clamp(2rem, 4vw, 3.2rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: bolder;
+  line-height: 1.12;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.game-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.game-line-warm {
+  background: linear-gradient(to right, #f00 10%, #f5bc12 20%, #ff6c00 40%, #f5bc12 80%, #f00 90%);
+  color: #000;
+}
+
+.game-line-firstname {
+  background: linear-gradient(to right, #ffcb00 10%, #aaa8a8 20%, #0087ff 40%, #f00f00 80%, #ffcb00 90%);
+  color: #fff;
+}
+
+.game-line-highlight {
+  background: linear-gradient(to right, #14ff00 20%, #aaa8a8 40%, #0010ff 60%, #85ffa4 80%);
+  color: #fff;
+}
+
+.game-cursor {
+  display: inline-block;
+  width: 0.55ch;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: game-blink 0.9s steps(1) infinite;
+}
+
+.game-next-button,
+.game-secondary-button {
+  margin-top: 28px;
+  width: min(88vw, 760px);
+  padding: 26px 36px;
+  border: 5px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: clamp(2.1rem, 4vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.08;
+  text-transform: uppercase;
+  border-radius: 26px;
+  box-shadow: 0 8px 0 rgba(255, 255, 255, 0.22), 0 18px 38px rgba(0, 0, 0, 0.42);
+  transform-origin: center;
+  animation: game-action-bump 1.8s ease-in-out infinite;
+}
+
+.game-next-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+}
+
+.game-next-button::after {
+  content: "›";
+  display: inline-block;
+  font-size: 1.25em;
+  line-height: 0.8;
+  transform: translateX(0);
+  animation: game-button-arrow 1.15s ease-in-out infinite;
+}
+
+.game-next-button[disabled]::after {
+  animation: none;
+}
+
+.game-next-button[disabled],
+.game-secondary-button[disabled] {
+  animation: none;
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.game-next-button:active,
+.game-secondary-button:active {
+  animation: none;
+  transform: translateY(5px) scale(0.97);
+  box-shadow: 0 3px 0 rgba(255, 255, 255, 0.2), 0 8px 18px rgba(0, 0, 0, 0.36);
+}
+
+.game-stage-content-video-only .game-next-button {
+  animation-name: game-action-bump-centered;
+}
+
+.game-stage-content-video-only .game-next-button:active {
+  transform: translateX(-50%) translateY(5px) scale(0.97);
+}
+
+.game-lines-recording {
+  margin-bottom: 18px;
+}
+
+.game-lines-carousel {
+  margin-bottom: 22px;
+}
+
+.game-recording-helper {
+  width: min(92vw, 760px);
+  max-width: 760px;
+  box-sizing: border-box;
+  margin: 0 0 26px;
+  padding: 18px 22px;
+  background: #d3d3d3;
+  color: #000;
+  font: clamp(1.7rem, 5vw, 3rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: 900;
+  line-height: 1.15;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.game-recording-helper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.game-recorder-area {
+  --record-button-size: clamp(240px, 34vw, 400px);
+  --record-button-border: 20px;
+  --record-icon-size: min(150px, calc((var(--record-button-size) - 2 * var(--record-button-border)) * 0.34));
+  width: min(760px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-recorder-status {
+  display: flex;
+  visibility: hidden;
+  justify-content: center;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 22px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.game-recorder-status.is-visible {
+  visibility: visible;
+}
+
+.game-recorder-status strong {
+  color: #fff;
+  font-size: 1.25em;
+}
+
+.game-record-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--record-button-size);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  border: var(--record-button-border) solid #bdbdbd;
+  background: radial-gradient(circle at 30% 30%, #191919, #020202 78%);
+  color: #fff;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  animation: game-record-glow 2s ease infinite;
+}
+
+.game-record-button-live {
+  border-color: #bd2f2f;
+  background: radial-gradient(circle at 30% 30%, #f41414, #5f0000 78%);
+  animation: none;
+}
+
+.game-record-icon {
+  width: var(--record-icon-size);
+  height: var(--record-icon-size);
+  object-fit: contain;
+}
+
+.game-record-button-ready {
+  border-color: #530000;
+  background-color: #530000;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.5) 35px, rgba(255, 255, 255, 0.5) 70px);
+  animation: none;
+}
+
+.game-record-button:disabled {
+  cursor: default;
+  transform: none;
+  opacity: 1;
+}
+
+.game-recording-status-text {
+  min-height: 1.5em;
+  margin: 18px 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #ffd38d;
+}
+
+.game-audio-preview {
+  width: min(420px, 100%);
+  margin-top: 24px;
+}
+
+.game-preview-label {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.game-audio-player {
+  width: min(420px, 100%);
+}
+
+.game-action-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.game-error-message {
+  margin-top: 18px;
+  color: #ff8b8b;
+}
+
+.game-upload-success {
+  width: min(640px, 100%);
+  margin: 28px auto 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.game-upload-success h2 {
+  margin: 0 0 10px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.game-upload-success p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.game-carousel-shell {
+  width: min(92vw, 900px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-processing-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.game-processing-loader p {
+  margin: 0;
+}
+
+.game-loader {
+  width: 62px;
+  height: 62px;
+  border: 7px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: game-loader-spin 0.8s linear infinite;
+}
+
+.game-lines-acknowledgement {
+  width: min(94vw, 900px);
+}
+
+.game-result-shell {
+  width: min(92vw, 900px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-lines-result {
+  width: min(94vw, 900px);
+  margin-bottom: 24px;
+}
+
+.game-carousel-status,
+.game-carousel-waiting {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.1rem;
+}
+
+.game-carousel-progress {
+  width: min(82vw, 620px);
+  height: 16px;
+  margin: 18px auto 2px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.76);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.game-carousel-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #f00, #f5bc12 46%, #fff 58%, #f5bc12 70%, #f00);
+  background-size: 180% 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: game-carousel-progress 5s linear forwards;
+}
+
+.game-result-text {
+  width: min(92vw, 820px);
+  margin: 0 0 24px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: clamp(1.2rem, 2.6vw, 2rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.game-result-image {
+  display: block;
+  width: min(92vw, 640px);
+  max-height: 62vh;
+  object-fit: contain;
+  margin: 0 auto 22px;
+}
+
+.game-selfie-shell {
+  width: min(92vw, 680px);
+  margin-top: 34px;
+  padding-top: 30px;
+  border-top: 4px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-selfie-title,
+.game-selfie-instruction,
+.game-instagram-invitation {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px 20px;
+  background: #d3d3d3;
+  color: #000;
+  font: clamp(1.55rem, 4vw, 2.6rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: 900;
+  line-height: 1.12;
+  text-transform: uppercase;
+}
+
+.game-selfie-instruction {
+  margin-bottom: 16px;
+  background: linear-gradient(to right, #f00 10%, #f5bc12 28%, #ff6c00 55%, #f5bc12 82%, #f00 95%);
+}
+
+.game-selfie-camera {
+  box-sizing: content-box;
+  position: relative;
+  width: min(92vw, 640px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 6px solid #fff;
+  border-radius: 28px;
+  background: #161616;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.52);
+}
+
+.game-selfie-video,
+.game-selfie-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-selfie-video {
+  transform: none;
+}
+
+.game-selfie-hat {
+  position: absolute;
+  z-index: 2;
+  top: -8%;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+}
+
+.game-selfie-face-guide {
+  position: absolute;
+  z-index: 1;
+  top: 28%;
+  left: 15%;
+  width: 70%;
+  height: 62%;
+  box-sizing: border-box;
+  border: 4px dashed rgba(255, 255, 255, 0.7);
+  border-radius: 48%;
+  pointer-events: none;
+}
+
+.game-selfie-photo {
+  width: min(92vw, 640px);
+  height: auto;
+  aspect-ratio: 3 / 4;
+  border: 6px solid #fff;
+  border-radius: 28px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.52);
+}
+
+.game-selfie-actions {
+  width: 100%;
+}
+
+.game-selfie-actions .game-secondary-button {
+  width: min(88vw, 640px);
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.game-instagram-invitation {
+  margin-top: 34px;
+  background: linear-gradient(110deg, #f5bc12, #ff6c00 36%, #f00 68%, #8f2bb9);
+  color: #fff;
+}
+
+.game-instagram-button {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.game-result-video-status {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.05rem;
+}
+
+.game-result-video {
+  width: min(92vw, 520px);
+  margin-bottom: 14px;
+}
+
+.game-carousel-card {
+  width: min(92vw, 640px);
+  margin: 0;
+}
+
+.game-carousel-image {
+  display: block;
+  width: 100%;
+  max-height: 54vh;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.game-carousel-text {
+  margin-top: 18px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font: clamp(1.15rem, 2vw, 1.8rem) "Resolve Sans Bolder", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.game-upload-meta {
+  margin: 18px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.game-upload-meta div {
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.game-upload-meta dt {
+  margin-bottom: 5px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.game-upload-meta dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+@keyframes game-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes game-record-glow {
+  0% {
+    box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+
+@keyframes game-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes game-button-arrow {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(0.18em);
+  }
+}
+
+@keyframes game-action-bump {
+  0%, 62%, 100% {
+    transform: scale(1);
+  }
+
+  72% {
+    transform: scale(1.055);
+  }
+
+  80% {
+    transform: scale(0.99);
+  }
+
+  88% {
+    transform: scale(1.025);
+  }
+}
+
+@keyframes game-action-bump-centered {
+  0%, 62%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  72% {
+    transform: translateX(-50%) scale(1.055);
+  }
+
+  80% {
+    transform: translateX(-50%) scale(0.99);
+  }
+
+  88% {
+    transform: translateX(-50%) scale(1.025);
+  }
+}
+
+@keyframes game-carousel-progress {
+  0% {
+    transform: scaleX(0);
+    background-position: 100% 0;
+  }
+
+  100% {
+    transform: scaleX(1);
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .game-stage-content {
+    padding: 26px 14px 40px;
+  }
+
+  .game-line {
+    padding: 5px;
+    font-size: clamp(1.3rem, 5vw, 2rem);
+  }
+
+  .game-recording-helper {
+    width: min(94vw, 94vw);
+    padding: 16px 14px;
+    font-size: clamp(1.65rem, 7vw, 2.35rem);
+    line-height: 1.12;
+  }
+
+  .game-stage-carousel .game-stage-content,
+  .game-stage-result .game-stage-content {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+
+  .game-stage-carousel .game-line {
+    font-size: clamp(1.05rem, 4.4vw, 1.55rem);
+  }
+
+  .game-carousel-image {
+    max-height: 42vh;
+  }
+
+  .game-carousel-progress {
+    width: min(86vw, 620px);
+    height: 14px;
+    margin-top: 14px;
+  }
+
+  .game-result-image {
+    max-height: 64vh;
+  }
+
+  .game-selfie-shell {
+    width: min(94vw, 94vw);
+    margin-top: 26px;
+    padding-top: 24px;
+  }
+
+  .game-selfie-title,
+  .game-selfie-instruction,
+  .game-instagram-invitation {
+    padding: 15px 13px;
+    font-size: clamp(1.35rem, 6vw, 2rem);
+  }
+
+  .game-selfie-camera,
+  .game-selfie-photo {
+    width: min(90vw, 640px);
+    border-width: 4px;
+    border-radius: 20px;
+  }
+
+  .game-recorder-area {
+    --record-button-size: min(300px, 78vw);
+    --record-button-border: 14px;
+  }
+
+  .game-recorder-status {
+    gap: 10px;
+    font-size: clamp(1.65rem, 7vw, 2.4rem);
+  }
+
+
+  .game-language-list {
+    gap: 18px;
+  }
+
+  .game-next-button,
+  .game-secondary-button {
+    width: min(92vw, 92vw);
+    padding: 22px 20px;
+    border-width: 5px;
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    border-radius: 22px;
+  }
+
+  .game-stage-content-video-only .game-next-button {
+    top: 68vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-next-button,
+  .game-secondary-button,
+  .game-next-button::after,
+  .game-carousel-progress-fill {
+    animation: none;
+  }
+
+  .game-carousel-progress-fill {
+    transform: scaleX(1);
+  }
+}
+
+/* Reserve the animation space even when the microphone is idle. */
+.game-recording-animation {
+  width: 120vw;
+  max-width: none;
+  aspect-ratio: 496 / 280;
+  flex-shrink: 0;
+  margin-top: 16px;
+}
+
+.game-recording-animation img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: contain;
+}
+
+.game-recording-actions {
+  width: min(760px, 100%);
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.game-recording-actions .game-next-button {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  margin-top: 0;
+  padding: 20px 12px;
+  font-size: clamp(1.1rem, 4vw, 2.4rem);
+}
+
+.game-recording-actions .game-rerecord-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  padding: 10px;
+  border-width: 2px;
+  border-radius: 50%;
+  animation: none;
+}
+
+.game-stage-selfie .game-stage-content {
+  justify-content: flex-start;
+  padding-top: 20px;
+}
+
+.game-stage-selfie .game-selfie-shell {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.game-instagram-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  font-size: 1.2rem;
+}
